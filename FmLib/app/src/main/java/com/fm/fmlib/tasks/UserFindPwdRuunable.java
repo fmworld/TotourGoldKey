@@ -4,15 +4,15 @@ import android.util.Log;
 
 import com.fm.fmlib.FmApplication;
 import com.fm.fmlib.network.NetworkCallRunnable;
-import com.fm.fmlib.network.client.BaseError;
+import com.fm.fmlib.network.TokenCheckedRunnable;
 import com.fm.fmlib.tour.entity.FindPwdEntity;
-import com.fm.fmlib.tour.entity.LoginEntity;
-import com.fm.fmlib.utils.StringUtils;
+
+import retrofit.RetrofitError;
 
 /**
  * Created by zhou feng'an on 2015/7/30.
  */
-public class UserFindPwdRuunable extends NetworkCallRunnable<FindPwdEntity> {
+public class UserFindPwdRuunable extends TokenCheckedRunnable<FindPwdEntity> {
     private String mobile;
     public UserFindPwdRuunable(){}
 
@@ -20,7 +20,7 @@ public class UserFindPwdRuunable extends NetworkCallRunnable<FindPwdEntity> {
         this.mobile = mobile;
     }
     @Override
-    public FindPwdEntity doBackgroundCall() throws BaseError {
+    public FindPwdEntity doBackground() throws RetrofitError {
         return FmApplication.instance().getmTotour().getmUserService().findPwd(mobile);
     }
 
@@ -32,7 +32,7 @@ public class UserFindPwdRuunable extends NetworkCallRunnable<FindPwdEntity> {
     }
 
     @Override
-    public void onError(BaseError be) {
+    public void onError(RetrofitError be) {
         Log.v(TAG, "BaseError "+be);
     }
 }

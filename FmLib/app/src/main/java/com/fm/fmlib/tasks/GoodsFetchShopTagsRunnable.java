@@ -4,14 +4,15 @@ import android.util.Log;
 
 import com.fm.fmlib.FmApplication;
 import com.fm.fmlib.network.NetworkCallRunnable;
-import com.fm.fmlib.network.client.BaseError;
+import com.fm.fmlib.network.TokenCheckedRunnable;
 import com.fm.fmlib.tour.entity.ShopTagsEntity;
-import com.fm.fmlib.tour.entity.TransferEntity;
+
+import retrofit.RetrofitError;
 
 /**
  * Created by zhoufeng'an on 2015/7/31.
  */
-public class GoodsFetchShopTagsRunnable extends NetworkCallRunnable<ShopTagsEntity>{
+public class GoodsFetchShopTagsRunnable extends TokenCheckedRunnable<ShopTagsEntity> {
     private String page;
     private String perpage;
     private String last_id;
@@ -22,7 +23,7 @@ public class GoodsFetchShopTagsRunnable extends NetworkCallRunnable<ShopTagsEnti
     }
 
     @Override
-    public ShopTagsEntity doBackgroundCall() throws BaseError {
+    public ShopTagsEntity doBackground() throws RetrofitError {
         return FmApplication.instance().getmTotour().getmGoodsService().fetchShopTagList(FmApplication.instance().getToken(), page, perpage, last_id);
     }
 
@@ -34,7 +35,7 @@ public class GoodsFetchShopTagsRunnable extends NetworkCallRunnable<ShopTagsEnti
     }
 
     @Override
-    public void onError(BaseError be) {
+    public void onError(RetrofitError be) {
 
     }
 }

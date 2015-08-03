@@ -1,7 +1,10 @@
 package com.fm.fmlib.tour.Service;
 
+import com.fm.fmlib.tour.entity.GoddsCommentReplysEntity;
+import com.fm.fmlib.tour.entity.GoddsCommentsEntity;
 import com.fm.fmlib.tour.entity.GoddsDetailEntity;
 import com.fm.fmlib.tour.entity.ShelvedEntity;
+import com.fm.fmlib.tour.params.GoodsProductParams;
 import com.fm.fmlib.tour.params.GoodsFetchHomeParams;
 import com.fm.fmlib.tour.entity.GoodsHomeEntity;
 import com.fm.fmlib.tour.entity.ShopTagsEntity;
@@ -9,6 +12,7 @@ import com.fm.fmlib.tour.entity.ShopTagsEntity;
 import retrofit.http.Body;
 import retrofit.http.Field;
 import retrofit.http.FormUrlEncoded;
+import retrofit.http.GET;
 import retrofit.http.POST;
 import retrofit.http.Query;
 
@@ -18,6 +22,13 @@ import retrofit.http.Query;
  */
 
 public interface GoodsService {
+    enum CommentType{
+        all,
+        good,
+        between,
+        bad,
+        pic
+    }
     /**
      * 获取铺子标签
      * @param token
@@ -53,7 +64,7 @@ public interface GoodsService {
     ShelvedEntity goodsShelved4Self(@Query("token") String token, @Field("item") String item_id);
 
     /**
-     * 获取铺子首页商品
+     * 获取铺子首页商品列表
      * @param homeParams
      * @return
      */
@@ -89,5 +100,44 @@ public interface GoodsService {
      */
     @POST("/item/commentlist")
     @FormUrlEncoded
-    ShelvedEntity fetchGoodsComments(@Field("item_id") String comment_id,@Field("type") String type,@Field("page") String page,@Field("perpage") String perpage);
+    GoddsCommentsEntity fetchGoodsComments(@Field("item") String comment_id,@Field("type") String type,@Field("page") String page,@Field("perpage") String perpage);
+
+
+    /**
+     * 商品评论回复列表
+     * @param comment_id
+     * @param page
+     * @param perpage
+     * @return
+     * http://m.dev.totour.com/item/commentReplyList?comment_id=3&type=item&page=1&perpage=  GET 方法
+     */
+    @GET("/item/commentReplyList")
+    GoddsCommentReplysEntity fetchGoodsCommentReplyList(@Query("comment_id") String comment_id,@Query("type") String item,@Query("page") String page,@Query("perpage") String perpage );
+
+
+    /**
+     * 商品添加
+     * @param params
+     * @return
+     */
+    @POST("/item/addProduct")
+    GoddsCommentsEntity addProduct(@Body GoodsProductParams params);
+
+    /**
+     * 商品编辑
+     * @param params
+     * @return
+     */
+    @POST("/item/editProduct")
+    GoddsCommentsEntity editProduct(@Body GoodsProductParams params);
+
+    /**
+     * 获取待编辑商品信息
+     * @param product_id
+     * @return
+     */
+    @POST("/item/ownerEdit")
+    @FormUrlEncoded
+    GoddsCommentsEntity productInfo(@Query("token") String token,@Field("product_id") String product_id);
+
 }

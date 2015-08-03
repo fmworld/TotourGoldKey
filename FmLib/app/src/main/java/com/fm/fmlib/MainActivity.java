@@ -15,10 +15,14 @@ import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
+import com.fm.fmlib.controllers.UserController;
 import com.fm.fmlib.tasks.GoodsFetchCommentDetailRunnable;
+import com.fm.fmlib.tasks.GoodsFetchCommentListRunnable;
+import com.fm.fmlib.tasks.GoodsFetchCommentReplyListRunnable;
 import com.fm.fmlib.tasks.GoodsFetchDetailRunnable;
 import com.fm.fmlib.tasks.GoodsFetchHomeRunnable;
 import com.fm.fmlib.tasks.GoodsFetchShopTagsRunnable;
+import com.fm.fmlib.tasks.GoodsProductInfo4EditRunnable;
 import com.fm.fmlib.tasks.GoodsShelved4OtherRunnable;
 import com.fm.fmlib.tasks.InnMngFetchHomeRunnable;
 import com.fm.fmlib.tasks.TrasInnManagerRunnable;
@@ -26,11 +30,12 @@ import com.fm.fmlib.tasks.TrasSbmOrderRunnable;
 import com.fm.fmlib.tasks.UserFindPwdRuunable;
 import com.fm.fmlib.tasks.UserLoginInRuunable;
 import com.fm.fmlib.tasks.UserLoginOutRuunable;
+import com.fm.fmlib.tour.Service.GoodsService;
 import com.fm.fmlib.tour.params.GoodsFetchHomeParams;
 
 public class MainActivity extends AppCompatActivity {
     SimpleDraweeView my_image_view;
-
+private UserController usrController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,8 +49,18 @@ public class MainActivity extends AppCompatActivity {
         my_image_view.getHierarchy().setFadeDuration(0);
         hierarchy.setFadeDuration(0);
         my_image_view.setHierarchy(hierarchy);
+        usrController = new UserController();
     }
 
+    public void onResume(){
+        super.onResume();
+        usrController.atachUI();
+    }
+
+    public void onPause(){
+        super.onPause();
+        usrController.unatachUI();
+    }
     private void draweeViewRenderingEnable(SimpleDraweeView mSimpleDraweeView) {
         Uri uri = Uri.parse("http://i2.hoopchina.com.cn/blogfile/201306/12/137100806559026.jpg");
         ImageRequest request = ImageRequestBuilder
@@ -69,11 +84,19 @@ public class MainActivity extends AppCompatActivity {
 
 //        fetchInnMngHomePage();
 
-//        GoodsFetchTags();
+        GoodsFetchTags();
 //        goodsShelvedOther();
 //        goodsFetchHome();
-        FetchGoodsDetail();
+//        FetchGoodsDetail();
+//        FetchGoodsCommentDetail();
+//        goodsFetchHome();
+//        fetchGoodsCommentList();
+//        fetchGoodsCommentDetail();
+
+//        fetchGoodsCommentReplyList();
+//        goodsProductInfo4Edit();
     }
+
 
     public void operate(View view) {
         if (R.id.button1 == view.getId()) {
@@ -144,12 +167,24 @@ public class MainActivity extends AppCompatActivity {
         FmApplication.instance().getmExecutor().execute(new GoodsFetchHomeRunnable(homeParams));
     }
 
-    private void FetchGoodsDetail() {
-        FmApplication.instance().getmExecutor().execute(new GoodsFetchDetailRunnable("1"));
+//    private void FetchGoodsDetail() {
+//        FmApplication.instance().getmExecutor().execute(new GoodsFetchDetailRunnable("1"));
+//    }
+
+    private void fetchGoodsCommentDetail() {
+        FmApplication.instance().getmExecutor().execute(new GoodsFetchCommentDetailRunnable("517"));
+    }
+
+    private void fetchGoodsCommentList(){
+        FmApplication.instance().getmExecutor().execute(new GoodsFetchCommentListRunnable("1", GoodsService.CommentType.pic.toString(), "6","20"));
 
     }
 
-    private void FetchGoodsCommentDetail() {
-        FmApplication.instance().getmExecutor().execute(new GoodsFetchCommentDetailRunnable("1"));
+    private void fetchGoodsCommentReplyList(){
+        FmApplication.instance().getmExecutor().execute(new GoodsFetchCommentReplyListRunnable("3","item","0","10"));
+    }
+
+    private void goodsProductInfo4Edit(){
+        FmApplication.instance().getmExecutor().execute(new GoodsProductInfo4EditRunnable("1"));
     }
 }

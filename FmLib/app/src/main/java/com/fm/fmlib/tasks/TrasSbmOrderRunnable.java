@@ -4,21 +4,22 @@ import android.util.Log;
 
 import com.fm.fmlib.FmApplication;
 import com.fm.fmlib.network.NetworkCallRunnable;
-import com.fm.fmlib.network.client.BaseError;
+import com.fm.fmlib.network.TokenCheckedRunnable;
 import com.fm.fmlib.tour.Service.UtilService;
-import com.fm.fmlib.tour.entity.LoginOutEntity;
 import com.fm.fmlib.tour.entity.TransferEntity;
+
+import retrofit.RetrofitError;
 
 /**
  * Created by zhoufeng'an on 2015/7/31.
  */
-public class TrasSbmOrderRunnable extends NetworkCallRunnable<TransferEntity> {
+public class TrasSbmOrderRunnable extends TokenCheckedRunnable<TransferEntity> {
     private String item_id;
     public TrasSbmOrderRunnable(String item_id){
         this.item_id =item_id;
     }
     @Override
-    public TransferEntity doBackgroundCall() throws BaseError {
+    public TransferEntity doBackground() throws RetrofitError {
         return FmApplication.instance().getmTotour().getmUtilService()
                 .transferToH5(UtilService.TransferType.submitOrder.toString(),this.item_id, FmApplication.instance().getToken());
     }
@@ -31,7 +32,7 @@ public class TrasSbmOrderRunnable extends NetworkCallRunnable<TransferEntity> {
     }
 
     @Override
-    public void onError(BaseError be) {
+    public void onError(RetrofitError be) {
 
     }
 }

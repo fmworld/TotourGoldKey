@@ -8,6 +8,7 @@ import com.fm.fmlib.tour.bean.UserInfo;
 import com.fm.fmlib.utils.BackgroundExecutor;
 import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
 import com.fm.fmlib.utils.provider.Networkprovider;
+import com.squareup.otto.Bus;
 
 /**
  * Created by zhou feng'an on 2015/7/29.
@@ -15,12 +16,13 @@ import com.fm.fmlib.utils.provider.Networkprovider;
 public class FmApplication extends Application {
     private BackgroundExecutor mExecutor;
     private Totour0888 mTotour;
-private static FmApplication instance;
-    public static String token;
-private UserInfo tempUserInfo;
-    public static FmApplication instance(){
+    private static FmApplication instance;
+    private UserInfo tempUserInfo;
+    private Bus mBus;
+    public static FmApplication instance() {
         return instance;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -29,9 +31,13 @@ private UserInfo tempUserInfo;
         initTotour();
         intiFresco();
         initTestData();
+        initBus();
     }
 
-    private void initTestData(){
+    private void initBus(){
+        mBus = new Bus();
+    }
+    private void initTestData() {
         tempUserInfo = new UserInfo();
     }
 
@@ -59,7 +65,15 @@ private UserInfo tempUserInfo;
         return tempUserInfo;
     }
 
-    public String getToken(){
+    public String getToken() {
         return tempUserInfo.token;
+    }
+
+    public void setToken(String token) {
+        tempUserInfo.token = token;
+    }
+
+    public Bus getmBus() {
+        return mBus;
     }
 }

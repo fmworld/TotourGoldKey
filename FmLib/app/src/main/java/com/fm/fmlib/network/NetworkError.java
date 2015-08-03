@@ -16,8 +16,9 @@
 
 package com.fm.fmlib.network;
 
-import com.fm.fmlib.network.client.BaseError;
-import com.fm.fmlib.network.client.Response;
+
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public enum NetworkError {
 
@@ -26,7 +27,7 @@ public enum NetworkError {
     public static final int SOURCE_TRAKT = 0;
     public static final int SOURCE_TMDB = 1;
 
-    public static NetworkError from(final BaseError error, final int source) {
+    public static NetworkError from(final RetrofitError error, final int source) {
         if (error == null) {
             return UNKNOWN;
         }

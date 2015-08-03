@@ -17,17 +17,24 @@
 package com.fm.fmlib.network;
 
 
-import com.fm.fmlib.network.client.BaseError;
+
+import com.fm.fmlib.FmApplication;
+import com.squareup.otto.Bus;
+
+import retrofit.RetrofitError;
 
 public abstract class NetworkCallRunnable<R> {
     public static final String TAG ="tour0888";
+    public Bus getBus(){
+        return FmApplication.instance().getmBus();
+    }
     public void onPreTourCall() {}
 
-    public abstract R doBackgroundCall() throws BaseError;
+    public abstract R doBackgroundCall() throws RetrofitError;
 
     public abstract void onSuccess(R result);
 
-    public abstract void onError(BaseError be);
+    public abstract void onError(RetrofitError be);
 
     public void onFinished() {}
 

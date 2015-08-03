@@ -4,16 +4,19 @@ import android.util.Log;
 
 import com.fm.fmlib.FmApplication;
 import com.fm.fmlib.network.NetworkCallRunnable;
-import com.fm.fmlib.network.client.BaseError;
+import com.fm.fmlib.network.TokenCheckedRunnable;
+import com.fm.fmlib.state.UserState;
 import com.fm.fmlib.tour.entity.LoginEntity;
 import com.fm.fmlib.utils.StringUtils;
+
+import retrofit.RetrofitError;
 
 /**
  * Created by zhou feng'an on 2015/7/30.
  */
-public class UserLoginInRuunable extends NetworkCallRunnable<LoginEntity> {
+public class UserLoginInRuunable extends TokenCheckedRunnable<LoginEntity> {
     private String name;
-    private String pwd;
+    private String pwd; //MD5加密过后的
     public UserLoginInRuunable(){}
 
     public UserLoginInRuunable(String name, String pwd){
@@ -22,7 +25,7 @@ public class UserLoginInRuunable extends NetworkCallRunnable<LoginEntity> {
 
     }
     @Override
-    public LoginEntity doBackgroundCall() throws BaseError {
+    public LoginEntity doBackground() throws RetrofitError {
         return FmApplication.instance().getmTotour().getmUserService().loginIn(name, pwd);
     }
 
@@ -33,10 +36,11 @@ public class UserLoginInRuunable extends NetworkCallRunnable<LoginEntity> {
         Log.v("totour0888", "result msg "+result.msg);
 
         FmApplication.instance().getTempUserInfo().token = result.msg.token;
+        this.getBus().post(new UserState.UserLoginExecutedEvent(-1, name, pwd));
     }
 
     @Override
-    public void onError(BaseError be) {
+    public void onError(RetrofitError be) {
 
     }
 }

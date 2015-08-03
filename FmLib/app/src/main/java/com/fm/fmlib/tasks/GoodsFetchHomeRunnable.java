@@ -4,21 +4,23 @@ import android.util.Log;
 
 import com.fm.fmlib.FmApplication;
 import com.fm.fmlib.network.NetworkCallRunnable;
-import com.fm.fmlib.network.client.BaseError;
+import com.fm.fmlib.network.TokenCheckedRunnable;
 import com.fm.fmlib.tour.params.GoodsFetchHomeParams;
 import com.fm.fmlib.tour.entity.GoodsHomeEntity;
+
+import retrofit.RetrofitError;
 
 /**
  * Created by zhoufeng'an on 2015/7/31.
  */
-public class GoodsFetchHomeRunnable extends NetworkCallRunnable<GoodsHomeEntity>{
+public class GoodsFetchHomeRunnable extends TokenCheckedRunnable<GoodsHomeEntity> {
     private GoodsFetchHomeParams homeParams;
     public GoodsFetchHomeRunnable(GoodsFetchHomeParams homeParams){
         this.homeParams = homeParams;
     }
 
     @Override
-    public GoodsHomeEntity doBackgroundCall() throws BaseError {
+    public GoodsHomeEntity doBackground() throws RetrofitError {
         return FmApplication.instance().getmTotour().getmGoodsService().fetchGoodsHomePage(this.homeParams);
     }
 
@@ -33,7 +35,7 @@ public class GoodsFetchHomeRunnable extends NetworkCallRunnable<GoodsHomeEntity>
     }
 
     @Override
-    public void onError(BaseError be) {
+    public void onError(RetrofitError be) {
 
     }
 }
