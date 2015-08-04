@@ -24,6 +24,6 @@ public class UserController {
     }
 
     @Subscribe public void uiLoginSuccessed(UserState.UserLoginExecutedEvent event){
-        Log.v("totour0888", "loginExecuted  " + event.callingId+" name "+event.name + "  pwd  "+event.pwd);
+        Log.v("totour0888", "loginExecuted  " + event.callingId + " name "+event.name + "  pwd  "+event.pwd);
     }
 }

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FmLib.iml" filepath="$PROJECT_DIR$/FmLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tourdaogenerator/tourdaogenerator.iml" filepath="$PROJECT_DIR$/tourdaogenerator/tourdaogenerator.iml" />
     </modules>
   </component>
 </project>

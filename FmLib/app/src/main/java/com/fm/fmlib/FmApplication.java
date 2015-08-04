@@ -76,4 +76,8 @@ public class FmApplication extends Application {
     public Bus getmBus() {
         return mBus;
     }
+
+    public void initGreenDao(){
+
+    }
 }
