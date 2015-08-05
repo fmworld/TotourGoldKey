@@ -5,6 +5,7 @@ import android.content.Context;
 import de.greenrobot.dao.AbstractDao;
 import com.fm.fmlib.dao.DaoMaster;
 import com.fm.fmlib.dao.DaoSession;
+import com.fm.fmlib.dao.userDao;
 
 /**
  * Created by zhoufeng'an on 2015/8/4.
@@ -12,7 +13,7 @@ import com.fm.fmlib.dao.DaoSession;
 public class DaoProvider {
     private static final String DB_NAME ="totour-db";
 
-    public static AbstractDao createUserDao(Context context){
+    public static userDao createUserDao(Context context){
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context.getApplicationContext(), DB_NAME, null);
         DaoMaster daoMaster = new DaoMaster(helper.getWritableDatabase());
         DaoSession daoSession = daoMaster.newSession();

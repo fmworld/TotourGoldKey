@@ -7,8 +7,17 @@ import com.fm.fmlib.dao.user;
  */
 public class DataMemCacheUtil {
     private user currentUser;
+    private
     private DataMemCacheUtil(){
         currentUser = new user();
     }
 
+
+    public String getToken(){
+        return currentUser.getToken()
+    }
+
+    public String getAccount(){
+        return currentUser.getAccount();
+    }
 }
