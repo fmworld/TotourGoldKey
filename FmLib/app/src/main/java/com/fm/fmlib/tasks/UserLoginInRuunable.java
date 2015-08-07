@@ -3,6 +3,7 @@ package com.fm.fmlib.tasks;
 import android.util.Log;
 
 import com.fm.fmlib.FmApplication;
+import com.fm.fmlib.dao.user;
 import com.fm.fmlib.network.NetworkCallRunnable;
 import com.fm.fmlib.network.TokenCheckedRunnable;
 import com.fm.fmlib.state.UserState;
@@ -29,13 +30,21 @@ public class UserLoginInRuunable extends TokenCheckedRunnable<LoginEntity> {
         return FmApplication.instance().getmTotour().getmUserService().loginIn(name, pwd);
     }
 
+    public void onSuccessInBackground(LoginEntity result){
+        user newUser = new user();
+        newUser.setIslogin(Boolean.TRUE);
+        newUser.setAccount(name);
+        newUser.setPassword(pwd);
+        newUser.setToken(result.msg.token);
+        newUser.setRole(result.msg.role);
+        newUser.setState(result.msg.state);
+        FmApplication.instance().updateUser(newUser);
+    }
     @Override
     public void onSuccess(LoginEntity result) {
         Log.v("totour0888", "result errorInfo "+result.errorInfo);
         Log.v("totour0888", "result code "+result.code);
         Log.v("totour0888", "result msg "+result.msg);
-
-        FmApplication.instance().getTempUserInfo().token = result.msg.token;
         this.getBus().post(new UserState.UserLoginExecutedEvent(-1, name, pwd));
     }
 

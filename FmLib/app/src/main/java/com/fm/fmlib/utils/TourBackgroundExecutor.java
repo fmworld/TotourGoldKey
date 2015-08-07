@@ -55,7 +55,11 @@ public class TourBackgroundExecutor implements BackgroundExecutor {
                 retrofitError = re;
                 Log.d(((Object) this).getClass().getSimpleName(), "Error while completing network call", re);
             }
-
+            if (result != null) {
+                if (!isBadNetworkState((BaseEntity) result)) {
+                    mNetworkCallRunnable.onSuccessInBackground(result);
+                }
+            }
             sHandler.post(new ResultCallback(result, retrofitError));
         }
 

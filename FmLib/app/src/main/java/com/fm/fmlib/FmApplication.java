@@ -3,9 +3,11 @@ package com.fm.fmlib;
 import android.app.Application;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.fm.fmlib.dao.user;
 import com.fm.fmlib.tour.Totour0888;
 import com.fm.fmlib.tour.bean.UserInfo;
 import com.fm.fmlib.utils.BackgroundExecutor;
+import com.fm.fmlib.utils.DataMemCacheUtil;
 import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
 import com.fm.fmlib.utils.provider.Networkprovider;
 import com.squareup.otto.Bus;
@@ -16,9 +18,11 @@ import com.squareup.otto.Bus;
 public class FmApplication extends Application {
     private BackgroundExecutor mExecutor;
     private Totour0888 mTotour;
-    private static FmApplication instance;
-    private UserInfo tempUserInfo;
+    private DataMemCacheUtil dataMemCache;
+
     private Bus mBus;
+
+    private static FmApplication instance;
     public static FmApplication instance() {
         return instance;
     }
@@ -30,15 +34,16 @@ public class FmApplication extends Application {
         initBackroundExecutor();
         initTotour();
         intiFresco();
-        initTestData();
         initBus();
+        initDataCache();
+    }
+
+    private void initDataCache(){
+        dataMemCache = new DataMemCacheUtil(this);
     }
 
     private void initBus(){
         mBus = new Bus();
-    }
-    private void initTestData() {
-        tempUserInfo = new UserInfo();
     }
 
     private void intiFresco() {
@@ -61,23 +66,33 @@ public class FmApplication extends Application {
         return mTotour;
     }
 
-    public UserInfo getTempUserInfo() {
-        return tempUserInfo;
-    }
 
     public String getToken() {
-        return tempUserInfo.token;
+        return dataMemCache.getToken();
     }
 
     public void setToken(String token) {
-        tempUserInfo.token = token;
+        dataMemCache.setToken(token);
+    }
+
+    public String getAccount(){
+        return dataMemCache.getAccount();
+    }
+
+    public String getPassword(){
+        return dataMemCache.getPassword();
+    }
+
+    public void updateUser(user newTemp){
+        dataMemCache.setAccount(newTemp.getAccount());
+        dataMemCache.setToken(newTemp.getToken());
+        dataMemCache.setLogined(newTemp.getIslogin());
+        dataMemCache.setPassword(newTemp.getPassword());
+        dataMemCache.setState(newTemp.getState());
+        dataMemCache.saveUser();
     }
 
     public Bus getmBus() {
         return mBus;
-    }
-
-    public void initGreenDao(){
-
     }
 }

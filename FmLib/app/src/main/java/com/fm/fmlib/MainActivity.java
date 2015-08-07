@@ -84,7 +84,7 @@ private UserController usrController;
 
 //        fetchInnMngHomePage();
 
-        GoodsFetchTags();
+//        GoodsFetchTags();
 //        goodsShelvedOther();
 //        goodsFetchHome();
 //        FetchGoodsDetail();

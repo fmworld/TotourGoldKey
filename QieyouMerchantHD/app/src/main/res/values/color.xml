@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#ffffff</color>
+    <!-- login-->
+    <color name="login_hint">#706660</color>
+    <color name="login_find_pwd_notify">#706660</color>
+    <color name="login_server_phone_notify">#ff5d5d</color>
+    <color name="login_line">#59483d</color>
+</resources>

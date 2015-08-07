@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">QieyouMerchantHD</string>
+    <string name="title_item_detail">Item Detail</string>
+    <!-- login -->
+    <string name="foget_pwd_notify">忘记密码？</string>
+    <string name="login_phone_number">400-885-7171</string>
+    <string name="login_phone_title">且游客服 </string>
+    <string name="login_findpwd_code_notify">收不到验证码？联系客服 </string>
+    <string name="login_server_title">联系客服</string>
+    <string name="login_findpwd_get_code">获取验证码</string>
+    <string name="login_findpwd_get_code_params">获取验证码(%1s)</string>
+</resources>

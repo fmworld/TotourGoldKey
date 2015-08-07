@@ -34,6 +34,8 @@ public abstract class NetworkCallRunnable<R> {
 
     public abstract void onSuccess(R result);
 
+    public void onSuccessInBackground(R result){};
+
     public abstract void onError(RetrofitError be);
 
     public void onFinished() {}

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/login_findpwd_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/login_input_size"
+        android:text="取消"
+        />
+    <LinearLayout
+        android:id="@+id/login_content_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="找回密码"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/login_title_size" />
+
+        <LinearLayout
+            android:layout_width="342dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/login_findpwd_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="请输入手机号"
+                android:inputType="phone"
+                android:background="@null"
+                android:textColor="@color/white"
+                android:textColorHint="@color/login_hint"
+                android:paddingLeft="5dp"
+                android:textSize="@dimen/login_input_size" />
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="30dp"
+                android:background="@color/login_line"
+                />
+
+            <Button
+                android:id="@+id/login_findpwd_get_vericode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@null"
+                android:textColor="@color/login_hint"
+                android:gravity="center"
+                android:textSize="@dimen/login_input_size"
+                android:text="@string/login_findpwd_get_code" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/login_line"
+            android:layout_marginTop="4dp"
+            />
+        <EditText
+            android:id="@+id/login_findpwd_vericode"
+            android:layout_width="342dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:hint="请输入验证码"
+            android:background="@null"
+            android:inputType="textPassword"
+            android:textColor="@color/white"
+            android:textColorHint="@color/login_hint"
+            android:paddingLeft="5dp"
+            android:textSize="@dimen/login_input_size" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/login_line"
+            android:layout_marginTop="4dp"
+
+            />
+        <EditText
+            android:id="@+id/login_findpwd_new"
+            android:layout_width="342dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:hint="新密码(6-20位字母、数字、特殊符号)"
+            android:inputType="textPassword"
+            android:textColor="@color/white"
+            android:textColorHint="@color/login_hint"
+            android:background="@null"
+            android:paddingLeft="5dp"
+            android:textSize="@dimen/login_input_size" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/login_line"
+            android:layout_marginTop="4dp"
+
+            />
+        <Button
+            android:id="@+id/login_findpwd_submit"
+            android:layout_width="342dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="37dp"
+            android:background="@drawable/login_unclickabe_corners_bg"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:clickable="false"
+            android:textSize="@dimen/login_input_size" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/login_findpwd_code_notify"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/login_content_layout"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="65dp"
+        android:layout_marginLeft="3dp"
+        android:text="@string/login_findpwd_code_notify"
+        android:textColor="@color/login_find_pwd_notify"
+        android:textSize="@dimen/login_notify_size" />
+
+
+    <TextView
+        android:id="@+id/login_phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/login_findpwd_code_notify"
+        android:layout_toRightOf="@+id/login_findpwd_code_notify"
+        android:text="@string/login_phone_number"
+        android:textColor="@color/login_server_phone_notify"
+        android:textSize="@dimen/login_notify_size" />
+
+</RelativeLayout>

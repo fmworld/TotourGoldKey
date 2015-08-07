@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- login-->
+    <dimen name="login_title_size">36sp</dimen>
+    <dimen name="login_input_size">20sp</dimen>
+    <dimen name="login_notify_size">18sp</dimen>
+</resources>
