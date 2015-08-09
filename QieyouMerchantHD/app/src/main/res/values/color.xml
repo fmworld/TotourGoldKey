@@ -6,4 +6,8 @@
     <color name="login_find_pwd_notify">#706660</color>
     <color name="login_server_phone_notify">#ff5d5d</color>
     <color name="login_line">#59483d</color>
+    <!-- home -->
+    <color name="home_navogation_bg">#1b1b1b</color>
+    <color name="home_navogation_item_selected_title">#6ab400</color>
+    <color name="home_navogation_item_unselected_title">#575757</color>
 </resources>

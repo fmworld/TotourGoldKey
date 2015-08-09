@@ -15,7 +15,7 @@ import com.google.common.base.Preconditions;
  * Created by zhoufeng'an on 2015/8/5.
  */
 public class BaseTourActivity extends AppCompatActivity {
-    private final String TAG = this.getClass().getName();
+    public final String TAG = this.getClass().getSimpleName();
     private MainController mMainController;
     private Display mDisplay;
     @Override

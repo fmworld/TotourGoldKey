@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/login_account_icon.png" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/login_bg.png" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/login_corners_bg.xml" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/login_pwd_icon.png" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/login_unclickabe_corners_bg.xml" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/qieyou_launcher.png" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/lib/src/main/java/com/fm/fmlib/utils/DisplayUtil.java" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/lib/src/main/java/com/fm/fmlib/utils/RegularUtil.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/anim/home_menu_in_left_to_right.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/anim/home_menu_out_right_to_left.xml" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/anim/pop_out_left_to_right.xml" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

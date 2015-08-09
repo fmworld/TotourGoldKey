@@ -8,6 +8,15 @@ import com.google.common.base.Preconditions;
  * Created by zhoufeng'an on 2015/8/5.
  */
 public class MainController extends BaseUiController<MainController.MainUi, MainController.MainUiCallbacks> {
+    public enum HomeMenu{
+        STORE,
+        MALL,
+        CODE,
+        MANAGER,
+        SETTING,
+        PERSON_INFO
+    }
+
     private UserController mUserController;
 
     public MainController(){

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.totour.qieyoumerchanthd.widget.TransLinearlayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="618dp"
+    android:layout_height="match_parent"
+    android:background="#989898"
+    android:orientation="horizontal">
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        fresco:placeholderImage="@drawable/user_default_icon"
+        />
+</com.totour.qieyoumerchanthd.widget.TransLinearlayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ColorTextButton">
+        <attr name="selectedTextColor" format="color"></attr>
+        <attr name="unselectedTextColor" format="color"></attr>
+    </declare-styleable>
+
+</resources>

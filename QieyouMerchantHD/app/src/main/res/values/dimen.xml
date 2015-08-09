@@ -4,4 +4,7 @@
     <dimen name="login_title_size">36sp</dimen>
     <dimen name="login_input_size">20sp</dimen>
     <dimen name="login_notify_size">18sp</dimen>
+
+    <!-- home -->
+    <dimen name="home_item_title_size">19sp</dimen>
 </resources>

@@ -1,6 +1,5 @@
 package com.totour.qieyoumerchanthd.fragment;
 
-
 import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,35 +16,26 @@ import com.totour.qieyoumerchanthd.LoginActivity;
 import com.totour.qieyoumerchanthd.MerchanthdApplication;
 import com.totour.qieyoumerchanthd.R;
 import com.totour.qieyoumerchanthd.util.TourRegularUtil;
+import com.totour.qieyoumerchanthd.widget.AnimListenFragment;
 
 /**
- * Created by zhoufeng'an on 2015/8/5.
+ * Created by zhoufeng'an on 2015/8/9.
  */
-public class LoginInFragment extends Fragment implements UserController.UserLoginUi, View.OnClickListener, TextWatcher {
+public class HomePersonInfo extends AnimListenFragment implements UserController.UserLoginUi, View.OnClickListener {
     private UserController.UserLoginUiCallbacks mUserLoginUiCallbacks;
     private EditText login_account;
     private EditText login_pwd;
     private Button login_loginIn;
 
-    public static LoginInFragment create() {
-        LoginInFragment fragment = new LoginInFragment();
+    public static HomePersonInfo create() {
+        HomePersonInfo fragment = new HomePersonInfo();
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login_in, null);
-        login_account = (EditText) view.findViewById(R.id.login_account);
-        login_pwd = (EditText) view.findViewById(R.id.login_pwd);
-        login_loginIn = (Button) view.findViewById(R.id.login_loginIn);
-        login_account.addTextChangedListener(this);
-        login_pwd.addTextChangedListener(this);
-        login_loginIn.setOnClickListener(this);
-        view.findViewById(R.id.login_find_pwd).setOnClickListener(this);
-        view.findViewById(R.id.login_find_pwd).setFocusable(true);
-        view.findViewById(R.id.login_find_pwd).setFocusableInTouchMode(true);
-        view.findViewById(R.id.login_find_pwd).requestFocus();
+        View view = inflater.inflate(R.layout.fragment_home_person, null);
         return view;
     }
 
@@ -90,27 +80,4 @@ public class LoginInFragment extends Fragment implements UserController.UserLogi
 
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-        if (login_loginIn.isClickable() && !TourRegularUtil.checkLoginable(login_account.getText().toString(), login_pwd.getText().toString())) {
-            setLoginButtonState(false);
-        } else if (!login_loginIn.isClickable()&&TourRegularUtil.checkLoginable(login_account.getText().toString(), login_pwd.getText().toString())) {
-            setLoginButtonState(true);
-        }
-    }
-
-    private void setLoginButtonState(boolean able){
-        login_loginIn.setClickable(able);
-        login_loginIn.setBackgroundResource(able?R.drawable.login_corners_bg:R.drawable.login_unclickabe_corners_bg);
-    }
 }
