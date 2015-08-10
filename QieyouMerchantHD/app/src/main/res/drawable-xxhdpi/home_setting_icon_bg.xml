@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:innerRadius="0dp"
+    android:thicknessRatio="2"
+    android:shape="ring"
+    android:useLevel="false">
+
+    <!--<solid android:color="@color/home_person_icon_stroke" />-->
+
+    <stroke
+        android:width="1dp"
+        android:color="@color/home_setting_ring_bg" />
+    <size
+        android:width="65dp"
+        android:height="65dp" />
+    <padding
+        android:left="3dp"
+        android:top="3dp"
+        android:right="3dp"
+        android:bottom="3dp" />
+</shape>

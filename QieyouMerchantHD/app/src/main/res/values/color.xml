@@ -10,4 +10,24 @@
     <color name="home_navogation_bg">#1b1b1b</color>
     <color name="home_navogation_item_selected_title">#6ab400</color>
     <color name="home_navogation_item_unselected_title">#575757</color>
+
+    <!-- home person -->
+    <color name="home_person_top_bg">#4e9403</color>
+    <color name="home_person_text">#333333</color>
+    <color name="home_psn_scroe_text">#ffe200</color>
+    <color name="home_psn_bg">#2d2e32</color>
+    <color name="home_psn_store_bg">#292a2d</color>
+    <color name="home_psn_store_text">#c7c7c7</color>
+    <color name="home_psn_store_line">#5c5c5c</color>
+    <color name="home_psn_server_text">#6ab400</color>
+
+    <!-- home setting-->
+    <color name="home_setting_ring_bg">#6ab400</color>
+    <color name="home_setting_text_color">#a7a7a7</color>
+    <color name="home_setting_bg">#1b1b1b</color>
+    <color name="home_setting_black_line">#131414</color>
+    <color name="home_setting_item_bg">#2d2e32</color>
+    <color name="home_setting_item_value">#686868</color>
+    <color name="home_setting_serve_line">#444548</color>
+
 </resources>

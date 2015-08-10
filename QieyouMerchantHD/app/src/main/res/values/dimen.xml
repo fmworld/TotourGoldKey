@@ -7,4 +7,17 @@
 
     <!-- home -->
     <dimen name="home_item_title_size">19sp</dimen>
+
+    <!-- home person-->
+    <dimen name="home_person_title_size">19sp</dimen>
+    <dimen name="home_person_score_size">18sp</dimen>
+    <dimen name="home_psn_store_name_size">20sp</dimen>
+    <dimen name="home_psn_store_content_size">18sp</dimen>
+
+    <!-- home setting -->
+    <dimen name="home_setting_text_size">18sp</dimen>
+    <dimen name="home_setting_item_left_mar">25dp</dimen>
+    <dimen name="home_setting_item_right_mar">25dp</dimen>
+    <dimen name="home_setting_item_height">60dp</dimen>
+    <dimen name="home_setting_item_top_mar">25dp</dimen>
 </resources>

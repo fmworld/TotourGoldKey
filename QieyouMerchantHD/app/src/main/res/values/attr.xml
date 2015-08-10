@@ -6,4 +6,12 @@
         <attr name="unselectedTextColor" format="color"></attr>
     </declare-styleable>
 
+    <declare-styleable name="SlideSwitch">
+        <attr name="themeColor" format="color" />
+        <attr name="isOpen" format="boolean" />
+        <attr name="shape">
+            <enum name="rect" value="1" />
+            <enum name="circle" value="2" />
+        </attr>
+    </declare-styleable>
 </resources>

@@ -1,15 +1,202 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.totour.qieyoumerchanthd.widget.TransLinearlayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.totour.qieyoumerchanthd.widget.TransScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#989898"
-    android:gravity="center"
-    android:orientation="horizontal">
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_gravity="center|top"
-        fresco:placeholderImage="@drawable/user_default_icon"
-        />
-</com.totour.qieyoumerchanthd.widget.TransLinearlayout>
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/home_setting_bg"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="92dp"
+                android:background="@color/home_setting_black_line" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/home_setting_user_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/home_setting_item_left_mar"
+                android:background="@drawable/home_setting_icon_bg"
+                fresco:placeholderImage="@drawable/user_default_icon"
+                fresco:roundAsCircle="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="攀总"
+                android:textColor="@color/home_setting_text_color"
+                android:textSize="@dimen/home_setting_text_size" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_setting_item_height"
+            android:background="@color/home_setting_item_bg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/home_setting_item_left_mar"
+                android:text="显示小费"
+                android:textColor="@color/home_setting_text_color"
+                android:textSize="@dimen/home_setting_text_size" />
+
+            <com.totour.qieyoumerchanthd.widget.SlideSwitch
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/home_setting_item_right_mar"
+                fresco:shape="circle" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_setting_item_height"
+            android:layout_marginTop="@dimen/home_setting_item_top_mar"
+            android:background="@color/home_setting_item_bg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/home_setting_item_left_mar"
+                android:text="绑定手机"
+                android:textColor="@color/home_setting_text_color"
+                android:textSize="@dimen/home_setting_text_size" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/home_setting_item_right_mar"
+                android:text="18612540330"
+                android:textColor="@color/home_setting_item_value" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/home_setting_chenge_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_setting_item_height"
+            android:layout_marginTop="@dimen/home_setting_item_top_mar"
+            android:background="@color/home_setting_item_bg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/home_setting_item_left_mar"
+                android:text="修改密码"
+                android:textColor="@color/home_setting_text_color"
+                android:textSize="@dimen/home_setting_text_size" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/home_setting_item_right_mar"
+                android:src="@drawable/home_setting_show" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/home_setting_clear_cache"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_setting_item_height"
+            android:layout_marginTop="@dimen/home_setting_item_top_mar"
+            android:background="@color/home_setting_item_bg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/home_setting_item_left_mar"
+                android:text="清除缓存"
+                android:textColor="@color/home_setting_text_color"
+                android:textSize="@dimen/home_setting_text_size" />
+
+            <ImageView
+                android:id="@+id/tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/home_setting_item_right_mar"
+                android:src="@drawable/home_setting_show" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/tag"
+                android:text="@string/home_setting_cache_str"
+                android:textColor="@color/home_setting_item_value" />
+        </RelativeLayout>
+
+        <include
+            layout="@layout/include_home_setting_serve"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/home_setting_item_top_mar" />
+
+        <RelativeLayout
+            android:id="@+id/home_setting_version"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/home_setting_item_height"
+            android:layout_marginTop="@dimen/home_setting_item_top_mar"
+            android:background="@color/home_setting_item_bg">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/home_setting_item_left_mar"
+                android:text="当前版本"
+                android:textColor="@color/home_setting_text_color"
+                android:textSize="@dimen/home_setting_text_size" />
+
+            <ImageView
+                android:id="@+id/tag1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/home_setting_item_right_mar"
+                android:src="@drawable/home_setting_show" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/tag1"
+                android:text="@string/home_setting_version_str"
+                android:textColor="@color/home_setting_item_value" />
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/home_setting_item_left_mar"
+            android:layout_marginRight="@dimen/home_setting_item_right_mar"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/home_setting_out_corners_bg"
+            android:text="@string/home_setting_loginout_str"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</com.totour.qieyoumerchanthd.widget.TransScrollView>

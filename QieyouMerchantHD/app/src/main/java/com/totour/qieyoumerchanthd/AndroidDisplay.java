@@ -103,6 +103,35 @@ public class AndroidDisplay implements Display {
     public void showHomeMenuItem(MainController.HomeMenu menu) {
         if(menu == MainController.HomeMenu.SETTING){
             showHomeProfileItem(menu);
+            return;
+        }
+
+        if(menu == MainController.HomeMenu.STORE){
+            checkMenuState();
+            return;
+        }
+
+        if(menu == MainController.HomeMenu.MALL){
+            checkMenuState();
+            return;
+        }
+
+        if(menu == MainController.HomeMenu.CODE){
+            checkMenuState();
+            return;
+        }
+
+        if(menu == MainController.HomeMenu.MANAGER){
+            checkMenuState();
+            return;
+        }
+
+    }
+
+    private void checkMenuState(){
+        MainController.HomeMenu temp = ((HomeAcitvity)mActiviyt).getCurrentMenuTag();
+        if(temp == MainController.HomeMenu.SETTING || temp == MainController.HomeMenu.PERSON_INFO){
+            hideHomeProfile();
         }
     }
 

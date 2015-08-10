@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/home_setting_item_bg"
+    android:paddingLeft="@dimen/home_setting_item_left_mar"
+    android:paddingRight="@dimen/home_setting_item_right_mar"
+    >
+    <RelativeLayout
+        android:id="@+id/home_setting_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_setting_item_height"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="意见反馈"
+            android:textColor="@color/home_setting_text_color"
+            android:textSize="@dimen/home_setting_text_size" />
+
+        <ImageView
+            android:id="@+id/tag1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/home_setting_show"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/home_setting_serve_line"
+        />
+    <RelativeLayout
+        android:id="@+id/home_setting_about"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_setting_item_height"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="关于且游"
+            android:textColor="@color/home_setting_text_color"
+            android:textSize="@dimen/home_setting_text_size" />
+
+        <ImageView
+            android:id="@+id/tag2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/home_setting_show"
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/home_setting_serve_line"
+        />
+    <RelativeLayout
+        android:id="@+id/home_setting_tour"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/home_setting_item_height"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="且游客户"
+            android:textColor="@color/home_setting_text_color"
+            android:textSize="@dimen/home_setting_text_size" />
+
+        <ImageView
+            android:id="@+id/tag3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/home_setting_show"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tag3"
+            android:layout_marginRight="10dp"
+            android:text="@string/tour_server_phone"
+            android:textColor="@color/home_setting_item_value"
+            />
+    </RelativeLayout>
+</LinearLayout>
