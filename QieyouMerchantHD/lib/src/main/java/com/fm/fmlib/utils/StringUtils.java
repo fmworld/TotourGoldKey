@@ -15,6 +15,10 @@ import java.util.Date;
 public class StringUtils {
 	
 	public static String md5(String string) {
+		if(null == string){
+			return null;
+		}
+
 	    byte[] hash;
 	    try {
 	        hash = MessageDigest.getInstance("MD5").digest(string.getBytes("UTF-8"));

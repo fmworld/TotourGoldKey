@@ -68,6 +68,13 @@ public class LoginInFragment extends Fragment implements UserController.UserLogi
     @Override
     public void logined() {
         ((LoginActivity) this.getActivity()).getDisplay().showHomePage();
+        this.getActivity().finish();
+    }
+
+    @Override
+    public void loginFinished() {
+        setLoginButtonState(true);
+        login_loginIn.setText(this.getString(R.string.login_begin));
     }
 
     @Override
@@ -85,9 +92,10 @@ public class LoginInFragment extends Fragment implements UserController.UserLogi
         if (R.id.login_find_pwd == v.getId()) {
             ((BaseTourActivity) this.getActivity()).getDisplay().showFindPassword();
         } else if (R.id.login_loginIn == v.getId()) {
+            setLoginButtonState(false);
+            login_loginIn.setText(this.getString(R.string.login_loging));
             mUserLoginUiCallbacks.loginIn(login_account.getText().toString(), login_pwd.getText().toString());
         }
-
     }
 
     @Override

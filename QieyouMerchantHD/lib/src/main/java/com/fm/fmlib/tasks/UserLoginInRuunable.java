@@ -38,7 +38,7 @@ public class UserLoginInRuunable extends TokenCheckedRunnable<LoginEntity> {
         newUser.setToken(result.msg.token);
         newUser.setRole(result.msg.role);
         newUser.setState(result.msg.state);
-        TourApplication.instance().updateUser(newUser);
+        TourApplication.instance().updateData(newUser);
     }
     @Override
     public void onSuccess(LoginEntity result) {

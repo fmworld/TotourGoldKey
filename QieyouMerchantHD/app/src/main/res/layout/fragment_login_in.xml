@@ -29,6 +29,7 @@
             android:textColorHint="@color/login_hint"
             android:drawableLeft="@drawable/login_account_icon"
             android:drawablePadding="8dp"
+            android:text="18612540330"
             android:background="@null"
             />
         <View
@@ -36,6 +37,7 @@
             android:layout_height="0.5dp"
             android:background="@color/login_line"
             android:layout_marginTop="4dp"
+
             />
         <EditText
             android:id="@+id/login_pwd"
@@ -47,6 +49,7 @@
             android:textColorHint="@color/login_hint"
             android:inputType="textPassword"
             android:layout_marginTop="25dp"
+            android:text="qieyou"
             android:drawableLeft="@drawable/login_pwd_icon"
             android:drawablePadding="8dp"
             android:background="@null"

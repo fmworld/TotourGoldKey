@@ -24,7 +24,7 @@ import com.fm.fmlib.tasks.GoodsFetchHomeRunnable;
 import com.fm.fmlib.tasks.GoodsFetchShopTagsRunnable;
 import com.fm.fmlib.tasks.GoodsProductInfo4EditRunnable;
 import com.fm.fmlib.tasks.GoodsShelved4OtherRunnable;
-import com.fm.fmlib.tasks.InnMngFetchHomeRunnable;
+import com.fm.fmlib.tasks.InnFetchHomeRunnable;
 import com.fm.fmlib.tasks.TrasInnManagerRunnable;
 import com.fm.fmlib.tasks.TrasSbmOrderRunnable;
 import com.fm.fmlib.tasks.UserGetVerifyCodeRuunable;
@@ -149,7 +149,7 @@ private UserController usrController;
     }
 
     private void fetchInnMngHomePage() {
-        TourApplication.instance().getmExecutor().execute(new InnMngFetchHomeRunnable());
+        TourApplication.instance().getmExecutor().execute(new InnFetchHomeRunnable());
     }
 
     private void GoodsFetchTags() {

@@ -6,10 +6,9 @@
     android:orientation="horizontal">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="62dp"
         android:layout_height="match_parent"
         android:layout_gravity="center|top"
-        android:layout_weight="8"
         android:background="@color/home_navogation_bg"
         android:orientation="horizontal">
 
@@ -36,7 +35,6 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         >
 
         <FrameLayout

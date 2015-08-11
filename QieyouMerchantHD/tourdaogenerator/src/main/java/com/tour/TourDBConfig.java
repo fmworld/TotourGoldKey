@@ -4,12 +4,13 @@ package com.tour;
  * Created by zhoufeng'an on 2015/8/4.
  */
 public class TourDBConfig {
-    private String sourceDir ="app/src/main/java";
+    private String sourceDir ="lib/src/main/java";
     private int DBVersion =1;
     private String sourceStructure = "com.fm.fmlib.dao";
     public enum TableName{
         user,
-        product
+        product,
+        inn
     }
     public enum UserTable{
         account,
@@ -17,7 +18,24 @@ public class TourDBConfig {
         token,
         islogin,
         role,
-        state
+        state,
+        userMobile,
+        innerName,
+        innerHead
+    }
+
+    public enum InnTable{
+        innId,
+        innName,
+        innProducts,
+        innHead,
+        innerHead,
+        innerScore,
+        innerServe,
+        innerContact,
+        innerMoblie,
+        innerIdentify,
+        innerTodayServe
     }
 
     public String getSourceDir() {

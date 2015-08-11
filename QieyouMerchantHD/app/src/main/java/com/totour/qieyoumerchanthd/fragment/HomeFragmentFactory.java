@@ -16,6 +16,21 @@ public class HomeFragmentFactory {
             return HomeSettingInfo.create();
         }
 
+        if(HomeMenu.MANAGER == menu){
+            return HomeManager.create();
+        }
+
+        if(HomeMenu.CODE == menu){
+            return HomeCode.create();
+        }
+
+        if(HomeMenu.MALL == menu){
+            return HomeMall.create();
+        }
+
+        if(HomeMenu.STORE == menu){
+            return HomeStore.create();
+        }
 
         return null;
     }

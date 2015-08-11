@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.network.TokenCheckedRunnable;
+import com.fm.fmlib.state.HomeState;
 import com.fm.fmlib.tour.Service.UtilService;
 import com.fm.fmlib.tour.entity.TransferEntity;
 
@@ -24,6 +25,7 @@ public class TrasInnManagerRunnable extends TokenCheckedRunnable<TransferEntity>
         Log.v(TAG, "result errorInfo " + result.errorInfo);
         Log.v(TAG, "result code "+result.code);
         Log.v(TAG, "result msg "+result.msg);
+        this.getBus().post(new HomeState.HomeManagerFetchEvent(result.msg));
     }
 
     @Override

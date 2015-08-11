@@ -7,8 +7,8 @@ import com.fm.fmlib.state.UserState;
 import com.fm.fmlib.tasks.UserGetVerifyCodeRuunable;
 import com.fm.fmlib.tasks.UserLoginInRuunable;
 import com.fm.fmlib.tasks.UserSetNewPwdRuunable;
-import com.fm.fmlib.tour.entity.GetVeriCodeEntity;
 import com.fm.fmlib.utils.BackgroundExecutor;
+import com.fm.fmlib.utils.StringUtils;
 import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
 import com.squareup.otto.Subscribe;
 
@@ -23,6 +23,7 @@ public class UserController extends BaseUiController<UserController.UserUi,UserC
 
     public interface UserLoginUi extends UserUi{
         void logined();
+        void loginFinished();
     }
 
     public interface UserFindPwdUi extends UserUi{
@@ -50,7 +51,7 @@ public class UserController extends BaseUiController<UserController.UserUi,UserC
 
                 @Override
                 public void loginIn(String account, String password) {
-                    mExecutor.execute(new UserLoginInRuunable(account,password));
+                    mExecutor.execute(new UserLoginInTask(account,password));
                 }
 
 
@@ -99,5 +100,19 @@ public class UserController extends BaseUiController<UserController.UserUi,UserC
     @Subscribe
     public void resetPasswordSuccessed(UserState.UserResetPasswordEvent event){
         this.getDisplay().showLogin();
+    }
+
+    private class UserLoginInTask extends UserLoginInRuunable{
+        public UserLoginInTask(String name, String pwd){
+            super(name, pwd);
+        }
+        public void onFinished() {
+                for(Ui item : getUis()){
+                    if(item instanceof UserLoginUi){
+                        ((UserLoginUi)item).loginFinished();
+                        break;
+                    }
+                }
+        }
     }
 }

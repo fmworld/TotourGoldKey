@@ -9,12 +9,13 @@ import de.greenrobot.daogenerator.ToMany;
 public class TourDaoGenerator {
 
     public static void main(String[] args) throws Exception {
-        testTourServerApi();
+//        testTourServerApi();
+        initDataFile();
     }
 
     private static void testTourServerApi() {
         TourTest tourTest = new TourTest();
-        tourTest.changePassword();
+//        tourTest.changePassword();
     }
 
     private static void initDataFile() {
@@ -32,7 +33,26 @@ public class TourDaoGenerator {
                 .addStringProperty(TourDBConfig.UserTable.token.toString())
                 .addStringProperty(TourDBConfig.UserTable.role.toString())
                 .addStringProperty(TourDBConfig.UserTable.state.toString())
+                .addStringProperty(TourDBConfig.UserTable.userMobile.toString())
+                .addStringProperty(TourDBConfig.UserTable.innerHead.toString())
+                .addStringProperty(TourDBConfig.UserTable.innerName.toString())
                 .build();
+
+        dbTableBuilder.prepareTable(TourDBConfig.TableName.inn.toString())
+                .addIdProperty()
+                .addStringProperty(TourDBConfig.InnTable.innId.toString())
+                .addStringProperty(TourDBConfig.InnTable.innerContact.toString())
+                .addStringProperty(TourDBConfig.InnTable.innerHead.toString())
+                .addStringProperty(TourDBConfig.InnTable.innerIdentify.toString())
+                .addStringProperty(TourDBConfig.InnTable.innerMoblie.toString())
+                .addStringProperty(TourDBConfig.InnTable.innerScore.toString())
+                .addStringProperty(TourDBConfig.InnTable.innerServe.toString())
+                .addStringProperty(TourDBConfig.InnTable.innerTodayServe.toString())
+                .addStringProperty(TourDBConfig.InnTable.innHead.toString())
+                .addStringProperty(TourDBConfig.InnTable.innProducts.toString())
+                .addStringProperty(TourDBConfig.InnTable.innName.toString())
+                .build();
+
         try {
             new DaoGenerator().generateAll(schema, dbConfig.getSourceDir());
         } catch (Exception e) {

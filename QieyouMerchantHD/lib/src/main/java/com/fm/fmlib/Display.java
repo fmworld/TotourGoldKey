@@ -22,4 +22,6 @@ public interface Display {
     void showHomeMenuItem(MainController.HomeMenu menu);
 
     void hideHomeMenu();
+
+    void showManagerPage(String url);
 }

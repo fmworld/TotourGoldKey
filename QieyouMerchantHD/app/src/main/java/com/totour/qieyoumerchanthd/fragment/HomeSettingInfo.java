@@ -1,13 +1,18 @@
 package com.totour.qieyoumerchanthd.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.controllers.UserController;
+import com.fm.fmlib.network.TourConfig;
 import com.totour.qieyoumerchanthd.BaseTourActivity;
 import com.totour.qieyoumerchanthd.LoginActivity;
 import com.totour.qieyoumerchanthd.MerchanthdApplication;
@@ -32,6 +37,7 @@ public class HomeSettingInfo extends AnimListenFragment implements UserControlle
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_setting, null);
+        initView(view);
         return view;
     }
 
@@ -57,6 +63,11 @@ public class HomeSettingInfo extends AnimListenFragment implements UserControlle
     }
 
     @Override
+    public void loginFinished() {
+
+    }
+
+    @Override
     public void setCallbacks(UserController.UserUiCallbacks callbacks) {
         mUserLoginUiCallbacks = (UserController.UserLoginUiCallbacks) callbacks;
     }
@@ -73,6 +84,15 @@ public class HomeSettingInfo extends AnimListenFragment implements UserControlle
         } else if (R.id.login_loginIn == v.getId()) {
             mUserLoginUiCallbacks.loginIn(login_account.getText().toString(), login_pwd.getText().toString());
         }
+
+    }
+
+    private void initView(View view) {
+        ((TextView) view.findViewById(R.id.home_setting_phone)).setText(TourApplication.instance().getDaoUser().getUserMobile());
+        ((TextView) view.findViewById(R.id.home_setting_user_name)).setText(TourApplication.instance().getDaoUser().getInnerName());
+        ((SimpleDraweeView) view.findViewById(R.id.home_setting_user_icon))
+                .setImageURI(Uri.parse(TourConfig.instance().getImageRoot() + "/" + TourApplication.instance()
+                        .getDaoUser().getInnerHead()));
 
     }
 

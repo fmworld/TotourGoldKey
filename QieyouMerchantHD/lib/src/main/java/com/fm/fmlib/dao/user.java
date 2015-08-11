@@ -13,6 +13,9 @@ public class user {
     private String token;
     private String role;
     private String state;
+    private String userMobile;
+    private String innerHead;
+    private String innerName;
     private Boolean islogin;
     private Long id;
 
@@ -23,12 +26,15 @@ public class user {
         this.id = id;
     }
 
-    public user(String account, String password, String token, String role, String state, Boolean islogin, Long id) {
+    public user(String account, String password, String token, String role, String state, String userMobile, String innerHead, String innerName, Boolean islogin, Long id) {
         this.account = account;
         this.password = password;
         this.token = token;
         this.role = role;
         this.state = state;
+        this.userMobile = userMobile;
+        this.innerHead = innerHead;
+        this.innerName = innerName;
         this.islogin = islogin;
         this.id = id;
     }
@@ -75,6 +81,30 @@ public class user {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getUserMobile() {
+        return userMobile;
+    }
+
+    public void setUserMobile(String userMobile) {
+        this.userMobile = userMobile;
+    }
+
+    public String getInnerHead() {
+        return innerHead;
+    }
+
+    public void setInnerHead(String innerHead) {
+        this.innerHead = innerHead;
+    }
+
+    public String getInnerName() {
+        return innerName;
+    }
+
+    public void setInnerName(String innerName) {
+        this.innerName = innerName;
     }
 
     public Boolean getIslogin() {

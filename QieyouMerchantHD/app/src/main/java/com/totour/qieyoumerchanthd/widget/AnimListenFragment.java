@@ -10,7 +10,7 @@ import android.util.Log;
  * Created by zhoufeng'an on 2015/8/9.
  */
 public class AnimListenFragment extends Fragment {
-    private boolean showedIn = false;
+    private boolean showing = false;
     private AnimatorListenerAdapter listener;
 
     @Override
@@ -24,8 +24,12 @@ public class AnimListenFragment extends Fragment {
         return anim;
     }
 
-    public void setShowedIn(boolean showedIn) {
-        this.showedIn = showedIn;
+    public void setShowing(boolean showing) {
+        this.showing = showing;
+    }
+
+    public boolean isShowing() {
+        return showing;
     }
 
     public void setAnimationListener(AnimatorListenerAdapter _lisnter) {

@@ -4,8 +4,10 @@ import android.app.Application;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.fm.fmlib.controllers.MainController;
+import com.fm.fmlib.dao.inn;
 import com.fm.fmlib.dao.user;
 import com.fm.fmlib.tour.Totour0888;
+import com.fm.fmlib.tour.bean.UserInfo;
 import com.fm.fmlib.utils.BackgroundExecutor;
 import com.fm.fmlib.utils.DataMemCacheUtil;
 import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
@@ -27,8 +29,8 @@ public class TourApplication extends Application {
     public TourApplication() {
     }
 
-    public static TourApplication testGenerate(){
-        if(null == instance){
+    public static TourApplication testGenerate() {
+        if (null == instance) {
             instance = new TourApplication();
             instance.initConfig();
         }
@@ -54,10 +56,9 @@ public class TourApplication extends Application {
     }
 
 
-
-    private void initConfig(){
-        mMainController = new MainController();
+    private void initConfig() {
         dataMemCache = new DataMemCacheUtil(this);
+        mMainController = new MainController();
         mBus = new Bus();
         Fresco.initialize(this);
         mTotour = Networkprovider.providerTotour0888();
@@ -67,7 +68,7 @@ public class TourApplication extends Application {
         return mMainController;
     }
 
-    private void initController(){
+    private void initController() {
         mMainController = new MainController();
 
     }
@@ -102,26 +103,42 @@ public class TourApplication extends Application {
 
 
     public String getToken() {
-        return dataMemCache.getToken();
+        return dataMemCache.getUserDao().getToken();
     }
 
     public void setToken(String token) {
-        dataMemCache.setToken(token);
+        dataMemCache.getUserDao().setToken(token);
     }
 
     public String getAccount() {
-        return dataMemCache.getAccount();
+        return dataMemCache.getUserDao().getAccount();
     }
 
     public String getPassword() {
-        return dataMemCache.getPassword();
+        return dataMemCache.getUserDao().getPassword();
     }
 
-    public void updateUser(user newTemp) {
-        dataMemCache.saveWithUser(newTemp);
+
+    public <T> void updateData(T data) {
+        if (data instanceof user) {
+            dataMemCache.getUserDao().saveWithUser((user)data);
+        }else if(data instanceof inn){
+            dataMemCache.getInnDao().saveWithInn((inn) data);
+        }else if(data instanceof UserInfo){
+            dataMemCache.getUserDao().saveWithUserInfo((UserInfo)data);
+        }
     }
 
     public Bus getmBus() {
         return mBus;
     }
+
+    public user getDaoUser(){
+        return dataMemCache.getUserDao().getmCurrentUser();
+    }
+
+    public inn getDaoInn(){
+        return dataMemCache.getInnDao().getmCurrentInn();
+    }
+
 }

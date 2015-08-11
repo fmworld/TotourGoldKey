@@ -1,6 +1,7 @@
 package com.fm.fmlib.utils.provider;
 
 import com.fm.fmlib.dao.user;
+import com.fm.fmlib.tour.bean.UserInfo;
 
 /**
  * Created by zhoufeng'an on 2015/8/5.
@@ -26,6 +27,8 @@ public interface UserInterface {
     boolean saveUser();
 
     boolean saveWithUser(user copy);
+
+    boolean saveWithUserInfo(UserInfo info);
 
     void setState(String state);
 

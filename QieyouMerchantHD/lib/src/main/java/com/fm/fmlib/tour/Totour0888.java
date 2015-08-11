@@ -37,7 +37,7 @@ public class Totour0888 {
                 .build();
         mUserService = restAdapter.create(UserService.class);
         mUtilService = restAdapter.create(UtilService.class);
-//        innManagerService = restAdapter.create(InnManagerService.class);
+        innManagerService = restAdapter.create(InnManagerService.class);
         mGoodsService = restAdapter.create(GoodsService.class);
     }
 

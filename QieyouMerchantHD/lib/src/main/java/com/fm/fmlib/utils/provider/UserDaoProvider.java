@@ -6,6 +6,8 @@ import com.fm.fmlib.dao.DaoMaster;
 import com.fm.fmlib.dao.DaoSession;
 import com.fm.fmlib.dao.user;
 import com.fm.fmlib.dao.userDao;
+import com.fm.fmlib.tour.bean.UserInfo;
+import com.fm.fmlib.tour.entity.UserInfoEntity;
 
 import de.greenrobot.dao.AbstractDao;
 import de.greenrobot.dao.query.QueryBuilder;
@@ -60,12 +62,18 @@ public class UserDaoProvider implements UserInterface{
 
     @Override
     public boolean saveUser() {
-        return mUserDao.insertOrReplace(mCurrentUser)>0?true:false;
+        return mUserDao.insertOrReplace(mCurrentUser)>0;
     }
 
     @Override
     public boolean saveWithUser(user copy) {
         initUser(copy);
+        return saveUser();
+    }
+
+    @Override
+    public boolean saveWithUserInfo(UserInfo info) {
+        initUserInfo(info);
         return saveUser();
     }
 
@@ -87,6 +95,12 @@ public class UserDaoProvider implements UserInterface{
         mCurrentUser.setRole(copy.getRole());
     }
 
+    private void initUserInfo(UserInfo info) {
+        mCurrentUser.setInnerHead(info.inner_head);
+        mCurrentUser.setInnerName(info.inner_name);
+        mCurrentUser.setUserMobile(info.user_mobile);
+    }
+
     private user getLoginedUser(){
         QueryBuilder<user> queryBuilder = mUserDao.queryBuilder();
         queryBuilder.where(userDao.Properties.Islogin.eq(true));
@@ -94,5 +108,9 @@ public class UserDaoProvider implements UserInterface{
             return queryBuilder.list().get(0);
         }
         return new user();
+    }
+
+    public user getmCurrentUser(){
+        return  mCurrentUser;
     }
 }

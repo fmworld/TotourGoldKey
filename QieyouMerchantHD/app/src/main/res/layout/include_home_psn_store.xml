@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/home_psn_store_name_size"
             android:textColor="@color/home_psn_store_text"
+            android:layout_marginLeft="13dp"
             android:text="这是一个发呆的连锁休闲中心"
             />
     </LinearLayout>

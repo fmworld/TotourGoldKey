@@ -30,4 +30,13 @@
     <color name="home_setting_item_value">#686868</color>
     <color name="home_setting_serve_line">#444548</color>
 
+    <!-- home manager-->
+    <color name="home_manager_bg">#262626</color>
+
+    <!-- home code-->
+    <color name="home_code_title_color">#c7c7c7</color>
+    <color name="home_code_title_bg">#262626</color>
+    <color name="home_code_input_bg">#383838</color>
+    <color name="home_code_key_bg">#151515</color>
+    <color name="home_code_line_bg">#292929</color>
 </resources>

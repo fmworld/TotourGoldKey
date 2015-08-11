@@ -16,6 +16,8 @@ public interface UserState extends BaseState {
         }
     }
 
+    public static class UserFetchUserInfoEvent{}
+
     public static class UserLoginAccessCodeEvent {
     }
 

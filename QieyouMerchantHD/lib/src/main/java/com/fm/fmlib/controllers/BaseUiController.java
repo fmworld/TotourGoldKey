@@ -37,12 +37,13 @@ abstract class BaseUiController<U extends BaseUiController.Ui<UC>, UC>
         Preconditions.checkArgument(ui != null, "ui cannot be null");
         Preconditions.checkState(!mUis.contains(ui), "UI is already attached");
         mUis.add(ui);
+
         ui.setCallbacks(createUiCallbacks(ui));
 
         if (isInited()) {
-            if (!ui.isModal() && !(ui instanceof SubUi)) {
-                updateDisplayTitle(getUiTitle(ui));
-            }
+//            if (!ui.isModal() && !(ui instanceof SubUi)) {
+//                updateDisplayTitle(getUiTitle(ui));
+//            }
 
             onUiAttached(ui);
             populateUi(ui);
