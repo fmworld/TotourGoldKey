@@ -28,6 +28,11 @@ public class UserController extends BaseUiController<UserController.UserUi,UserC
 
     public interface UserFindPwdUi extends UserUi{
     }
+
+    public interface UserSettingUi extends UserUi{
+        void initView();
+    }
+
     public interface UserUiCallbacks{
     }
 

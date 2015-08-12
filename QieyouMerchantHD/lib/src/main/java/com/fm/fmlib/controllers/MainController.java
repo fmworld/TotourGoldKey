@@ -5,9 +5,14 @@ import android.util.Log;
 import com.fm.fmlib.Display;
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.state.HomeState;
-import com.fm.fmlib.tasks.InnFetchStoreInfoRunnable;
-import com.fm.fmlib.tasks.TrasInnManagerRunnable;
+import com.fm.fmlib.tasks.InnFetchStoreCardRunnable;
+import com.fm.fmlib.tasks.InnFetchStoreShareInfoRunnable;
+import com.fm.fmlib.tasks.InnFetchManagerTransferRunnable;
 import com.fm.fmlib.tasks.UserFetchUserInfoRuunable;
+import com.fm.fmlib.tour.entity.StoreCardEntity;
+import com.fm.fmlib.tour.entity.StoreShareEntity;
+import com.fm.fmlib.tour.entity.TransferEntity;
+import com.fm.fmlib.tour.entity.UserInfoEntity;
 import com.fm.fmlib.utils.BackgroundExecutor;
 import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
 import com.google.common.base.Preconditions;
@@ -27,9 +32,11 @@ public class MainController extends BaseUiController<MainController.MainUi, Main
     }
     private BackgroundExecutor mExecutor;
     private UserController mUserController;
+    private InnController mInnController;
 
     public MainController(){
         mUserController = new UserController();
+        mInnController = new InnController();
         mExecutor = BackgroundExecutorProvider.providerBackgroundExecutor();
     }
 
@@ -53,6 +60,7 @@ public class MainController extends BaseUiController<MainController.MainUi, Main
     public interface  NavigationCallbacks extends  MainUiCallbacks{
         void fetchUserInfo();
         void fetchStoreInfo();
+        void fetchManagerUrl();
     }
     public interface ManagerCallbacks extends MainUiCallbacks{
         void fetchManagerUrl();
@@ -64,7 +72,7 @@ public class MainController extends BaseUiController<MainController.MainUi, Main
             return new ManagerCallbacks(){
                 @Override
                 public void fetchManagerUrl() {
-                    mExecutor.execute(new TrasInnManagerRunnable());
+                    mExecutor.execute(new InnFetchManagerTransferRunnable());
                 }
             };
         }
@@ -73,12 +81,17 @@ public class MainController extends BaseUiController<MainController.MainUi, Main
             return   new NavigationCallbacks(){
                 @Override
                 public void fetchUserInfo() {
-                    mExecutor.execute(new UserFetchUserInfoRuunable());
+                    mExecutor.execute(new UserFetchUserInfoTask());
                 }
 
                 @Override
                 public void fetchStoreInfo() {
-                    mExecutor.execute(new InnFetchStoreInfoRunnable());
+                    mExecutor.execute(new InnFetchStoreCardTask());
+                }
+
+                @Override
+                public void fetchManagerUrl() {
+                    mExecutor.execute(new InnFetchManagerTeansferTask());
                 }
             };
         }
@@ -103,11 +116,13 @@ public class MainController extends BaseUiController<MainController.MainUi, Main
     protected void setDisplay(Display display) {
         super.setDisplay(display);
         mUserController.setDisplay(display);
+        mInnController.setDisplay(display);
     }
 
     @Override
     protected void onSuspended() {
         mUserController.suspend();
+        mInnController.suspend();
         TourApplication.instance().getmBus().unregister(this);
         super.onSuspended();
     }
@@ -117,6 +132,7 @@ public class MainController extends BaseUiController<MainController.MainUi, Main
         super.onInited();
         TourApplication.instance().getmBus().register(this);
         mUserController.init();
+        mInnController.init();
     }
 
 
@@ -124,10 +140,53 @@ public class MainController extends BaseUiController<MainController.MainUi, Main
         return mUserController;
     }
 
+    public InnController getInnController() {
+        return mInnController;
+    }
+
     @Subscribe
     public void fetchedManagerPage(HomeState.HomeManagerFetchEvent event){
         Log.v("homemanager", "fetchedManagerPage  " + event.managerUrl);
         this.getDisplay().showManagerPage(event.managerUrl);
     }
+
+    private class InnFetchStoreCardTask extends InnFetchStoreCardRunnable {
+        @Override
+        public void onSuccess(StoreCardEntity result) {
+            for(Ui item : getInnController().getUis()){
+                if(item instanceof InnController.InnStoreUi){
+                    ((InnController.InnStoreUi)item).initView();
+                    break;
+                }
+            }
+        }
+    }
+
+    private class UserFetchUserInfoTask extends UserFetchUserInfoRuunable {
+        @Override
+        public void onSuccess(UserInfoEntity result) {
+            for(Ui item : getmUserController().getUis()){
+                if(item instanceof UserController.UserSettingUi){
+                    ((UserController.UserSettingUi)item).initView();
+                    break;
+                }
+            }
+        }
+    }
+
+
+
+    private class InnFetchManagerTeansferTask extends InnFetchManagerTransferRunnable {
+        @Override
+        public void onSuccess(TransferEntity result) {
+            for(Ui item : getInnController().getUis()){
+                if(item instanceof InnController.InnManagerUi){
+                    ((InnController.InnManagerUi)item).showManager();
+                    break;
+                }
+            }
+        }
+    }
+
 
 }

@@ -1,6 +1,6 @@
 package com.fm.fmlib.utils.provider;
 
-import com.fm.fmlib.dao.user;
+import com.fm.fmlib.dao.User;
 import com.fm.fmlib.tour.bean.UserInfo;
 
 /**
@@ -26,7 +26,7 @@ public interface UserInterface {
 
     boolean saveUser();
 
-    boolean saveWithUser(user copy);
+    boolean saveWithUser(User copy);
 
     boolean saveWithUserInfo(UserInfo info);
 

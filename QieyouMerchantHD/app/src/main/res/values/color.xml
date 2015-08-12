@@ -32,6 +32,9 @@
 
     <!-- home manager-->
     <color name="home_manager_bg">#262626</color>
+    <color name="manager_check_close_text">#6ab400</color>
+    <color name="manager_check_title_text">#c7c7c7</color>
+    <color name="manager_check_title_bg">#262626</color>
 
     <!-- home code-->
     <color name="home_code_title_color">#c7c7c7</color>

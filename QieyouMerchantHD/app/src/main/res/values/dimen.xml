@@ -20,4 +20,8 @@
     <dimen name="home_setting_item_right_mar">25dp</dimen>
     <dimen name="home_setting_item_height">60dp</dimen>
     <dimen name="home_setting_item_top_mar">25dp</dimen>
+
+    <!-- home manager-->
+    <dimen name="home_manager_check_title_size">24dp</dimen>
+    <dimen name="home_manager_check_close_size">18dp</dimen>
 </resources>

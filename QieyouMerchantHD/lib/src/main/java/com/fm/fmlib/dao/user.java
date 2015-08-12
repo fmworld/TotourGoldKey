@@ -4,7 +4,7 @@ package com.fm.fmlib.dao;
 /**
  * Entity mapped to table USER.
  */
-public class user {
+public class User {
 
     /** Not-null value. */
     private String account;
@@ -19,14 +19,14 @@ public class user {
     private Boolean islogin;
     private Long id;
 
-    public user() {
+    public User() {
     }
 
-    public user(Long id) {
+    public User(Long id) {
         this.id = id;
     }
 
-    public user(String account, String password, String token, String role, String state, String userMobile, String innerHead, String innerName, Boolean islogin, Long id) {
+    public User(String account, String password, String token, String role, String state, String userMobile, String innerHead, String innerName, Boolean islogin, Long id) {
         this.account = account;
         this.password = password;
         this.token = token;

@@ -24,4 +24,6 @@ public interface Display {
     void hideHomeMenu();
 
     void showManagerPage(String url);
+
+    void showShareUI(String thunm, String name, String url);
 }

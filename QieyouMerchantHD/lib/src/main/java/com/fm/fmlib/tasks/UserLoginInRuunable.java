@@ -3,7 +3,7 @@ package com.fm.fmlib.tasks;
 import android.util.Log;
 
 import com.fm.fmlib.TourApplication;
-import com.fm.fmlib.dao.user;
+import com.fm.fmlib.dao.User;
 import com.fm.fmlib.network.TokenCheckedRunnable;
 import com.fm.fmlib.state.UserState;
 import com.fm.fmlib.tour.entity.LoginEntity;
@@ -31,7 +31,7 @@ public class UserLoginInRuunable extends TokenCheckedRunnable<LoginEntity> {
     }
 
     public void onSuccessInBackground(LoginEntity result){
-        user newUser = new user();
+        User newUser = new User();
         newUser.setIslogin(true);
         newUser.setAccount(name);
         newUser.setPassword(pwd);

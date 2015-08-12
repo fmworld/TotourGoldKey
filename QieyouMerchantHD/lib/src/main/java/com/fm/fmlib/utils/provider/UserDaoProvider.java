@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.fm.fmlib.dao.DaoMaster;
 import com.fm.fmlib.dao.DaoSession;
-import com.fm.fmlib.dao.user;
-import com.fm.fmlib.dao.userDao;
+import com.fm.fmlib.dao.User;
+import com.fm.fmlib.dao.UserDao;
 import com.fm.fmlib.tour.bean.UserInfo;
 import com.fm.fmlib.tour.entity.UserInfoEntity;
 
@@ -16,8 +16,8 @@ import de.greenrobot.dao.query.QueryBuilder;
  * Created by zhoufeng'an on 2015/8/4.
  */
 public class UserDaoProvider implements UserInterface{
-    private user mCurrentUser;
-    private userDao mUserDao;
+    private User mCurrentUser;
+    private UserDao mUserDao;
     public UserDaoProvider(DaoSession session){
         mUserDao = session.getUserDao();
         mCurrentUser = getLoginedUser();
@@ -66,7 +66,7 @@ public class UserDaoProvider implements UserInterface{
     }
 
     @Override
-    public boolean saveWithUser(user copy) {
+    public boolean saveWithUser(User copy) {
         initUser(copy);
         return saveUser();
     }
@@ -87,7 +87,7 @@ public class UserDaoProvider implements UserInterface{
         return mCurrentUser.getState();
     }
 
-    private void initUser(user copy) {
+    private void initUser(User copy) {
         mCurrentUser.setAccount(copy.getAccount());
         mCurrentUser.setPassword(copy.getPassword());
         mCurrentUser.setState(copy.getState());
@@ -101,16 +101,16 @@ public class UserDaoProvider implements UserInterface{
         mCurrentUser.setUserMobile(info.user_mobile);
     }
 
-    private user getLoginedUser(){
-        QueryBuilder<user> queryBuilder = mUserDao.queryBuilder();
-        queryBuilder.where(userDao.Properties.Islogin.eq(true));
+    private User getLoginedUser(){
+        QueryBuilder<User> queryBuilder = mUserDao.queryBuilder();
+        queryBuilder.where(UserDao.Properties.Islogin.eq(true));
         if(0 < queryBuilder.list().size()){
             return queryBuilder.list().get(0);
         }
-        return new user();
+        return new User();
     }
 
-    public user getmCurrentUser(){
+    public User getmCurrentUser(){
         return  mCurrentUser;
     }
 }

@@ -1,1 +1,1 @@
-include ':app', ':tourdaogenerator', ':lib'
+include ':app', ':tourdaogenerator', ':lib', ':social_sdk_library_project'

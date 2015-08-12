@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.0 rc2"
 
     defaultConfig {
-        applicationId "com.totour.qieyoumerchanthd"
+        applicationId "com.qieyou.qieyoustore"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
@@ -24,4 +24,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.android.support:support-v4:22.2.0'
     compile project(':lib')
+    compile project(':social_sdk_library_project')
 }

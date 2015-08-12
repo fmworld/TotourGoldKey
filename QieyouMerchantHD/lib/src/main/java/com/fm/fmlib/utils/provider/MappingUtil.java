@@ -1,13 +1,13 @@
 package com.fm.fmlib.utils.provider;
 
-import com.fm.fmlib.dao.inn;
-import com.fm.fmlib.tour.entity.StoreInfoEntity;
+import com.fm.fmlib.dao.Inn;
+import com.fm.fmlib.tour.entity.StoreCardEntity;
 
 /**
  * Created by zhoufeng'an on 2015/8/11.
  */
 public class MappingUtil {
-    public static void inn2inn(inn srctemp, inn target){
+    public static void inn2inn(Inn srctemp, Inn target){
         target.setInnName(srctemp.getInnName());
         target.setInnProducts(srctemp.getInnProducts());
         target.setInnHead(srctemp.getInnHead());
@@ -20,8 +20,8 @@ public class MappingUtil {
         target.setInnerScore(srctemp.getInnerScore());
     }
 
-    public static inn innInfoJson2inn(StoreInfoEntity.innInfoJson infoJson){
-        inn inn = new inn();
+    public static Inn innInfoJson2inn(StoreCardEntity.innInfoJson infoJson){
+        Inn inn = new Inn();
         inn.setInnName(infoJson.inn_name);
         inn.setInnProducts(infoJson.inn_products);
         inn.setInnHead(infoJson.inn_head);

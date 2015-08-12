@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+    <RelativeLayout
+        android:layout_width="874dp"
+        android:layout_height="45dp"
+        android:background="@drawable/home_manager_check_title_bg">
+
+        <TextView
+            android:id="@+id/manager_check_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:text="关闭"
+            android:textColor="@color/manager_check_close_text"
+            android:textSize="@dimen/home_manager_check_title_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="选择支付方式"
+            android:textColor="@color/manager_check_title_text"
+            android:textSize="@dimen/home_manager_check_title_size" />
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/home_mana_check_webv"
+        android:layout_width="874dp"
+        android:layout_height="746dp"></WebView>
+</LinearLayout>

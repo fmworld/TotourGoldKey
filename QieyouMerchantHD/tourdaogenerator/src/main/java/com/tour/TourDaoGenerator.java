@@ -25,7 +25,7 @@ public class TourDaoGenerator {
 //        addNote(schema);
 //        addCustomerOrder(schema);
         DbTableBuilder dbTableBuilder = new DbTableBuilder(schema);
-        dbTableBuilder.prepareTable(TourDBConfig.TableName.user.toString())
+        dbTableBuilder.prepareTable(TourDBConfig.TableName.User.toString())
                 .addIdProperty()
                 .addStringPropertyNotNull(TourDBConfig.UserTable.account.toString())
                 .addStringPropertyNotNull(TourDBConfig.UserTable.password.toString())
@@ -38,7 +38,7 @@ public class TourDaoGenerator {
                 .addStringProperty(TourDBConfig.UserTable.innerName.toString())
                 .build();
 
-        dbTableBuilder.prepareTable(TourDBConfig.TableName.inn.toString())
+        dbTableBuilder.prepareTable(TourDBConfig.TableName.Inn.toString())
                 .addIdProperty()
                 .addStringProperty(TourDBConfig.InnTable.innId.toString())
                 .addStringProperty(TourDBConfig.InnTable.innerContact.toString())
@@ -51,6 +51,13 @@ public class TourDaoGenerator {
                 .addStringProperty(TourDBConfig.InnTable.innHead.toString())
                 .addStringProperty(TourDBConfig.InnTable.innProducts.toString())
                 .addStringProperty(TourDBConfig.InnTable.innName.toString())
+                .build();
+
+
+        dbTableBuilder.prepareTable(TourDBConfig.TableName.MyProperty.toString())
+                .addIdProperty()
+                .addStringPropertyNotNull(TourDBConfig.PropertyTable.key.toString())
+                .addStringProperty(TourDBConfig.PropertyTable.value.toString())
                 .build();
 
         try {

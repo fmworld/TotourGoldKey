@@ -2,10 +2,10 @@ package com.fm.fmlib.utils.provider;
 
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.dao.DaoSession;
-import com.fm.fmlib.dao.inn;
-import com.fm.fmlib.dao.innDao;
-import com.fm.fmlib.dao.user;
-import com.fm.fmlib.dao.userDao;
+import com.fm.fmlib.dao.Inn;
+import com.fm.fmlib.dao.InnDao;
+import com.fm.fmlib.dao.User;
+import com.fm.fmlib.dao.UserDao;
 import com.fm.fmlib.tour.bean.UserInfo;
 
 import de.greenrobot.dao.query.QueryBuilder;
@@ -14,23 +14,23 @@ import de.greenrobot.dao.query.QueryBuilder;
  * Created by zhoufeng'an on 2015/8/4.
  */
 public class InnDaoProvider {
-    private inn mCurrentInn;
-    private innDao mInnDao;
+    private Inn mCurrentInn;
+    private InnDao mInnDao;
     public InnDaoProvider(DaoSession session, String account){
         mInnDao = session.getInnDao();
         mCurrentInn = getUserInn(account);
     }
 
-    private inn getUserInn(String account){
+    private Inn getUserInn(String account){
         if(null !=account){
-            QueryBuilder<inn> queryBuilder = mInnDao.queryBuilder();
-            queryBuilder.where(innDao.Properties.InnerMoblie.eq(account));
+            QueryBuilder<Inn> queryBuilder = mInnDao.queryBuilder();
+            queryBuilder.where(InnDao.Properties.InnerMoblie.eq(account));
             if(0 < queryBuilder.list().size()){
                 return queryBuilder.list().get(0);
             }
         }
 
-        return new inn();
+        return new Inn();
     }
 
     public String getInnerContact() {
@@ -117,7 +117,7 @@ public class InnDaoProvider {
        return mInnDao.insertOrReplace(mCurrentInn)>0;
     }
 
-    public boolean saveWithInn(inn temp){
+    public boolean saveWithInn(Inn temp){
         if(null == temp){
             return false;
         }
@@ -125,7 +125,7 @@ public class InnDaoProvider {
         return save();
     }
 
-    public inn getmCurrentInn(){
+    public Inn getmCurrentInn(){
         return  mCurrentInn;
     }
 

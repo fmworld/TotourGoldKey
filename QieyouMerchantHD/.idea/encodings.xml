@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/libs/umeng-analytics-v5.4.2.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/libs/umeng-update-v2.6.0.1.jar" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/qieyou/qieyoustore/util/MyShareUtils.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/qieyou/qieyoustore/wxapi/WXEntryActivity.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/user_default_icon.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher.png" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/social_sdk_library_project" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

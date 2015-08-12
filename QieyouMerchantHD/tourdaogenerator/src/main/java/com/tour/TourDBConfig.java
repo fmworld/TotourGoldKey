@@ -8,9 +8,10 @@ public class TourDBConfig {
     private int DBVersion =1;
     private String sourceStructure = "com.fm.fmlib.dao";
     public enum TableName{
-        user,
-        product,
-        inn
+        User,
+        Product,
+        Inn,
+        MyProperty
     }
     public enum UserTable{
         account,
@@ -36,6 +37,11 @@ public class TourDBConfig {
         innerMoblie,
         innerIdentify,
         innerTodayServe
+    }
+
+    public enum PropertyTable{
+        key,
+        value,
     }
 
     public String getSourceDir() {

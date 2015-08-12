@@ -4,7 +4,7 @@ package com.fm.fmlib.dao;
 /**
  * Entity mapped to table INN.
  */
-public class inn {
+public class Inn {
 
     private String innId;
     private String innerContact;
@@ -19,14 +19,14 @@ public class inn {
     private String innName;
     private Long id;
 
-    public inn() {
+    public Inn() {
     }
 
-    public inn(Long id) {
+    public Inn(Long id) {
         this.id = id;
     }
 
-    public inn(String innId, String innerContact, String innerHead, String innerIdentify, String innerMoblie, String innerScore, String innerServe, String innerTodayServe, String innHead, String innProducts, String innName, Long id) {
+    public Inn(String innId, String innerContact, String innerHead, String innerIdentify, String innerMoblie, String innerScore, String innerServe, String innerTodayServe, String innHead, String innProducts, String innName, Long id) {
         this.innId = innId;
         this.innerContact = innerContact;
         this.innerHead = innerHead;
