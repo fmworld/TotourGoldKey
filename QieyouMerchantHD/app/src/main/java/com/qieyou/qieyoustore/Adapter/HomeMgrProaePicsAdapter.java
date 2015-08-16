@@ -1,15 +1,22 @@
 package com.qieyou.qieyoustore.Adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 
 import com.fm.fmlib.tour.TourConfig;
 import com.fm.fmlib.utils.StringUtils;
+import com.qieyou.qieyoustore.BaseTourActivity;
 import com.qieyou.qieyoustore.HomeAcitvity;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.bean.HomeMgrProPicItem;
@@ -99,7 +106,46 @@ public class HomeMgrProaePicsAdapter extends BaseAdapter implements View.OnClick
                 items.remove(position);
                 this.notifyDataSetChanged();
         } else if (R.id.home_mgr_pro_pic == v.getId() && position == getCount() - 1) {
-            ((HomeAcitvity)mContext).selectPicFromCamera();
+            showPhotoActionSheetDialog();
         }
+    }
+
+    public void showPhotoActionSheetDialog() {
+        final Dialog mDialog = new Dialog(mContext, R.style.ActionSheet);
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout layout = (LinearLayout) inflater.inflate(R.layout.layout_action_sheet, null);
+        layout.findViewById(R.id.btn_1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseTourActivity)mContext).selectPicFromCamera();
+                mDialog.dismiss();
+            }
+        });
+        layout.findViewById(R.id.btn_0).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((BaseTourActivity)mContext).selectPicFromLocal();
+                mDialog.dismiss();
+            }
+        });
+        layout.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mDialog.dismiss();
+            }
+        });
+
+        Window mWindow = mDialog.getWindow();
+        WindowManager.LayoutParams mLayoutParams = mWindow.getAttributes();
+        mLayoutParams.x = 0;
+        final int cMakeBottom = -1000;
+        mLayoutParams.y = cMakeBottom;
+        mLayoutParams.gravity = Gravity.BOTTOM;
+        mDialog.onWindowAttributesChanged(mLayoutParams);
+        mDialog.setCanceledOnTouchOutside(true);
+
+        mDialog.setContentView(layout);
+        mDialog.getWindow().setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        mDialog.show();
     }
 }

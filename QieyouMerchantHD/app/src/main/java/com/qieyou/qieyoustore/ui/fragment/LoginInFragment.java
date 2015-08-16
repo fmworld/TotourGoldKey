@@ -67,9 +67,8 @@ public class LoginInFragment extends Fragment implements UserController.UserLogi
 
     @Override
     public void logined() {
-        ((LoginActivity) this.getActivity()).selectPicFromCamera();
-//        ((LoginActivity) this.getActivity()).getDisplay().showHomePage();
-//        this.getActivity().finish();
+        ((LoginActivity) this.getActivity()).getDisplay().showHomePage();
+        this.getActivity().finish();
     }
 
     @Override

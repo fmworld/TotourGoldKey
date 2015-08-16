@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#ffffff</color>
+    <color name="transparent">#0000</color>
+    <color name="black">#000000</color>
     <!-- login-->
     <color name="login_hint">#706660</color>
     <color name="login_find_pwd_notify">#706660</color>
@@ -56,4 +58,5 @@
     <color name="home_mgr_pro_ae_list_item_line">#2e2e2e</color>
     <color name="home_mgr_pro_ae_bottom_done_bg">#ff5d5d</color>
     <color name="home_mgr_pro_ae_text">#c7c7c7</color>
+    <color name="group_listview_bg_color">#f8f8f8</color>
 </resources>
