@@ -6,17 +6,20 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import com.fm.fmlib.Display;
+import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.controllers.MainController;
-import com.fm.fmlib.network.TourConfig;
-import com.qieyou.qieyoustore.fragment.HomeFragmentFactory;
-import com.qieyou.qieyoustore.fragment.HomeManager;
-import com.qieyou.qieyoustore.fragment.LoginFindpwdFragment;
-import com.qieyou.qieyoustore.fragment.LoginInFragment;
+import com.fm.fmlib.tour.TourConfig;
+import com.fm.fmlib.tour.bean.ProductInfo;
+import com.qieyou.qieyoustore.ui.fragment.HomeFragmentFactory;
+import com.qieyou.qieyoustore.ui.fragment.LoginFindpwdFragment;
+import com.qieyou.qieyoustore.ui.fragment.LoginInFragment;
+import com.qieyou.qieyoustore.ui.fragment.ProductAddEdit;
 import com.qieyou.qieyoustore.util.MyShareUtils;
-import com.qieyou.qieyoustore.widget.AnimListenFragment;
+import com.qieyou.qieyoustore.ui.widget.AnimListenFragment;
 
 /**
  * Created by zhoufeng'an on 2015/8/5.
@@ -62,6 +65,7 @@ public class AndroidDisplay implements Display {
             mActiviyt.findViewById(R.id.home_menu_layout).setClickable(true);
 
             AnimListenFragment fragment = (AnimListenFragment) HomeFragmentFactory.create(menu);
+
             mActiviyt.getFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.home_menu_in_left_to_right, R.anim.home_menu_out_right_to_left)
@@ -126,8 +130,7 @@ public class AndroidDisplay implements Display {
         }
 
         if (menu == MainController.HomeMenu.CODE) {
-            checkMenuState();
-            showConttentItem(menu);
+            showHomeSecondContent(menu);
             return;
         }
 
@@ -139,10 +142,79 @@ public class AndroidDisplay implements Display {
 
     }
 
+    @Override
+    public void showHomeSecondContent(MainController.HomeMenu menu) {
+        if (View.GONE == mActiviyt.findViewById(R.id.fragment_content_second_layout).getVisibility()
+                || ((HomeAcitvity) mActiviyt).getCurrentSContentTag() != menu) {
+            mActiviyt.findViewById(R.id.fragment_content_second_layout).setVisibility(View.VISIBLE);
+
+            AnimListenFragment fragment = (AnimListenFragment) HomeFragmentFactory.create(menu);
+            mActiviyt.getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.home_scontent_in_right_to_left, R.anim.home_scontent_out_left_to_right)
+                    .replace(R.id.fragment_content_second_layout, fragment, menu.toString())
+                    .commit();
+            ((HomeAcitvity) mActiviyt).setCurrentSContentTag(menu);
+        } else {
+            hideHomeSecondContent();
+        }
+    }
+
+    @Override
+    public void showHomeSecondContent(MainController.HomeMenu menu, Bundle bundle) {
+        if (View.GONE == mActiviyt.findViewById(R.id.fragment_content_second_layout).getVisibility()
+                || ((HomeAcitvity) mActiviyt).getCurrentSContentTag() != menu) {
+            mActiviyt.findViewById(R.id.fragment_content_second_layout).setVisibility(View.VISIBLE);
+
+            AnimListenFragment fragment = (AnimListenFragment) HomeFragmentFactory.create(menu);
+            fragment.setArguments(bundle);
+            mActiviyt.getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.home_scontent_in_right_to_left, R.anim.home_scontent_out_left_to_right)
+                    .replace(R.id.fragment_content_second_layout, fragment, menu.toString())
+                    .commit();
+            ((HomeAcitvity) mActiviyt).setCurrentSContentTag(menu);
+        } else {
+            hideHomeSecondContent();
+        }
+    }
+
+    @Override
+    public void hideHomeSecondContent() {
+
+        AnimListenFragment fragment = (AnimListenFragment) mActiviyt.getFragmentManager()
+                .findFragmentByTag(null != ((HomeAcitvity) mActiviyt).getCurrentSContentTag()
+                        ? ((HomeAcitvity) mActiviyt).getCurrentSContentTag().toString() : "");
+        if (null != fragment) {
+            fragment.setAnimationListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mActiviyt.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mActiviyt.findViewById(R.id.fragment_content_second_layout).setVisibility(View.GONE);
+                        }
+                    });
+                }
+            });
+        }
+        mActiviyt.getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.home_scontent_in_right_to_left, R.anim.home_scontent_out_left_to_right)
+                .remove(fragment)
+                .commit();
+        ((HomeAcitvity) mActiviyt).setCurrentSContentTag(null);
+    }
+
     private void checkMenuState() {
         MainController.HomeMenu temp = ((HomeAcitvity) mActiviyt).getCurrentMenuTag();
         if (temp == MainController.HomeMenu.SETTING || temp == MainController.HomeMenu.PERSON_INFO) {
             hideHomeProfile();
+        }
+
+        MainController.HomeMenu tempSContent = ((HomeAcitvity) mActiviyt).getCurrentSContentTag();
+        if (null != tempSContent||tempSContent == MainController.HomeMenu.CODE) {
+            hideHomeSecondContent();
         }
     }
 
@@ -160,6 +232,7 @@ public class AndroidDisplay implements Display {
             ((HomeAcitvity) mActiviyt).setCurrentContentTag(menu);
         }
     }
+
 
     @Override
     public void hideHomeMenu() {
@@ -180,5 +253,18 @@ public class AndroidDisplay implements Display {
         MyShareUtils utils = new MyShareUtils(mActiviyt);
         utils.setShareContent(name, "", url, TourConfig.instance().getImageRoot() + "/" + thunm, "", "");
         utils.addCustomPlatforms();
+    }
+
+    @Override
+    public void showPaymentType(String url) {
+        Intent intent = new Intent(mActiviyt, CheckTypeActivity.class);
+        intent.putExtra("url", url);
+        mActiviyt.startActivity(intent);
+    }
+
+    @Override
+    public void showProductInfo(ProductInfo info) {
+        TourApplication.instance().getmMainController().getInnState().setProductInfo(info);
+        this.showHomeSecondContent(MainController.HomeMenu.MGR_PRO_AE);
     }
 }

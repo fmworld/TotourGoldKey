@@ -42,4 +42,18 @@
     <color name="home_code_input_bg">#383838</color>
     <color name="home_code_key_bg">#151515</color>
     <color name="home_code_line_bg">#292929</color>
+
+    <!-- home manager check-->
+    <color name="home_manager_check_bg">#151515</color>
+    <color name="home_manager_check_tran_bg">#60000000</color>
+
+    <!-- home manager pro addedit-->
+    <color name="home_mgr_pro_addedit_title_bg">#151515</color>
+    <color name="home_mgr_pro_addedit_title_hint_text">#4c4c4c</color>
+    <color name="home_mgr_pro_addedit_addpic_bg">#383838</color>
+    <color name="home_mgr_pro_addedit_divider">#383838</color>
+    <color name="home_mgr_pro_ae_bg">#262626</color>
+    <color name="home_mgr_pro_ae_list_item_line">#2e2e2e</color>
+    <color name="home_mgr_pro_ae_bottom_done_bg">#ff5d5d</color>
+    <color name="home_mgr_pro_ae_text">#c7c7c7</color>
 </resources>

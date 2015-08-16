@@ -9,7 +9,8 @@
     <RelativeLayout
         android:layout_width="874dp"
         android:layout_height="45dp"
-        android:background="@drawable/home_manager_check_title_bg">
+        android:background="@drawable/home_manager_check_top_bg"
+        >
 
         <TextView
             android:id="@+id/manager_check_close"
@@ -19,7 +20,7 @@
             android:padding="10dp"
             android:text="关闭"
             android:textColor="@color/manager_check_close_text"
-            android:textSize="@dimen/home_manager_check_title_size" />
+            android:textSize="@dimen/home_manager_check_close_size" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -33,5 +34,11 @@
     <WebView
         android:id="@+id/home_mana_check_webv"
         android:layout_width="874dp"
-        android:layout_height="746dp"></WebView>
+        android:layout_height="648dp"
+        ></WebView>
+    <View
+        android:layout_width="874dp"
+        android:layout_height="10dp"
+        android:background="@drawable/home_manager_check_bottom_bg"
+        />
 </LinearLayout>

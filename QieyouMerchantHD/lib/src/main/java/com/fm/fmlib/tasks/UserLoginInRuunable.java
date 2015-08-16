@@ -17,7 +17,6 @@ import retrofit.RetrofitError;
 public class UserLoginInRuunable extends TokenCheckedRunnable<LoginEntity> {
     private String name;
     private String pwd; //MD5加密过后的
-    public UserLoginInRuunable(){}
 
     public UserLoginInRuunable(String name, String pwd){
         this.name = name;

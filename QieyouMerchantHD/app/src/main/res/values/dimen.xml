@@ -24,4 +24,11 @@
     <!-- home manager-->
     <dimen name="home_manager_check_title_size">24dp</dimen>
     <dimen name="home_manager_check_close_size">18dp</dimen>
+
+    <!-- home manager pro addedit-->
+    <dimen name="home_mgr_pro_ae_close_size">18dp</dimen>
+    <dimen name="home_mgr_pro_ae_title_size">22dp</dimen>
+    <dimen name="home_mgr_pro_ae_proinfo_size">20dp</dimen>
+    <dimen name="home_mgr_pro_ae_sec_size">18dp</dimen>
+
 </resources>

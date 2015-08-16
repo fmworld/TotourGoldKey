@@ -1,6 +1,5 @@
 package com.fm.fmlib.tour;
 
-import com.fm.fmlib.network.TourConfig;
 import com.fm.fmlib.tour.Service.GoodsService;
 import com.fm.fmlib.tour.Service.InnManagerService;
 import com.fm.fmlib.tour.Service.UserService;

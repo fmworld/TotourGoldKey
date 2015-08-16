@@ -1,14 +1,21 @@
 package com.qieyou.qieyoustore;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.fm.fmlib.Display;
 import com.fm.fmlib.controllers.MainController;
 import com.fm.fmlib.utils.DisplayUtil;
+import com.qieyou.qieyoustore.util.TourPicConfig;
+
+import java.io.File;
 
 /**
  * Created by zhoufeng'an on 2015/8/5.
@@ -67,6 +74,45 @@ public class BaseTourActivity extends AppCompatActivity {
 
     public Display getDisplay() {
         return mDisplay;
+    }
+
+    /**
+     * 从图库选取图片
+     */
+    public void selectPicFromLocal() {
+        Intent intent;
+        if (Build.VERSION.SDK_INT < 19) {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+        } else {
+            intent = new Intent
+                    (Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        }
+        startActivityForResult(intent, TourPicConfig.REQUEST_CODE_PIC_LOCAL);
+    }
+
+    /**
+     * 拍照获取图片
+     */
+    public void selectPicFromCamera() {
+        try {
+            if (!TourPicConfig.hasSDCard()) {
+                Toast.makeText(getApplicationContext(), "SD卡不存在，不能拍照",
+                        Toast.LENGTH_SHORT).show();
+                return;
+            }
+            File cameraFile = new File(TourPicConfig.getRootFilePath() + getPackageName() + "/" +
+                    System.currentTimeMillis() + ".jpg");
+            cameraFile.getParentFile().mkdirs();
+            startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra
+                            (MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile)),
+                    TourPicConfig.REQUEST_CODE_PIC_CAMERA);
+            Log.v("take pic", "++++++++++++++++++++++++++++++++++++++++++++++++++ ");
+        } catch(Exception e){
+            Log.v("take pic", "++++++++++++++++++++++++++++++++++++++++++++++++++ "+e.getLocalizedMessage());
+        }
+
+
     }
 
 }

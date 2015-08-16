@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+
+        android:layout_marginRight="35dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginLeft="174dp"
+            android:gravity="center|left"
+            android:orientation="horizontal"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_mgr_pro_ae_recommend_keyword"
+                android:textColor="@color/white"
+                android:textSize="@dimen/home_mgr_pro_ae_sec_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/pro_recommend_recm_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:drawableLeft="@drawable/home_mgr_pro_ae_required"
+                android:drawablePadding="7dp"
+                android:text="@string/home_mgr_pro_ae_recommend_recm"
+                android:textColor="@color/white"
+                android:textSize="@dimen/home_mgr_pro_ae_proinfo_size" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="50dp"
+                android:background="@color/home_mgr_pro_ae_list_item_line" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="174dp"
+            >
+
+            <TextView
+                android:id="@+id/pro_recommend_words_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="35dp"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="@string/home_mgr_pro_ae_recommend_word"
+                android:textColor="@color/white"
+                android:textSize="@dimen/home_mgr_pro_ae_sec_size"
+
+                />
+
+            <com.qieyou.qieyoustore.ui.widget.ClearableEditText
+                android:id="@+id/pro_recommend_words_vaule"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="174dp"
+                android:layout_marginRight="35dp"
+                android:drawablePadding="7dp"
+                android:textSize="@dimen/home_mgr_pro_ae_sec_size"
+                android:textColor="@color/home_mgr_pro_ae_text"
+                 />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/home_mgr_pro_ae_list_item_line" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="35dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="174dp"
+            >
+
+            <TextView
+                android:id="@+id/pro_recommend_travel_comment_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="35dp"
+                android:drawablePadding="7dp"
+                android:text="@string/home_mgr_pro_ae_recommend_travel_comment"
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:textSize="@dimen/home_mgr_pro_ae_sec_size"
+
+                />
+
+            <com.qieyou.qieyoustore.ui.widget.ClearableEditText
+                android:id="@+id/pro_recommend_travel_comment_value"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="174dp"
+                android:layout_marginRight="35dp"
+                android:drawablePadding="7dp"
+                android:textColor="@color/home_mgr_pro_ae_text"
+                android:textSize="@dimen/home_mgr_pro_ae_sec_size"
+                 />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|left"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/pro_recommend_comment_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:drawableLeft="@drawable/home_mgr_pro_ae_required"
+                android:drawablePadding="7dp"
+                android:text="@string/home_mgr_pro_ae_recommend_comment"
+                android:textColor="@color/white"
+                android:textSize="@dimen/home_mgr_pro_ae_proinfo_size" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="50dp"
+                android:background="@color/home_mgr_pro_ae_list_item_line" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="174dp"
+            >
+
+            <TextView
+                android:id="@+id/pro_recommend_boss_comment_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="75dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="35dp"
+                android:drawablePadding="7dp"
+                android:gravity="center"
+                android:text="@string/home_mgr_pro_ae_recommend_boss_comment"
+                android:textColor="@color/white"
+                android:textSize="@dimen/home_mgr_pro_ae_sec_size"
+
+                />
+
+            <com.qieyou.qieyoustore.ui.widget.ClearableEditText
+                android:id="@+id/pro_recommend_boss_comment_value"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="174dp"
+                android:layout_marginRight="35dp"
+                android:drawablePadding="7dp"
+                android:textColor="@color/home_mgr_pro_ae_text"
+                android:textSize="@dimen/home_mgr_pro_ae_sec_size"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/home_mgr_pro_ae_list_item_line" />
+
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.qieyou.qieyoustore;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -8,8 +9,10 @@ import android.widget.ListView;
 
 import com.fm.fmlib.Display;
 import com.fm.fmlib.controllers.MainController;
+import com.fm.fmlib.tour.bean.ProductInfo;
 import com.qieyou.qieyoustore.Adapter.HomeNavigationAdapter;
 import com.qieyou.qieyoustore.util.MyShareUtils;
+import com.qieyou.qieyoustore.util.TourPicConfig;
 
 /**
  * Created by zhoufeng'an on 2015/8/5.
@@ -17,9 +20,11 @@ import com.qieyou.qieyoustore.util.MyShareUtils;
 public class HomeAcitvity extends BaseTourActivity implements MainController.NavigationUi, View.OnClickListener {
     private MainController.HomeMenu currentMenuTag;
     private MainController.HomeMenu currentContentTag;
+    private MainController.HomeMenu currentSecondContentTag;
     private HomeNavigationAdapter naviAdapter;
     private boolean meunuFragCanMove = true;
     private MainController.NavigationCallbacks mNavigationCallbacks;
+    private boolean firstResume = true;
 
     protected int getContentViewLayoutId() {
         return R.layout.activity_home;
@@ -41,7 +46,7 @@ public class HomeAcitvity extends BaseTourActivity implements MainController.Nav
         });
         findViewById(R.id.home_navi_user).setOnClickListener(this);
         findViewById(R.id.home_menu_layout).setOnClickListener(this);
-
+//        getDisplay().showHomeSecondContent(MainController.HomeMenu.MGR_PRO_AE);
 //        ((SimpleDraweeView)findViewById(R.id.home_navi_user)).setImageURI(Uri.parse("http://img1.fjtv.net/material/news/img/2015/07/4b9db2f97de68cbf05df2517be05db1a.jpg"));
     }
 
@@ -81,10 +86,15 @@ public class HomeAcitvity extends BaseTourActivity implements MainController.Nav
     @Override
     protected void onResume() {
         super.onResume();
+
         getController().attachUi(this);
-        mNavigationCallbacks.fetchUserInfo();
-        mNavigationCallbacks.fetchStoreInfo();
-        mNavigationCallbacks.fetchManagerUrl();
+        if(firstResume){
+            mNavigationCallbacks.fetchUserInfo();
+            mNavigationCallbacks.fetchStoreInfo();
+            mNavigationCallbacks.fetchManagerUrl();
+            firstResume = false;
+        }
+
     }
 
     @Override
@@ -112,4 +122,33 @@ public class HomeAcitvity extends BaseTourActivity implements MainController.Nav
     public void setCurrentContentTag(MainController.HomeMenu currentContentTag) {
         this.currentContentTag = currentContentTag;
     }
+
+    public MainController.HomeMenu getCurrentSContentTag() {
+        return currentSecondContentTag;
+    }
+
+    public void setCurrentSContentTag(MainController.HomeMenu currentSContentTag) {
+        this.currentSecondContentTag = currentSContentTag;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // TODO Auto-generated method stub
+        if (resultCode == RESULT_OK) { //
+            if (requestCode == TourPicConfig.REQUEST_CODE_PIC_CAMERA) { // 发送照片
+                if (data != null) {
+                    Uri selectedImage = data.getData();
+
+                }
+
+            } else if (requestCode == TourPicConfig.REQUEST_CODE_PIC_LOCAL) { // 发送本地图片
+                if (data != null) {
+                    Log.v("take pic",""+data.getData());
+                    Uri selectedImage = data.getData();
+
+                }
+            }
+        }
+    }
 }
+

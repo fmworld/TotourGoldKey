@@ -4,6 +4,7 @@
     <string name="tour_server_phone">400-885-7171</string>
     <string name="positive">确定</string>
     <string name="navitive">取消</string>
+    <string name="rmb_unit">元</string>
     <!-- login -->
     <string name="foget_pwd_notify">忘记密码？</string>
     <string name="login_phone_number">400-885-7171</string>
@@ -37,4 +38,30 @@
     <!-- home code-->
     <string name="home_code_close">关闭</string>
     <string name="home_code_verify">快速验码</string>
+
+    <!-- home manager pro addedit-->
+    <string name="home_mgr_pro_addedit_cancel">取消</string>
+    <string name="home_mgr_pro_addedit_done">完成</string>
+    <string name="home_mgr_pro_addedit_edit">编辑商品</string>
+    <string name="home_mgr_pro_addedit_add">添加商品</string>
+    <string name="home_mgr_pro_ae_addpic_title">添加商品图片</string>
+    <string name="home_mgr_pro_ae_addpic_title_notify">(至少添加一张主图，图片总数最多30张)</string>
+    <string name="home_mgr_pro_ae_proinfo_name">商品名称</string>
+    <string name="home_mgr_pro_ae_proinfo_type">商品类别</string>
+    <string name="home_mgr_pro_ae_label_type">标签</string>
+    <string name="home_mgr_pro_ae_price_old_price">原价</string>
+    <string name="home_mgr_pro_ae_price_selling_price">售价</string>
+    <string name="home_mgr_pro_ae_price_quantity">可售数量</string>
+    <string name="home_mgr_pro_ae_price_deadline">有效期至</string>
+    <string name="home_mgr_pro_ae_intor_intro">商品介绍</string>
+    <string name="home_mgr_pro_ae_intor_parchase">购买须知</string>
+    <string name="home_mgr_pro_ae_recommend_recm">推荐理由</string>
+    <string name="home_mgr_pro_ae_recommend_keyword">商品关键词</string>
+    <string name="home_mgr_pro_ae_recommend_word">推荐语</string>
+    <string name="home_mgr_pro_ae_recommend_comment">达人点评</string>
+    <string name="home_mgr_pro_ae_recommend_travel_comment">旅行达人点评</string>
+    <string name="home_mgr_pro_ae_recommend_boss_comment">客栈老板点评</string>
+    <string name="home_mgr_pro_ae_edit">编辑商品</string>
+    <string name="home_mgr_pro_ae_add">添加商品</string>
+    <string name="home_mgr_pro_ae_price_str">%1s元</string>
 </resources>

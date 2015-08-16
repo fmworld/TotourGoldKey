@@ -92,7 +92,13 @@ public class UserController extends BaseUiController<UserController.UserUi,UserC
     @Subscribe
     public void uiLoginSuccessed(UserState.UserLoginExecutedEvent event) {
         Log.v("totour0888", "loginExecuted  " + event.callingId + " name " + event.name + "  pwd  " + event.pwd);
-        this.getDisplay().showHomePage();
+//        this.getDisplay().showHomePage();
+        for(Ui item : getUis()){
+            if(item instanceof UserLoginUi){
+                ((UserLoginUi)item).logined();
+                break;
+            }
+        }
     }
 
 

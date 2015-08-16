@@ -11,7 +11,7 @@ public class TourDBConfig {
         User,
         Product,
         Inn,
-        MyProperty
+        MyProperty,
     }
     public enum UserTable{
         account,
@@ -42,6 +42,28 @@ public class TourDBConfig {
     public enum PropertyTable{
         key,
         value,
+    }
+
+    public enum ProductTable{
+        product_id,
+        thumb,
+        product_images,
+        product_name,
+        category,
+        category_id,
+        tag_id,
+        tag_name,
+        old_price,
+        price,
+        quantity,
+        tuan_end_time,
+        tuan_noteend_time,
+        booking_info,
+        content,
+        keyword,
+        traveler,
+        innholder,
+
     }
 
     public String getSourceDir() {

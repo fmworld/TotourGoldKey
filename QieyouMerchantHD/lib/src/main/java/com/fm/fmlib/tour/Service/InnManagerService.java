@@ -1,5 +1,6 @@
 package com.fm.fmlib.tour.Service;
 
+import com.fm.fmlib.tour.entity.ProductInfoEntity;
 import com.fm.fmlib.tour.entity.StoreCardEntity;
 import com.fm.fmlib.tour.entity.StoreShareEntity;
 import com.fm.fmlib.tour.entity.TransferEntity;
@@ -38,4 +39,18 @@ public interface InnManagerService {
     @FormUrlEncoded
     StoreShareEntity fetchStroeShareInfo(@Query("token") String token, @Field("id") String inn_id, @Field("type") String type);
 
+    /**
+     * 获取支付方式选择连接（target :  orderPayment）
+     * @param token
+     * @param order_id
+     * @param target
+     * @return
+     */
+    @POST("/transfer")
+    @FormUrlEncoded
+    TransferEntity fetchOrderPaymentType(@Query("token") String token, @Field("order") String order_id, @Field("target") String target);
+
+    @POST("/item/ownerEdit")
+    @FormUrlEncoded
+    ProductInfoEntity fetchProductInfo(@Query("token") String token, @Field("item") String product_id);
 }

@@ -67,6 +67,10 @@ public class TourDaoGenerator {
 
     }
 
+    public static void addProduct(){
+
+    }
+
     private static void addUser(Schema schema, TourDBConfig dbConfig) {
         Entity note = schema.addEntity("Note");
         note.addIdProperty();

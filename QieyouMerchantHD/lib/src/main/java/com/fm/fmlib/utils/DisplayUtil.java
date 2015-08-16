@@ -3,7 +3,7 @@ package com.fm.fmlib.utils;
 import android.content.Context;
 
 public class DisplayUtil {
-	
+	private float scale = 0.87f;
 	private final static float standardWidth = 640.0f;
 	private final static float standardHeight = 1136.0f;
 	

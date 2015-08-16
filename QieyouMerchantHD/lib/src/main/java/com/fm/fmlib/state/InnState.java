@@ -1,14 +1,16 @@
 package com.fm.fmlib.state;
 
+import com.fm.fmlib.tour.bean.ProductInfo;
+
 /**
  * Created by zhoufeng'an on 2015/8/3.
  */
 public interface InnState extends BaseState {
-    public static class InnToFetchShareInfoEvent {
-        public final String inn_id;
+    public static class InnFetchProductInfoEvent {
+        public ProductInfo info;
 
-        public InnToFetchShareInfoEvent(String inn_id) {
-            this.inn_id = inn_id;
+        public InnFetchProductInfoEvent(ProductInfo info) {
+            this.info = info;
         }
     }
 
@@ -23,5 +25,19 @@ public interface InnState extends BaseState {
             this.url = url;
         }
     }
+
+
+    public static class InnFetchPaymentTypeEvent {
+        public String paymentUrl;
+
+        public InnFetchPaymentTypeEvent(String paymentUrl) {
+            this.paymentUrl = paymentUrl;
+        }
+
+    }
+
+    void setProductInfo(ProductInfo info);
+
+    ProductInfo getProductInfo();
 
 }

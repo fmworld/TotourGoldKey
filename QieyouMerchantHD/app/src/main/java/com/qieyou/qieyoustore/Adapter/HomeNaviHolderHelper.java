@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.qieyou.qieyoustore.util.ViewHolderHelper;
-import com.qieyou.qieyoustore.widget.ColorTextButton;
+import com.qieyou.qieyoustore.ui.widget.ColorTextButton;
 
 /**
  * Created by zhoufeng'an on 2015/8/9.

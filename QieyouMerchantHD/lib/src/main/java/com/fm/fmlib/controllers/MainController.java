@@ -4,11 +4,14 @@ import android.util.Log;
 
 import com.fm.fmlib.Display;
 import com.fm.fmlib.TourApplication;
+import com.fm.fmlib.state.ApplicationState;
 import com.fm.fmlib.state.HomeState;
+import com.fm.fmlib.state.InnState;
 import com.fm.fmlib.tasks.InnFetchStoreCardRunnable;
 import com.fm.fmlib.tasks.InnFetchStoreShareInfoRunnable;
 import com.fm.fmlib.tasks.InnFetchManagerTransferRunnable;
 import com.fm.fmlib.tasks.UserFetchUserInfoRuunable;
+import com.fm.fmlib.tour.bean.ProductInfo;
 import com.fm.fmlib.tour.entity.StoreCardEntity;
 import com.fm.fmlib.tour.entity.StoreShareEntity;
 import com.fm.fmlib.tour.entity.TransferEntity;
@@ -28,13 +31,16 @@ public class MainController extends BaseUiController<MainController.MainUi, Main
         CODE,
         MANAGER,
         SETTING,
-        PERSON_INFO
+        PERSON_INFO,
+        MGR_PRO_AE
     }
+
     private BackgroundExecutor mExecutor;
     private UserController mUserController;
     private InnController mInnController;
-
+private ApplicationState mApplicationState;
     public MainController(){
+        mApplicationState = new ApplicationState();
         mUserController = new UserController();
         mInnController = new InnController();
         mExecutor = BackgroundExecutorProvider.providerBackgroundExecutor();
@@ -142,6 +148,14 @@ public class MainController extends BaseUiController<MainController.MainUi, Main
 
     public InnController getInnController() {
         return mInnController;
+    }
+
+    public ApplicationState getApplicationState() {
+        return mApplicationState;
+    }
+
+    public InnState getInnState() {
+        return (InnState)mApplicationState;
     }
 
     @Subscribe
