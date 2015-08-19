@@ -2,6 +2,7 @@
 <resources>
     <color name="white">#ffffff</color>
     <color name="transparent">#0000</color>
+    <color name="wheel_transparent">#4000</color>
     <color name="black">#000000</color>
     <!-- login-->
     <color name="login_hint">#706660</color>
@@ -59,4 +60,32 @@
     <color name="home_mgr_pro_ae_bottom_done_bg">#ff5d5d</color>
     <color name="home_mgr_pro_ae_text">#c7c7c7</color>
     <color name="group_listview_bg_color">#f8f8f8</color>
+    <color name="home_mgr_pro_keyword_value_bg">#303030</color>
+    <color name="home_mgr_pro_ae_keyword_hint">#6f6f6f</color>
+    <color name="home_mgr_pro_tag_list_close">#6ab400</color>
+    <color name="home_mgr_pro_tag_list_content_bg">#262626</color>
+    <color name="home_mgr_pro_tag_list_bg">#151515</color>
+    <color name="home_mgr_pro_tag_list_line">#3e3e3e</color>
+    <color name="home_mgr_pro_tag_new_title_bg">#262626</color>
+    <color name="home_mgr_pro_tag_new_bg">#151515</color>
+    <color name="home_mgr_pro_tag_new_activity_bg">#b0000000</color>
+    <color name="home_mgr_pro_category_select_bg">#383838</color>
+
+    <!-- home store gallery-->
+    <color name="store_tab_bar_focus_text">#5e9d04</color>
+    <color name="store_tab_bar_unfocus_text">#979797</color>
+    <color name="store_tab_bar_focus">#1b1b1b</color>
+
+    <!-- home store sudoku-->
+    <color name="store_sudoku_title_bg">#151515</color>
+    <color name="store_sudoku_tabbar_bg">#212121</color>
+    <color name="store_sudoku_grid_bg">#383838</color>
+    <color name="store_sudoku_grid_bottom_bg">#99383838</color>
+    <color name="store_sudoku_grid_item_price">#ff5d5d</color>
+    <color name="store_sudoku_grid_item_price_unit">#878787</color>
+    <color name="store_vp_bottom_able_bg">#ff6c00</color>
+    <color name="store_vp_bottom_unable_bg">#878787</color>
+
+    <!-- home store vp-->
+    <color name="store_vp_item_bottom_bg">#99000000</color>
 </resources>

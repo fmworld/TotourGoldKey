@@ -9,9 +9,15 @@ public class TourDBConfig {
     private String sourceStructure = "com.fm.fmlib.dao";
     public enum TableName{
         User,
-        Product,
+        ProductBreviary,
         Inn,
         MyProperty,
+        ProductTag,
+        CategoryTitle,
+        CategoryList,
+        LocalTitle,
+        LocalList
+
     }
     public enum UserTable{
         account,
@@ -44,25 +50,46 @@ public class TourDBConfig {
         value,
     }
 
-    public enum ProductTable{
-        product_id,
-        thumb,
-        product_images,
-        product_name,
-        category,
-        category_id,
+    public enum TagTable{
         tag_id,
         tag_name,
-        old_price,
+        item_count,
+        item_seq,
+        tag_seq
+    }
+
+    public enum CategoryTitleTable{
+        id,
+        name
+    }
+
+    public enum CategoryListTable{
+        category_id,
+        category,
+        name
+    }
+
+    public enum LocalTitleTable{
+        dest_id,
+        dest_name
+    }
+
+    public enum LocalListTable{
+        local_id,
+        local_name,
+        dest_id
+    }
+
+    public enum ProductBreviaryTable{
+        product_id,
+        state,
+        product_name,
         price,
+        old_price,
+        thumb,
         quantity,
-        tuan_end_time,
-        tuan_noteend_time,
-        booking_info,
-        content,
-        keyword,
-        traveler,
-        innholder,
+        score,
+        tuan_end_time
 
     }
 

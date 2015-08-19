@@ -5,7 +5,7 @@ import android.util.Log;
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.network.TokenCheckedRunnable;
 import com.fm.fmlib.tour.entity.StoreCardEntity;
-import com.fm.fmlib.utils.provider.MappingUtil;
+import com.fm.fmlib.utils.MappingUtil;
 
 import retrofit.RetrofitError;
 

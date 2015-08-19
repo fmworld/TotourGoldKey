@@ -5,13 +5,17 @@ import android.app.Application;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.fm.fmlib.controllers.MainController;
 import com.fm.fmlib.dao.Inn;
+import com.fm.fmlib.dao.ProductTagDao;
 import com.fm.fmlib.dao.User;
 import com.fm.fmlib.tour.Totour0888;
 import com.fm.fmlib.tour.bean.UserInfo;
 import com.fm.fmlib.utils.BackgroundExecutor;
 import com.fm.fmlib.utils.DataMemCacheUtil;
 import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
+import com.fm.fmlib.utils.provider.CategoryDaoProvider;
+import com.fm.fmlib.utils.provider.LocalDaoProvider;
 import com.fm.fmlib.utils.provider.Networkprovider;
+import com.fm.fmlib.utils.provider.ProductTagDaoProvider;
 import com.fm.fmlib.utils.provider.PropertyDaoProvider;
 import com.squareup.otto.Bus;
 
@@ -23,6 +27,7 @@ public class TourApplication extends Application {
     private Totour0888 mTotour;
     private DataMemCacheUtil dataMemCache;
     private MainController mMainController;
+
     private Bus mBus;
 
     private static TourApplication instance;
@@ -62,6 +67,7 @@ public class TourApplication extends Application {
         mMainController = new MainController();
         mBus = new Bus();
         Fresco.initialize(this);
+
         mTotour = Networkprovider.providerTotour0888();
     }
 
@@ -142,7 +148,21 @@ public class TourApplication extends Application {
         return dataMemCache.getInnDao().getmCurrentInn();
     }
 
-    public PropertyDaoProvider getPropertyDaoPri(){
+    public PropertyDaoProvider getDaoProperty(){
         return dataMemCache.getPropertyDao();
     }
+
+    public ProductTagDaoProvider getDaoProductTag(){
+        return dataMemCache.getPTagsDao();
+    }
+
+    public LocalDaoProvider getDaoLocal(){
+        return dataMemCache.getLocalDao();
+    }
+
+    public CategoryDaoProvider getDaoCategory(){
+        return dataMemCache.getCategoryDao();
+    }
+
+
 }

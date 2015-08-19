@@ -5,18 +5,23 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.fm.fmlib.controllers.UserController;
 import com.qieyou.qieyoustore.BaseTourActivity;
 import com.qieyou.qieyoustore.LoginActivity;
 import com.qieyou.qieyoustore.MerchanthdApplication;
 import com.qieyou.qieyoustore.R;
+import com.qieyou.qieyoustore.ui.widget.WheelDatePick;
 import com.qieyou.qieyoustore.util.TourRegularUtil;
+
+import java.util.Date;
 
 /**
  * Created by zhoufeng'an on 2015/8/5.
@@ -35,7 +40,7 @@ public class LoginInFragment extends Fragment implements UserController.UserLogi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login_in, null);
+        final View view = inflater.inflate(R.layout.fragment_login_in, null);
         login_account = (EditText) view.findViewById(R.id.login_account);
         login_pwd = (EditText) view.findViewById(R.id.login_pwd);
         login_loginIn = (Button) view.findViewById(R.id.login_loginIn);

@@ -36,6 +36,15 @@ public interface InnState extends BaseState {
 
     }
 
+    public static class InnUploadProImagsEvent {
+        public String appedUrl;
+        public InnUploadProImagsEvent(String appedUrl) {
+            this.appedUrl = appedUrl;
+        }
+
+    }
+
+
     void setProductInfo(ProductInfo info);
 
     ProductInfo getProductInfo();

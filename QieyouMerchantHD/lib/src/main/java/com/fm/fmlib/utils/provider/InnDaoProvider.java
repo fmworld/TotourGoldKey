@@ -1,12 +1,9 @@
 package com.fm.fmlib.utils.provider;
 
-import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.dao.DaoSession;
 import com.fm.fmlib.dao.Inn;
 import com.fm.fmlib.dao.InnDao;
-import com.fm.fmlib.dao.User;
-import com.fm.fmlib.dao.UserDao;
-import com.fm.fmlib.tour.bean.UserInfo;
+import com.fm.fmlib.utils.MappingUtil;
 
 import de.greenrobot.dao.query.QueryBuilder;
 

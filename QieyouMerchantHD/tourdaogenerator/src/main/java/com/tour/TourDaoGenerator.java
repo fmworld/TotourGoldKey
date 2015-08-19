@@ -22,9 +22,52 @@ public class TourDaoGenerator {
         TourDBConfig dbConfig = new TourDBConfig();
         Schema schema = new Schema(dbConfig.getDBVersion(), dbConfig.getSourceStructure());
 
-//        addNote(schema);
-//        addCustomerOrder(schema);
         DbTableBuilder dbTableBuilder = new DbTableBuilder(schema);
+        addUser(dbTableBuilder);
+
+        addInn(dbTableBuilder);
+
+        addProperty(dbTableBuilder);
+
+        addTag(dbTableBuilder);
+
+        addCategoryTitle(dbTableBuilder);
+
+        addCategoryList(dbTableBuilder);
+
+        addLocalTitle(dbTableBuilder);
+
+        addLocalList(dbTableBuilder);
+
+        addProductBreviaryTable(dbTableBuilder);
+        try {
+            new DaoGenerator().generateAll(schema, dbConfig.getSourceDir());
+        } catch (Exception e) {
+        }
+
+    }
+
+    public static void addProduct(DbTableBuilder dbTableBuilder){
+        dbTableBuilder.prepareTable(TourDBConfig.TableName.MyProperty.toString())
+                .addIdProperty()
+                .addStringPropertyNotNull(TourDBConfig.PropertyTable.key.toString())
+                .addStringProperty(TourDBConfig.PropertyTable.value.toString())
+                .build();
+    }
+
+    public static void addTag(DbTableBuilder dbTableBuilder){
+        dbTableBuilder.prepareTable(TourDBConfig.TableName.ProductTag.toString())
+                .addIdProperty()
+                .addStringPropertyNotNull(TourDBConfig.TagTable.tag_id.toString())
+                .addStringPropertyNotNull(TourDBConfig.TagTable.tag_name.toString())
+                .addStringProperty(TourDBConfig.TagTable.item_count.toString())
+                .addStringProperty(TourDBConfig.TagTable.item_seq.toString())
+                .addStringProperty(TourDBConfig.TagTable.tag_seq.toString())
+                .build();
+
+    }
+
+    public static void addUser(DbTableBuilder dbTableBuilder){
         dbTableBuilder.prepareTable(TourDBConfig.TableName.User.toString())
                 .addIdProperty()
                 .addStringPropertyNotNull(TourDBConfig.UserTable.account.toString())
@@ -37,7 +80,9 @@ public class TourDaoGenerator {
                 .addStringProperty(TourDBConfig.UserTable.innerHead.toString())
                 .addStringProperty(TourDBConfig.UserTable.innerName.toString())
                 .build();
+    }
 
+    public static void addInn(DbTableBuilder dbTableBuilder){
         dbTableBuilder.prepareTable(TourDBConfig.TableName.Inn.toString())
                 .addIdProperty()
                 .addStringProperty(TourDBConfig.InnTable.innId.toString())
@@ -52,55 +97,61 @@ public class TourDaoGenerator {
                 .addStringProperty(TourDBConfig.InnTable.innProducts.toString())
                 .addStringProperty(TourDBConfig.InnTable.innName.toString())
                 .build();
+    }
 
-
+    public static void addProperty(DbTableBuilder dbTableBuilder){
         dbTableBuilder.prepareTable(TourDBConfig.TableName.MyProperty.toString())
                 .addIdProperty()
                 .addStringPropertyNotNull(TourDBConfig.PropertyTable.key.toString())
                 .addStringProperty(TourDBConfig.PropertyTable.value.toString())
                 .build();
-
-        try {
-            new DaoGenerator().generateAll(schema, dbConfig.getSourceDir());
-        } catch (Exception e) {
-        }
-
     }
 
-    public static void addProduct(){
-
+    public static void addCategoryTitle(DbTableBuilder dbTableBuilder){
+        dbTableBuilder.prepareTable(TourDBConfig.TableName.CategoryTitle.toString())
+                .addStringPropertyNotNull(TourDBConfig.CategoryTitleTable.id.toString())
+                .addStringProperty(TourDBConfig.CategoryTitleTable.name.toString())
+                .build();
     }
 
-    private static void addUser(Schema schema, TourDBConfig dbConfig) {
-        Entity note = schema.addEntity("Note");
-        note.addIdProperty();
-        note.addStringProperty("text").notNull();
-        note.addStringProperty("comment");
-        note.addDateProperty("date");
+    public static void addCategoryList(DbTableBuilder dbTableBuilder){
+        dbTableBuilder.prepareTable(TourDBConfig.TableName.CategoryList.toString())
+                .addStringPropertyNotNull(TourDBConfig.CategoryListTable.category.toString())
+                .addStringPropertyNotNull(TourDBConfig.CategoryListTable.category_id.toString())
+                .addStringPropertyNotNull(TourDBConfig.CategoryListTable.name.toString())
+                .build();
     }
 
-    private static void addNote(Schema schema) {
-        Entity note = schema.addEntity("Note");
-        note.addIdProperty();
-        note.addStringProperty("text").notNull();
-        note.addStringProperty("comment");
-        note.addDateProperty("date");
+    public static void addLocalTitle(DbTableBuilder dbTableBuilder){
+        dbTableBuilder.prepareTable(TourDBConfig.TableName.LocalTitle.toString())
+                .addStringPropertyNotNull(TourDBConfig.LocalTitleTable.dest_id.toString())
+                .addStringPropertyNotNull(TourDBConfig.LocalTitleTable.dest_name.toString())
+                .build();
     }
 
-    private static void addCustomerOrder(Schema schema) {
-        Entity customer = schema.addEntity("Customer");
-        customer.addIdProperty();
-        customer.addStringProperty("name").notNull();
-
-        Entity order = schema.addEntity("Order");
-        order.setTableName("ORDERS"); // "ORDER" is a reserved keyword
-        order.addIdProperty();
-        Property orderDate = order.addDateProperty("date").getProperty();
-        Property customerId = order.addLongProperty("customerId").notNull().getProperty();
-        order.addToOne(customer, customerId);
-
-        ToMany customerToOrders = customer.addToMany(order, customerId);
-        customerToOrders.setName("orders");
-        customerToOrders.orderAsc(orderDate);
+    public static void addLocalList(DbTableBuilder dbTableBuilder){
+        dbTableBuilder.prepareTable(TourDBConfig.TableName.LocalList.toString())
+                .addStringPropertyNotNull(TourDBConfig.LocalListTable.dest_id.toString())
+                .addStringPropertyNotNull(TourDBConfig.LocalListTable.local_id.toString())
+                .addStringPropertyNotNull(TourDBConfig.LocalListTable.local_name.toString())
+                .build();
     }
+
+    public static void addProductBreviaryTable(DbTableBuilder dbTableBuilder){
+        dbTableBuilder.prepareTable(TourDBConfig.TableName.ProductBreviary.toString())
+                .addStringPropertyNotNull(TourDBConfig.ProductBreviaryTable.product_id.toString())
+                .addStringProperty(TourDBConfig.ProductBreviaryTable.price.toString())
+                .addStringProperty(TourDBConfig.ProductBreviaryTable.old_price.toString())
+                .addStringProperty(TourDBConfig.ProductBreviaryTable.product_name.toString())
+                .addStringProperty(TourDBConfig.ProductBreviaryTable.quantity.toString())
+                .addStringProperty(TourDBConfig.ProductBreviaryTable.score.toString())
+                .addStringProperty(TourDBConfig.ProductBreviaryTable.state.toString())
+                .addStringProperty(TourDBConfig.ProductBreviaryTable.thumb.toString())
+                .addStringProperty(TourDBConfig.ProductBreviaryTable.tuan_end_time.toString())
+                .build();
+    }
+
+
+
+
 }

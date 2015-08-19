@@ -13,6 +13,10 @@
         <item name="android:windowBackground">@color/home_manager_check_tran_bg</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
+    <style name="new_tag_translucent" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/home_mgr_pro_tag_new_activity_bg</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
 
     <style name="ActionSheet" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
@@ -29,4 +33,6 @@
         <item name="android:windowEnterAnimation">@anim/push_up_in</item>
         <item name="android:windowExitAnimation">@anim/push_up_out</item>
     </style>
+
+
 </resources>

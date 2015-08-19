@@ -6,20 +6,26 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
 import com.fm.fmlib.Display;
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.controllers.MainController;
+import com.fm.fmlib.dao.ProductBreviary;
 import com.fm.fmlib.tour.TourConfig;
 import com.fm.fmlib.tour.bean.ProductInfo;
 import com.qieyou.qieyoustore.ui.fragment.HomeFragmentFactory;
+import com.qieyou.qieyoustore.ui.fragment.HomeStoreFragment;
+import com.qieyou.qieyoustore.ui.fragment.HomeStoreSudoku;
 import com.qieyou.qieyoustore.ui.fragment.LoginFindpwdFragment;
 import com.qieyou.qieyoustore.ui.fragment.LoginInFragment;
 import com.qieyou.qieyoustore.ui.fragment.ProductAddEdit;
 import com.qieyou.qieyoustore.util.MyShareUtils;
 import com.qieyou.qieyoustore.ui.widget.AnimListenFragment;
+
+import java.util.List;
 
 /**
  * Created by zhoufeng'an on 2015/8/5.
@@ -117,7 +123,7 @@ public class AndroidDisplay implements Display {
             return;
         }
 
-        if (menu == MainController.HomeMenu.STORE) {
+        if (menu == MainController.HomeMenu.STORE_GALLERY) {
             checkMenuState();
             showConttentItem(menu);
             return;
@@ -213,7 +219,7 @@ public class AndroidDisplay implements Display {
         }
 
         MainController.HomeMenu tempSContent = ((HomeAcitvity) mActiviyt).getCurrentSContentTag();
-        if (null != tempSContent||tempSContent == MainController.HomeMenu.CODE) {
+        if (null != tempSContent || tempSContent == MainController.HomeMenu.CODE) {
             hideHomeSecondContent();
         }
     }
@@ -224,10 +230,10 @@ public class AndroidDisplay implements Display {
             if (null == fragment) {
                 return;
             }
-            FragmentTransaction t = mActiviyt.getFragmentManager()
-                    .beginTransaction();
-//                    .setCustomAnimations(R.anim.home_menu_in_left_to_right, R.anim.home_menu_out_right_to_left)
-            t.replace(R.id.fragment_content_layout, fragment, menu.toString())
+            mActiviyt.getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.home_menu_in_left_to_right, R.anim.home_menu_out_right_to_left)
+            .replace(R.id.fragment_content_layout, fragment, menu.toString())
                     .commit();
             ((HomeAcitvity) mActiviyt).setCurrentContentTag(menu);
         }
@@ -266,5 +272,59 @@ public class AndroidDisplay implements Display {
     public void showProductInfo(ProductInfo info) {
         TourApplication.instance().getmMainController().getInnState().setProductInfo(info);
         this.showHomeSecondContent(MainController.HomeMenu.MGR_PRO_AE);
+    }
+
+    @Override
+    public void showProLocalImg(Uri uri) {
+        Fragment fragment = mActiviyt.getFragmentManager().findFragmentByTag(((HomeAcitvity) mActiviyt).getCurrentSContentTag().toString());
+        if (null != fragment) {
+            ((ProductAddEdit) fragment).showLocalImg(uri);
+        }
+    }
+
+    @Override
+    public void showProductAddSuccessed() {
+        Fragment fragment = mActiviyt.getFragmentManager().findFragmentByTag(((HomeAcitvity) mActiviyt).getCurrentSContentTag().toString());
+        if (null != fragment) {
+            ((ProductAddEdit) fragment).showProductAddSuccessed();
+        }
+    }
+
+    @Override
+    public void showProductEditSuccessed() {
+        Fragment fragment = mActiviyt.getFragmentManager().findFragmentByTag(((HomeAcitvity) mActiviyt).getCurrentSContentTag().toString());
+        if (null != fragment) {
+            ((ProductAddEdit) fragment).showProductEditSuccessed();
+        }
+    }
+
+    @Override
+    public void showProductBreGrid(List<ProductBreviary> pros) {
+        MainController.HomeMenu menu = ((HomeAcitvity) mActiviyt).getCurrentSContentTag();
+        Fragment fragment = mActiviyt.getFragmentManager().findFragmentByTag(null == menu ? "" : menu.toString());
+        if (null != fragment) {
+            ((HomeStoreFragment) fragment).showProductBre(pros);
+        }
+    }
+
+    @Override
+    public void showProductBreGallery(List<ProductBreviary> pros) {
+        Fragment fragment = mActiviyt.getFragmentManager().findFragmentByTag(((HomeAcitvity) mActiviyt).getCurrentContentTag().toString());
+        if (null != fragment) {
+            ((HomeStoreFragment) fragment).showProductBre(pros);
+        }
+    }
+
+    @Override
+    public void showProductBre(List<ProductBreviary> pros) {
+        MainController.HomeMenu menu = ((HomeAcitvity) mActiviyt).getCurrentSContentTag();
+        Fragment fragment = mActiviyt.getFragmentManager().findFragmentByTag(null == menu ? "" : menu.toString());
+        if(null == fragment){
+            fragment = mActiviyt.getFragmentManager().findFragmentByTag(((HomeAcitvity) mActiviyt).getCurrentContentTag().toString());
+        }
+
+        if (null != fragment) {
+            ((HomeStoreFragment) fragment).showProductBre(pros);
+        }
     }
 }

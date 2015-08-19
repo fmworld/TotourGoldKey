@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/pro_add_keyword_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/home_mgr_pro_keyword_value_bg"
+        android:text="很高兴"
+        android:textColor="@color/white"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:lines="1"
+        android:layout_marginLeft="7dp"
+        />
+
+    <ImageView
+        android:id="@+id/pro_delete_keyword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/home_mgr_pro_text_delete"
+        android:layout_alignTop="@+id/pro_add_keyword_value"
+        android:layout_marginTop="-8dp"
+        />
+
+</RelativeLayout>

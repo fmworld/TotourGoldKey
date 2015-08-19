@@ -13,22 +13,34 @@
         android:layout_marginRight="35dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_marginLeft="174dp"
             android:gravity="center|left"
             android:orientation="horizontal"
-            android:paddingLeft="30dp"
-            android:paddingRight="30dp">
+            >
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="75dp"
                 android:text="@string/home_mgr_pro_ae_recommend_keyword"
                 android:textColor="@color/white"
+                android:layout_centerVertical="true"
+                android:gravity="center"
                 android:textSize="@dimen/home_mgr_pro_ae_sec_size" />
-        </LinearLayout>
+            <com.qieyou.qieyoustore.ui.widget.KeywordsLinearLayout
+                android:id="@+id/pro_recommend_keywords_vaule"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="174dp"
+                android:layout_marginRight="35dp"
+                android:layout_centerVertical="true"
+                android:gravity="center|left"
+                android:orientation="horizontal"
+                >
+            </com.qieyou.qieyoustore.ui.widget.KeywordsLinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -66,7 +78,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="75dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="35dp"
                 android:drawablePadding="7dp"
                 android:gravity="center"
                 android:text="@string/home_mgr_pro_ae_recommend_word"
@@ -116,7 +127,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="75dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="35dp"
                 android:drawablePadding="7dp"
                 android:text="@string/home_mgr_pro_ae_recommend_travel_comment"
                 android:textColor="@color/white"
@@ -173,7 +183,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="75dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="35dp"
                 android:drawablePadding="7dp"
                 android:gravity="center"
                 android:text="@string/home_mgr_pro_ae_recommend_boss_comment"

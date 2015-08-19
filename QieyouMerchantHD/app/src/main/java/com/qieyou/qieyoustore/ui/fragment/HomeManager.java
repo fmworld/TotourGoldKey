@@ -8,7 +8,6 @@ import android.webkit.WebView;
 
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.controllers.InnController;
-import com.fm.fmlib.controllers.MainController;
 import com.qieyou.qieyoustore.MerchanthdApplication;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.util.TourWebViewClient;
@@ -82,7 +81,7 @@ public class HomeManager extends TourFragment implements InnController.InnManage
 
     @Override
     public void showManager() {
-        String url = TourApplication.instance().getPropertyDaoPri()
+        String url = TourApplication.instance().getDaoProperty()
                 .getValue(InnController.InnTransfer.managerHome.toString());
         if(null != url){
             mWebView.loadUrl(url);

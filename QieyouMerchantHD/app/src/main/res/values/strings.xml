@@ -2,6 +2,7 @@
     <string name="app_name">QieyouMerchantHD</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="tour_server_phone">400-885-7171</string>
+    <string name="complete">完成</string>
     <string name="positive">确定</string>
     <string name="navitive">取消</string>
     <string name="rmb_unit">元</string>
@@ -64,4 +65,28 @@
     <string name="home_mgr_pro_ae_edit">编辑商品</string>
     <string name="home_mgr_pro_ae_add">添加商品</string>
     <string name="home_mgr_pro_ae_price_str">%1s元</string>
+    <string name="home_mgr_pro_ae_keyword_hint">至少添加一个关键词，不超过5个关键词</string>
+    <string name="home_mgr_pro_ae_keyword_add">添加关键词</string>
+    <string name="home_mgr_pro_ae_keyword_max_str">最多只能添加%1s个关键字</string>
+    <string name="home_mgr_pro_ae_need_pics">至少添加一张主图</string>
+    <string name="home_mgr_pro_ae_edit_success">编辑商品成功</string>
+    <string name="home_mgr_pro_ae_add_success">添加商品成功</string>
+
+    <!-- home mgr pro tag list-->
+    <string name="home_mgr_pro_tag_list_title">选择标签</string>
+    <string name="home_mgr_pro_tag_new_title">添加标签</string>
+    <string name="home_mgr_pro_tag_list_close">关闭</string>
+    <string name="home_mgr_pro_tag_list_new">新建标签</string>
+    <string name="home_mgr_pro_tag_new_notify">标签不能为空</string>
+    <string name="home_mgr_pro_type_str">%1$s->%2$s</string>
+
+    <!-- home store-->
+    <string name="store_item_load">正在加载...</string>
+    <string name="store_item_price_init">0.00</string>
+    <string name="store_sale_state_able">立即抢购</string>
+    <string name="store_sale_state_unable">售罄</string>
+
+    <!-- home store sudoku-->
+    <string name="store_sudoku_title">我的铺子</string>
+
 </resources>

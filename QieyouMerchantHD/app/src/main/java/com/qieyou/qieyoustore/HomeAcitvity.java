@@ -9,9 +9,7 @@ import android.widget.ListView;
 
 import com.fm.fmlib.Display;
 import com.fm.fmlib.controllers.MainController;
-import com.fm.fmlib.tour.bean.ProductInfo;
 import com.qieyou.qieyoustore.Adapter.HomeNavigationAdapter;
-import com.qieyou.qieyoustore.util.MyShareUtils;
 import com.qieyou.qieyoustore.util.TourPicConfig;
 
 /**
@@ -46,7 +44,7 @@ public class HomeAcitvity extends BaseTourActivity implements MainController.Nav
         });
         findViewById(R.id.home_navi_user).setOnClickListener(this);
         findViewById(R.id.home_menu_layout).setOnClickListener(this);
-//        getDisplay().showHomeSecondContent(MainController.HomeMenu.MGR_PRO_AE);
+        getDisplay().showHomeMenuItem(MainController.HomeMenu.STORE_GALLERY);
 //        ((SimpleDraweeView)findViewById(R.id.home_navi_user)).setImageURI(Uri.parse("http://img1.fjtv.net/material/news/img/2015/07/4b9db2f97de68cbf05df2517be05db1a.jpg"));
     }
 
@@ -89,9 +87,12 @@ public class HomeAcitvity extends BaseTourActivity implements MainController.Nav
 
         getController().attachUi(this);
         if(firstResume){
+
+            mNavigationCallbacks.fetchProOptions();
+            mNavigationCallbacks.fetchManagerUrl();
             mNavigationCallbacks.fetchUserInfo();
             mNavigationCallbacks.fetchStoreInfo();
-            mNavigationCallbacks.fetchManagerUrl();
+            mNavigationCallbacks.fetchTagList();
             firstResume = false;
         }
 
@@ -145,7 +146,7 @@ public class HomeAcitvity extends BaseTourActivity implements MainController.Nav
                 if (data != null) {
                     Log.v("take pic",""+data.getData());
                     Uri selectedImage = data.getData();
-
+                    getDisplay().showProLocalImg(selectedImage);
                 }
             }
         }

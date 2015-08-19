@@ -21,8 +21,6 @@ public class UserLoginInRuunable extends TokenCheckedRunnable<LoginEntity> {
     public UserLoginInRuunable(String name, String pwd){
         this.name = name;
         this.pwd = StringUtils.md5(pwd);
-        Log.v("totour0888", "result name "+name);
-        Log.v("totour0888", "result pwd "+pwd);
     }
     @Override
     public LoginEntity doBackground() throws RetrofitError {
@@ -38,6 +36,7 @@ public class UserLoginInRuunable extends TokenCheckedRunnable<LoginEntity> {
         newUser.setRole(result.msg.role);
         newUser.setState(result.msg.state);
         TourApplication.instance().updateData(newUser);
+        Log.v("totour0888", "result getToken " + TourApplication.instance().getToken());
     }
     @Override
     public void onSuccess(LoginEntity result) {

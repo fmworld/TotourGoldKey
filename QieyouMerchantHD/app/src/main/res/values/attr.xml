@@ -14,4 +14,17 @@
             <enum name="circle" value="2" />
         </attr>
     </declare-styleable>
+    private int focusWidth;
+    private int colorFocusedText;
+    private int colorUnfocusedText;
+    private int colorFocus;
+
+    <declare-styleable name="StoreTabBar">
+        <attr name="textSize" format="float" />
+        <attr name="focusWidth" format="dimension" />
+        <attr name="focusedTextColor" format="color" />
+        <attr name="unfocusedTextColor" format="color" />
+        <attr name="focusedResource" format="integer" />
+    </declare-styleable>
+
 </resources>

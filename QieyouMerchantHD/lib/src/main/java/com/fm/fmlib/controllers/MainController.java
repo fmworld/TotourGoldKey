@@ -8,12 +8,11 @@ import com.fm.fmlib.state.ApplicationState;
 import com.fm.fmlib.state.HomeState;
 import com.fm.fmlib.state.InnState;
 import com.fm.fmlib.tasks.InnFetchStoreCardRunnable;
-import com.fm.fmlib.tasks.InnFetchStoreShareInfoRunnable;
 import com.fm.fmlib.tasks.InnFetchManagerTransferRunnable;
+import com.fm.fmlib.tasks.ProfileFetchProOptionsRunnable;
+import com.fm.fmlib.tasks.ProfileFetchTagListRunnable;
 import com.fm.fmlib.tasks.UserFetchUserInfoRuunable;
-import com.fm.fmlib.tour.bean.ProductInfo;
 import com.fm.fmlib.tour.entity.StoreCardEntity;
-import com.fm.fmlib.tour.entity.StoreShareEntity;
 import com.fm.fmlib.tour.entity.TransferEntity;
 import com.fm.fmlib.tour.entity.UserInfoEntity;
 import com.fm.fmlib.utils.BackgroundExecutor;
@@ -26,23 +25,26 @@ import com.squareup.otto.Subscribe;
  */
 public class MainController extends BaseUiController<MainController.MainUi, MainController.MainUiCallbacks> {
     public enum HomeMenu{
-        STORE,
+        STORE_GALLERY,
         MALL,
         CODE,
         MANAGER,
         SETTING,
         PERSON_INFO,
-        MGR_PRO_AE
+        MGR_PRO_AE,
+        STORE_SUDOKU
     }
 
     private BackgroundExecutor mExecutor;
     private UserController mUserController;
     private InnController mInnController;
+    private ProductController mProductController;
 private ApplicationState mApplicationState;
     public MainController(){
         mApplicationState = new ApplicationState();
         mUserController = new UserController();
         mInnController = new InnController();
+        mProductController =new ProductController();
         mExecutor = BackgroundExecutorProvider.providerBackgroundExecutor();
     }
 
@@ -67,6 +69,8 @@ private ApplicationState mApplicationState;
         void fetchUserInfo();
         void fetchStoreInfo();
         void fetchManagerUrl();
+        void fetchTagList();
+        void fetchProOptions();
     }
     public interface ManagerCallbacks extends MainUiCallbacks{
         void fetchManagerUrl();
@@ -99,6 +103,17 @@ private ApplicationState mApplicationState;
                 public void fetchManagerUrl() {
                     mExecutor.execute(new InnFetchManagerTeansferTask());
                 }
+
+                @Override
+                public void fetchTagList() {
+                    mExecutor.execute(new ProfileFetchTagListRunnable());
+                }
+
+                @Override
+                public void fetchProOptions() {
+                    //丽江
+                    mExecutor.execute(new ProfileFetchProOptionsRunnable("530700"));
+                }
             };
         }
         return null;
@@ -123,12 +138,14 @@ private ApplicationState mApplicationState;
         super.setDisplay(display);
         mUserController.setDisplay(display);
         mInnController.setDisplay(display);
+        mProductController.setDisplay(display);
     }
 
     @Override
     protected void onSuspended() {
         mUserController.suspend();
         mInnController.suspend();
+        mProductController.suspend();
         TourApplication.instance().getmBus().unregister(this);
         super.onSuspended();
     }
@@ -139,6 +156,7 @@ private ApplicationState mApplicationState;
         TourApplication.instance().getmBus().register(this);
         mUserController.init();
         mInnController.init();
+        mProductController.init();
     }
 
 
@@ -152,6 +170,10 @@ private ApplicationState mApplicationState;
 
     public ApplicationState getApplicationState() {
         return mApplicationState;
+    }
+
+    public ProductController getProductController() {
+        return mProductController;
     }
 
     public InnState getInnState() {

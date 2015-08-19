@@ -78,6 +78,24 @@ public class ViewHolderHelper {
         return this;
     }
 
+    public ViewHolderHelper setFlags(int viewId, int value){
+        TextView view = findViewById(viewId);
+        view.getPaint().setFlags(value);;
+        return this;
+    }
+
+    public ViewHolderHelper setBackgroundColor(int viewId, int color){
+        View view = findViewById(viewId);
+        view.setBackgroundColor(color);
+        return this;
+    }
+
+    public ViewHolderHelper setBackgroundResource(int viewId, int resource){
+        View view = findViewById(viewId);
+        view.setBackgroundResource(resource);
+        return this;
+    }
+
     public ViewHolderHelper setText(int viewId, String value, Object tag){
         TextView view = findViewById(viewId);
         view.setText(value);
@@ -152,6 +170,11 @@ public class ViewHolderHelper {
     public ViewHolderHelper setMyLayoutAmountInfo(int viewId, String title, String info){
 //        ((MyLayoutAmountInfo)findViewById(viewId)).setTitleText(title);
 //        ((MyLayoutAmountInfo)findViewById(viewId)).setAmountText(info);
+        return this;
+    }
+
+    public ViewHolderHelper setImageURI(int viewId, Uri uri){
+        ((SimpleDraweeView)findViewById(viewId)).setImageURI(uri);
         return this;
     }
 }

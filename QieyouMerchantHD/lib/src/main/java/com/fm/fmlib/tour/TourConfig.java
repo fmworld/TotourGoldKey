@@ -5,7 +5,7 @@ package com.fm.fmlib.tour;
  */
 public class TourConfig {
     private final static int DEV = 1;
-    private final static int RELE = 1;
+    private final static int RELE = 2;
     private final String release_root_url = "http://b.totour.com";
     private final String dev_root_url = "http://bdev.totour.com";
     private final String imageRoot = "http://static.totour.com";
@@ -19,7 +19,7 @@ public class TourConfig {
         return config;
     }
 
-    public TourConfig() {
+    private TourConfig() {
         initUrl(RELE);
     }
 

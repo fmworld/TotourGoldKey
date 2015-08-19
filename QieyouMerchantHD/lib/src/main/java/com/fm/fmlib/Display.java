@@ -1,9 +1,13 @@
 package com.fm.fmlib;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.fm.fmlib.controllers.MainController;
+import com.fm.fmlib.dao.ProductBreviary;
 import com.fm.fmlib.tour.bean.ProductInfo;
+
+import java.util.List;
 
 /**
  * Created by zhoufeng'an on 2015/8/5.
@@ -42,5 +46,21 @@ public interface Display {
 
     void showProductInfo(ProductInfo info);
 
+    //显示本地选取的产品编辑照片
+    void showProLocalImg(Uri uri);
 
+    //商品添加
+    void showProductAddSuccessed();
+
+    //编辑成功
+    void showProductEditSuccessed();
+
+    //九宫格显示tag分类后的商品
+    void showProductBreGrid(List<ProductBreviary> pros);
+
+    //gallery显示tag分类后的商品
+    void showProductBreGallery(List<ProductBreviary> pros);
+
+    //显示tag分类后的商品
+    void showProductBre(List<ProductBreviary> pros);
 }

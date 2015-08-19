@@ -8,7 +8,6 @@ import com.fm.fmlib.tasks.UserGetVerifyCodeRuunable;
 import com.fm.fmlib.tasks.UserLoginInRuunable;
 import com.fm.fmlib.tasks.UserSetNewPwdRuunable;
 import com.fm.fmlib.utils.BackgroundExecutor;
-import com.fm.fmlib.utils.StringUtils;
 import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
 import com.squareup.otto.Subscribe;
 
@@ -51,17 +50,16 @@ public class UserController extends BaseUiController<UserController.UserUi,UserC
 
     @Override
     protected UserUiCallbacks createUiCallbacks(UserUi ui) {
-        if(ui instanceof UserLoginUi){
-            return new UserLoginUiCallbacks(){
+        if(ui instanceof UserLoginUi) return new UserLoginUiCallbacks() {
 
-                @Override
-                public void loginIn(String account, String password) {
+            @Override
+            public void loginIn(String account, String password) {
                     mExecutor.execute(new UserLoginInTask(account,password));
-                }
+            }
 
 
-            };
-        }else{
+        };
+        else{
             return new UserLoginFindPwdCallbacks(){
                 @Override
                 public void getVeriCode(String mobile) {

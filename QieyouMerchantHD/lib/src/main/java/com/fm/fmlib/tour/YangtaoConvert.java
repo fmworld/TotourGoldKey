@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 
 import retrofit.converter.ConversionException;
@@ -59,7 +60,7 @@ public class YangtaoConvert implements Converter {
 
             isr = new InputStreamReader(body.in(), charset);
             String json = getStream2String(isr);
-            Log.v(NetworkCallRunnable.TAG,"result json  ::::::::"+json );
+            Log.v(NetworkCallRunnable.TAG,"result fromBody  ::::::::"+json );
             TempEntity temp = gson.fromJson(json, TempEntity.class);
             if (1 != temp.code) {
                 Object result =TypeUtil.newInstance(type);
@@ -92,11 +93,13 @@ public class YangtaoConvert implements Converter {
     @Override
     public TypedOutput toBody(Object object) {
         try {
+            Log.v(NetworkCallRunnable.TAG,"result toBody  ::::::::"+gson.toJson(object) );
             return new JsonTypedOutput(gson.toJson(object).getBytes(charset), charset);
         } catch (UnsupportedEncodingException e) {
             throw new AssertionError(e);
         }
     }
+
 
     private static class JsonTypedOutput implements TypedOutput {
         private final byte[] jsonBytes;
@@ -128,6 +131,36 @@ public class YangtaoConvert implements Converter {
         }
     }
 
+    private static class TextTypedOutput implements TypedOutput {
+        private final byte[] textBytes;
+        private final String mimeType;
+
+        TextTypedOutput(byte[] textBytes, String encode) {
+            this.textBytes = textBytes;
+            this.mimeType = " application/x-www-form-urlencoded; charset=" + encode;
+        }
+
+        @Override
+        public String fileName() {
+            return null;
+        }
+
+        @Override
+        public String mimeType() {
+            return mimeType;
+        }
+
+        @Override
+        public long length() {
+            return textBytes.length;
+        }
+
+        @Override
+        public void writeTo(OutputStream out) throws IOException {
+            out.write(textBytes);
+        }
+    }
+
     private String getStream2String(InputStreamReader isr){
         StringBuilder sb = new StringBuilder();
 
@@ -148,5 +181,37 @@ public class YangtaoConvert implements Converter {
         }
         return sb.toString();
     }
+
+    private String toStrParams(Object obj) {
+        StringBuffer sb = new StringBuffer();
+        Field[] fields = obj.getClass().getDeclaredFields();
+        try {
+            for (int i = 0, len = fields.length; i < len; i++) {
+                // 对于每个属性，获取属性名
+                String varName = fields[i].getName();
+                // 获取原来的访问控制权限Øß
+                boolean accessFlag = fields[i].isAccessible();
+                // 修改访问控制权限
+                fields[i].setAccessible(true);
+                // 获取在对象f中属性fields[i]对应的对象中的变量
+                Object o = fields[i].get(this);
+                sb.append("&");
+                sb.append(varName);
+                sb.append("=");
+                sb.append(o);
+                // 恢复访问控制权限
+                fields[i].setAccessible(accessFlag);
+            }
+        } catch (IllegalArgumentException ex) {
+            ex.printStackTrace();
+        } catch (IllegalAccessException ex) {
+            ex.printStackTrace();
+        }
+        if (0 < sb.length()) {
+            return sb.substring(1, sb.length());
+        }
+        return sb.toString();
+    }
+
 
 }

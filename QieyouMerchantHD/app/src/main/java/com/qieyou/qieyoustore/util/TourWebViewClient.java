@@ -19,7 +19,8 @@ import im.yixin.sdk.util.StringUtil;
 public class TourWebViewClient extends WebViewClient {
     private final String shareUrl = "qyobj://shop_shared_flag";
     private final String paymentUrl = "qyobj://order_payment";
-    private final String productUrl = "qyobj://product_edit_flag";
+    private final String productEditUrl = "qyobj://product_edit_flag";
+    private final String productAddUrl = "qyobj://product_add_flag";
     private Activity mContext;
     private InnController.InnManagerUICallbacks callbacks;
 
@@ -52,12 +53,17 @@ public class TourWebViewClient extends WebViewClient {
             return true;
         }
 
-        if (null != url && url.contains(productUrl)) {
+        if (null != url && url.contains(productEditUrl)) {
             int index = url.indexOf("=");
             if (index >= 0&& null != callbacks) {
                 String product_id = url.substring(index + 1);
                 callbacks.showProdcutEdit(product_id);
             }
+            return true;
+        }
+
+        if (null != url && url.contains(productAddUrl)) {
+            callbacks.showProdcutAdd();
             return true;
         }
 

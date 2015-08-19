@@ -28,13 +28,15 @@ public class HomeFragmentFactory {
             return HomeMall.create();
         }
 
-        if(HomeMenu.STORE == menu){
-            return HomeStore.create();
+        if(HomeMenu.STORE_GALLERY == menu){
+            return HomeStoreViewPager.create();
         }
         if(HomeMenu.MGR_PRO_AE == menu){
             return ProductAddEdit.create();
         }
-
+        if(HomeMenu.STORE_SUDOKU == menu){
+            return HomeStoreSudoku.create();
+        }
         return null;
     }
 

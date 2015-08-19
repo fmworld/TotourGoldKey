@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+     >
+    <LinearLayout
+        android:layout_width="537dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:background="@drawable/home_mgr_pro_tag_list_bg"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/home_mgr_pro_tag_list_title_bg"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_mgr_pro_tag_list_title"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/home_mgr_pro_tag_list_size"
+                />
+            <TextView
+                android:id="@+id/pro_tag_list_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/home_mgr_pro_tag_list_close"
+                android:layout_centerVertical="true"
+                android:textColor="@color/home_mgr_pro_tag_list_close"
+                android:layout_marginRight="15dp"
+                android:layout_alignParentRight="true"
+                android:padding="10dp"
+                />
+        </RelativeLayout>
+        <ListView
+            android:id="@+id/pro_tag_list"
+            android:layout_width="match_parent"
+            android:layout_height="215dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginBottom="21dp"
+            android:listSelector="@color/transparent"
+            ></ListView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/home_mgr_pro_tag_list_line"/>
+        <LinearLayout
+            android:id="@+id/tag_list_add_layout"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:background="@color/home_mgr_pro_tag_list_content_bg"
+            android:layout_height="53dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textColor="@color/white"
+                android:gravity="center"
+                android:drawableLeft="@drawable/home_mgr_tag_new"
+                android:padding="10dp"
+                android:text="@string/home_mgr_pro_tag_list_new"
+
+                android:drawablePadding="8dp"
+                />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/home_mgr_pro_tag_list_line"
+            android:layout_marginBottom="43dp"
+            />
+        <Button
+            android:id="@+id/pro_tag_confirm"
+            android:layout_width="475dp"
+            android:layout_height="91dp"
+            android:background="@drawable/home_mgr_pro_tag_confirm_corners_bg"
+            android:layout_gravity="center"
+            android:layout_marginBottom="35dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/home_mgr_pro_tag_list_size"
+            android:text="@string/positive"
+            />
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

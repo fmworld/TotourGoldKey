@@ -5,7 +5,6 @@ import android.util.Log;
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.controllers.InnController;
 import com.fm.fmlib.network.TokenCheckedRunnable;
-import com.fm.fmlib.state.HomeState;
 import com.fm.fmlib.tour.Service.UtilService;
 import com.fm.fmlib.tour.entity.TransferEntity;
 
@@ -23,7 +22,7 @@ public class InnFetchManagerTransferRunnable extends TokenCheckedRunnable<Transf
 
     @Override
     public void onSuccessInBackground(TransferEntity result){
-        TourApplication.instance().getPropertyDaoPri().saveProperty(InnController.InnTransfer.managerHome.toString(), result.msg);
+        TourApplication.instance().getDaoProperty().saveProperty(InnController.InnTransfer.managerHome.toString(), result.msg);
     }
 
     @Override

@@ -34,7 +34,7 @@ public class HomeNavigationAdapter extends BaseAdapter {
         HomeNaviItem item = new HomeNaviItem();
         item.local_icon = R.drawable.test_stor_icon;
         item.title = mContext.getString(R.string.home_store_title);
-        item.tag = MainController.HomeMenu.STORE;
+        item.tag = MainController.HomeMenu.STORE_GALLERY;
         items.add(item);
 
         //mall

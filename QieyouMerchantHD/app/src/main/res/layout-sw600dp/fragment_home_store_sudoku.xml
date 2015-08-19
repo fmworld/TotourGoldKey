@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qieyou.qieyoustore.ui.widget.TransLinearlayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    xmlns:storeTabBar="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/store_sudoku_title_bg"
+        >
+        <ImageView
+            android:id="@+id/store_sudoku_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/back_icon"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/store_sudoku_title"
+            android:text="@string/store_sudoku_title"
+            android:layout_centerInParent="true"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/store_sudoku_tabbar_bg"
+        >
+        <com.qieyou.qieyoustore.ui.widget.StoreTabBar
+
+            android:layout_marginTop="10dp"
+            android:id="@+id/store_sdk_tab_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="53dp"
+            android:minWidth="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            />
+    </RelativeLayout>
+
+    <GridView
+        android:id="@+id/store_sudoku_grid"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/store_sudoku_grid_space"
+        android:paddingRight="@dimen/store_sudoku_grid_space"
+        android:paddingTop="@dimen/store_sudoku_grid_space"
+        android:numColumns="3"
+        android:horizontalSpacing="@dimen/store_sudoku_grid_space"
+        android:verticalSpacing="@dimen/store_sudoku_grid_space"
+        android:background="@color/store_sudoku_grid_bg"
+        ></GridView>
+</com.qieyou.qieyoustore.ui.widget.TransLinearlayout>

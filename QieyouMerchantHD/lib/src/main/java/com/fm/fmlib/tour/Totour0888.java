@@ -2,6 +2,7 @@ package com.fm.fmlib.tour;
 
 import com.fm.fmlib.tour.Service.GoodsService;
 import com.fm.fmlib.tour.Service.InnManagerService;
+import com.fm.fmlib.tour.Service.ProductService;
 import com.fm.fmlib.tour.Service.UserService;
 import com.fm.fmlib.tour.Service.UtilService;
 import com.google.gson.FieldNamingPolicy;
@@ -17,26 +18,27 @@ import retrofit.RestAdapter;
  * Created by zhou feng'an on 2015/7/30.
  */
 public class Totour0888 {
-    private TourConfig mTourConfig;
     private RestAdapter restAdapter ;
 
     private UserService mUserService;
     private UtilService mUtilService;
     private InnManagerService innManagerService;
     private GoodsService mGoodsService;
+    private ProductService mProductService;
     public Totour0888(){
-        mTourConfig = new TourConfig();
         Gson gson = new GsonBuilder()
                 .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
                 .registerTypeAdapter(Date.class, new DateTypeAdapter())
                 .create();
         restAdapter = new RestAdapter.Builder()
-                .setEndpoint(mTourConfig.getEndpoint())
+                .setEndpoint(TourConfig.instance().getEndpoint())
                 .setConverter(new YangtaoConvert(gson))
                 .build();
         mUserService = restAdapter.create(UserService.class);
         mUtilService = restAdapter.create(UtilService.class);
         innManagerService = restAdapter.create(InnManagerService.class);
+        mProductService = restAdapter.create(ProductService.class);
+
         mGoodsService = restAdapter.create(GoodsService.class);
     }
 
@@ -54,5 +56,9 @@ public class Totour0888 {
 
     public GoodsService getmGoodsService() {
         return mGoodsService;
+    }
+
+    public ProductService getProductService() {
+        return mProductService;
     }
 }

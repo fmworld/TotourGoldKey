@@ -1,10 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
+    xmlns:storeTabBar="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     >
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/user_default_icon"
-        />
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.qieyou.qieyoustore.ui.widget.StoreTabBar
+            android:layout_marginTop="18dp"
+            android:id="@+id/store_gallery_tab_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="53dp"
+            android:minWidth="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="18dp"
+            />
+        <ImageView
+            android:id="@+id/store_sudoku_choose_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/store_sudoku_choose_button"
+            />
+    </RelativeLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/store_view_pager"
+        android:layout_width="855dp"
+        android:layout_height="554dp"
+        android:layout_gravity="center"
+        >
+    </android.support.v4.view.ViewPager>
+</LinearLayout>

@@ -1,9 +1,11 @@
 package com.qieyou.qieyoustore.Adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.qieyou.qieyoustore.ui.widget.ColorTextButton;
@@ -28,11 +30,11 @@ final class HomeMgrProPicsHolderHelper extends ViewHolderHelper{
     }
 
     public HomeMgrProPicsHolderHelper setPlaceHoldImg(int viewId, int res){
-        ((SimpleDraweeView)findViewById(viewId)).getHierarchy().setPlaceholderImage(res);
+        ((ImageView)findViewById(viewId)).setImageResource(res);
         return this;
     }
 
-    public HomeMgrProPicsHolderHelper setPlaceHoldImg(int viewId, Uri uri){
+    public HomeMgrProPicsHolderHelper setImageURI(int viewId, Uri uri){
         ((SimpleDraweeView)findViewById(viewId)).setImageURI(uri);
         return this;
     }
