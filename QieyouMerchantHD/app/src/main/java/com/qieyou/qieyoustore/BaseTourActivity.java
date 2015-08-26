@@ -24,11 +24,12 @@ public class BaseTourActivity extends AppCompatActivity {
     public final String TAG = this.getClass().getSimpleName();
     private MainController mMainController;
     private Display mDisplay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Request Progress Bar in Action Bar
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        Log.v(TAG, "density "+DisplayUtil.getDensity(this));
+        Log.v(TAG, "density " + DisplayUtil.getDensity(this));
         super.onCreate(savedInstanceState);
 
         setContentView(getContentViewLayoutId());
@@ -38,9 +39,11 @@ public class BaseTourActivity extends AppCompatActivity {
         mDisplay = new AndroidDisplay(this);
         handleIntent(getIntent(), getDisplay());
     }
+
     protected int getContentViewLayoutId() {
         return R.layout.activity_main;
     }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -57,6 +60,7 @@ public class BaseTourActivity extends AppCompatActivity {
 //        mMainController.setHostCallbacks(this);
         mMainController.init();
     }
+
     @Override
     protected void onPause() {
         mMainController.suspend();
@@ -86,7 +90,7 @@ public class BaseTourActivity extends AppCompatActivity {
             intent.setType("image/*");
         } else {
             intent = new Intent
-                    (Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    (Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         }
         startActivityForResult(intent, TourPicConfig.REQUEST_CODE_PIC_LOCAL);
     }
@@ -108,8 +112,8 @@ public class BaseTourActivity extends AppCompatActivity {
                             (MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile)),
                     TourPicConfig.REQUEST_CODE_PIC_CAMERA);
             Log.v("take pic", "++++++++++++++++++++++++++++++++++++++++++++++++++ ");
-        } catch(Exception e){
-            Log.v("take pic", "++++++++++++++++++++++++++++++++++++++++++++++++++ "+e.getLocalizedMessage());
+        } catch (Exception e) {
+            Log.v("take pic", "++++++++++++++++++++++++++++++++++++++++++++++++++ " + e.getLocalizedMessage());
         }
 
 

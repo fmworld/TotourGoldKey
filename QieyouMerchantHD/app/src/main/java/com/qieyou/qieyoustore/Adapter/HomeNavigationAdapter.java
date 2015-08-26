@@ -1,14 +1,24 @@
 package com.qieyou.qieyoustore.Adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.controllers.MainController;
+import com.fm.fmlib.dao.LaunchProfile;
+import com.fm.fmlib.state.ProductState;
+import com.fm.fmlib.utils.DisplayUtil;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.bean.HomeNaviItem;
+import com.qieyou.qieyoustore.ui.widget.ColorTextButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +74,17 @@ public class HomeNavigationAdapter extends BaseAdapter {
         item.title = mContext.getString(R.string.home_setting_title);
         item.tag = MainController.HomeMenu.SETTING;
         items.add(item);
+
+        //add
+        List<LaunchProfile> profiles=  TourApplication.instance().getDaoLaunProfile().getLaunProfiles(ProductState.LaunchProfileType.slider.toString());
+        if(null !=profiles && 0 < profiles.size()){
+            item = new HomeNaviItem();
+            item.tag = MainController.HomeMenu.WEB;
+            item.icon = profiles.get(0).getImg();
+            item.title = profiles.get(0).getLink();
+            items.add(item);
+        }
+
     }
 
     @Override
@@ -73,7 +94,7 @@ public class HomeNavigationAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return items.get(position).tag;
+        return items.get(position);
     }
 
     @Override
@@ -84,12 +105,19 @@ public class HomeNavigationAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         HomeNaviItem item = items.get(position);
-        HomeNaviHolderHelper holderHelper = HomeNaviHolderHelper.get(mContext, position, convertView, parent, R.layout.adapter_home_navi_item);
-        holderHelper
-                .setSelected(R.id.home_navitem, currentIndex == position)
-                .setCompoundDrawablesWithIntrinsicBounds(R.id.home_navitem, 0, item.local_icon, 0, 0)
-                .setText(R.id.home_navitem, item.title);
-        return holderHelper.mConvertView;
+        View view;
+        if(item.tag == MainController.HomeMenu.WEB){
+            view = View.inflate(mContext, R.layout.adapter_home_navi_web_item, null);
+            ((SimpleDraweeView)view.findViewById(R.id.navi_web_item)).setImageURI(Uri.parse(item.icon));
+        }else{
+            view = View.inflate(mContext, R.layout.adapter_home_navi_item, null);
+            (view.findViewById(R.id.home_navitem)).setSelected(currentIndex == position);
+            ((ColorTextButton)view.findViewById(R.id.home_navitem)).setCompoundDrawablesWithIntrinsicBounds(0, item.local_icon, 0, 0);
+            ((ColorTextButton)view.findViewById(R.id.home_navitem)) .setText(item.title);
+
+        }
+
+        return view;
     }
 
     public void onItemClick(int index) {

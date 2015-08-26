@@ -77,7 +77,7 @@ public class TourBackgroundExecutor implements BackgroundExecutor {
                     if (!isBadNetworkState((BaseEntity) mResult)) {
                         mNetworkCallRunnable.onSuccess(mResult);
                     }else{
-                        mNetworkCallRunnable.onSuccessBadCode(((BaseEntity) mResult).errorInfo);
+                        mNetworkCallRunnable.onSuccessBadCode(((BaseEntity) mResult).code,((BaseEntity) mResult).errorInfo);
                     }
                 } else if (mRetrofitError != null) {
                     mNetworkCallRunnable.onError(mRetrofitError);

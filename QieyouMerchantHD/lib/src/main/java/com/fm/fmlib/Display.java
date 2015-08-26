@@ -15,10 +15,13 @@ import java.util.List;
 public interface Display {
     //进入登录页面
     void showLogin();
+
     //进入找回密码页面
     void showFindPassword();
+
     //进入主页
     void showHomePage();
+
     //显示获取验证码的读秒
     void showVeriCodeCountdown();
 
@@ -28,11 +31,17 @@ public interface Display {
 
     void showHomeMenuItem(MainController.HomeMenu menu);
 
+    void showHomeMenuItem(MainController.HomeMenu menu, String data);
+
     void showHomeSecondContent(MainController.HomeMenu menu);
 
     void showHomeSecondContent(MainController.HomeMenu menu, Bundle bundle);
 
     void hideHomeSecondContent();
+
+    void showHomeThirdContent(MainController.HomeMenu menu, Bundle bundle);
+
+    void hideHomeThirdContent();
 
     void hideHomeMenu();
 
@@ -42,7 +51,7 @@ public interface Display {
     void showShareUI(String thunm, String name, String url);
 
     //显示支付选择页面
-    void showPaymentType(String url);
+    void showWebViewNotify(String url, int type);
 
     void showProductInfo(ProductInfo info);
 
@@ -63,4 +72,7 @@ public interface Display {
 
     //显示tag分类后的商品
     void showProductBre(List<ProductBreviary> pros);
+
+    //显示tag分类后的商品
+    void showVerifyCode(MainController.HomeMenu menu, Bundle bundle);
 }

@@ -10,7 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.fm.fmlib.TourApplication;
+import com.fm.fmlib.dao.LaunchProfile;
 import com.fm.fmlib.dao.ProductTag;
+import com.fm.fmlib.state.ProductState;
 import com.fm.fmlib.utils.DisplayUtil;
 import com.qieyou.qieyoustore.R;
 
@@ -21,9 +24,6 @@ import java.util.List;
  * Created by zhoufeng'an on 2015/8/18.
  */
 public class StoreTabBar extends RelativeLayout implements View.OnClickListener {
-    public interface TarBarItemClickListener {
-        public void onTarBarItemClicked(String item_seq);
-    }
 
     private List<ProductTag> tagsData;
     private int focusWidth;
@@ -32,7 +32,7 @@ public class StoreTabBar extends RelativeLayout implements View.OnClickListener 
     private float textSize;
 
     private View focusView;
-    private TarBarItemClickListener tarBarItemClickListener;
+    private AbstLinearIndicator.LinearIndicatorListener mLinearIndicatorListener;
 
     private List<TextView> tags;
     private TextView selectedView;
@@ -82,7 +82,7 @@ public class StoreTabBar extends RelativeLayout implements View.OnClickListener 
     }
 
     private void initTagsLayout() {
-        if(null == tagsLayout){
+        if (null == tagsLayout) {
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
             tagsLayout = new LinearLayout(this.getContext());
             tagsLayout.setLayoutParams(params);
@@ -95,6 +95,7 @@ public class StoreTabBar extends RelativeLayout implements View.OnClickListener 
         for (ProductTag item : tagsData) {
             initTag(item.getTag_name(), item.getItem_seq());
         }
+
         initTagsClicklistener();
         if (0 < tags.size()) {
             tags.get(0).callOnClick();
@@ -126,7 +127,7 @@ public class StoreTabBar extends RelativeLayout implements View.OnClickListener 
             focusView.setLayoutParams(params);
             focusView.setBackgroundResource(R.drawable.home_store_tab_bar_foucus_bg);
             focusView.setVisibility(View.INVISIBLE);
-            this.addView(focusView,0);
+            this.addView(focusView, 0);
         }
 
         focusView.setVisibility(tags.size() > 0 ? View.VISIBLE : View.GONE);
@@ -148,7 +149,8 @@ public class StoreTabBar extends RelativeLayout implements View.OnClickListener 
     }
 
     private void focusMove(View v) {
-        focusView.animate().translationX(v.getX() + v.getWidth() / 2 - focusView.getWidth() / 2);
+        focusView.animate().translationX(v.getX() +
+                ((0 == v.getWidth()) ? 0 : v.getWidth() / 2 - focusView.getWidth() / 2));
     }
 
 
@@ -162,18 +164,18 @@ public class StoreTabBar extends RelativeLayout implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        if (null != tarBarItemClickListener) {
-            tarBarItemClickListener.onTarBarItemClicked((String) v.getTag());
+        if (null != mLinearIndicatorListener) {
+            mLinearIndicatorListener.onTarBarItemClicked(this, v.getTag());
         }
         focusMove(v);
         selectView((TextView) v);
     }
 
-    public void setTarBarItemClickListener(TarBarItemClickListener tarBarItemClickListener) {
-        this.tarBarItemClickListener = tarBarItemClickListener;
+    public void setTarBarItemClickListener(AbstLinearIndicator.LinearIndicatorListener tarBarItemClickListener) {
+        this.mLinearIndicatorListener = tarBarItemClickListener;
     }
 
-    public int getItemCount(){
+    public int getItemCount() {
         return tags.size();
     }
 }

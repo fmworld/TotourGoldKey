@@ -23,10 +23,10 @@
             android:textSize="@dimen/home_manager_check_close_size" />
 
         <TextView
+            android:id="@+id/webview_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="选择支付方式"
             android:textColor="@color/manager_check_title_text"
             android:textSize="@dimen/home_manager_check_title_size" />
     </RelativeLayout>

@@ -40,6 +40,10 @@ public class TourDaoGenerator {
         addLocalList(dbTableBuilder);
 
         addProductBreviaryTable(dbTableBuilder);
+
+        addDeviceAdd(dbTableBuilder);
+
+        addProduct(dbTableBuilder);
         try {
             new DaoGenerator().generateAll(schema, dbConfig.getSourceDir());
         } catch (Exception e) {
@@ -47,13 +51,6 @@ public class TourDaoGenerator {
 
     }
 
-    public static void addProduct(DbTableBuilder dbTableBuilder){
-        dbTableBuilder.prepareTable(TourDBConfig.TableName.MyProperty.toString())
-                .addIdProperty()
-                .addStringPropertyNotNull(TourDBConfig.PropertyTable.key.toString())
-                .addStringProperty(TourDBConfig.PropertyTable.value.toString())
-                .build();
-    }
 
     public static void addTag(DbTableBuilder dbTableBuilder){
         dbTableBuilder.prepareTable(TourDBConfig.TableName.ProductTag.toString())
@@ -151,6 +148,40 @@ public class TourDaoGenerator {
                 .build();
     }
 
+    public static void addDeviceAdd(DbTableBuilder dbTableBuilder){
+        dbTableBuilder.prepareTable(TourDBConfig.TableName.LaunchProfile.toString())
+                .addStringPropertyNotNull(TourDBConfig.LaunchProfileTable.img.toString())
+                .addStringProperty(TourDBConfig.LaunchProfileTable.link.toString())
+                .addStringProperty(TourDBConfig.LaunchProfileTable.tag.toString())
+                .addStringProperty(TourDBConfig.LaunchProfileTable.type.toString())
+                .build();
+    }
+
+
+    public static void addProduct(DbTableBuilder dbTableBuilder){
+        dbTableBuilder.prepareTable(TourDBConfig.TableName.Product.toString())
+                .addStringPropertyNotNull(TourDBConfig.ProductTable.product_id.toString())
+                .addStringProperty(TourDBConfig.ProductTable.agent.toString())
+                .addStringProperty(TourDBConfig.ProductTable.bdgps.toString())
+                .addStringProperty(TourDBConfig.ProductTable.bought_count.toString())
+                .addStringProperty(TourDBConfig.ProductTable.category.toString())
+                .addStringProperty(TourDBConfig.ProductTable.category_id.toString())
+                .addStringProperty(TourDBConfig.ProductTable.comments.toString())
+                .addStringProperty(TourDBConfig.ProductTable.content.toString())
+                .addStringProperty(TourDBConfig.ProductTable.lat.toString())
+                .addStringProperty(TourDBConfig.ProductTable.lon.toString())
+                .addStringProperty(TourDBConfig.ProductTable.old_price.toString())
+                .addStringProperty(TourDBConfig.ProductTable.on_shelves.toString())
+                .addStringProperty(TourDBConfig.ProductTable.price.toString())
+                .addStringProperty(TourDBConfig.ProductTable.score.toString())
+                .addStringProperty(TourDBConfig.ProductTable.product_name.toString())
+                .addStringProperty(TourDBConfig.ProductTable.state.toString())
+                .addStringProperty(TourDBConfig.ProductTable.shelf_count.toString())
+                .addStringProperty(TourDBConfig.ProductTable.thumb.toString())
+                .addStringProperty(TourDBConfig.ProductTable.quantity.toString())
+                .addStringProperty(TourDBConfig.ProductTable.tuan_end_time.toString())
+                .build();
+    }
 
 
 

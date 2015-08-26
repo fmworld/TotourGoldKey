@@ -7,34 +7,35 @@
 
     <LinearLayout
         android:layout_width="531dp"
-        android:layout_height="509dp"
+        android:layout_height="444dp"
         android:layout_gravity="center"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="42dp"
+            android:layout_height="37dp"
             android:background="@drawable/home_code_title_bg"
             >
 
             <TextView
+                android:id="@+id/code_close"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:padding="10dp"
                 android:text="@string/home_code_close"
-                android:textColor="@color/home_code_title_color" />
+                style="@style/code_close" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/home_code_verify"
-                android:textColor="@color/home_code_title_color" />
+                style="@style/code_title"  />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="87dp"
             android:background="@color/home_code_input_bg"
             >
             <TextView
@@ -42,10 +43,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="1"
-                android:textColor="@color/home_code_title_color"
                 android:layout_centerVertical="true"
                 android:paddingLeft="35dp"
                 android:background="@null"
+                style="@style/code_num_key"
+                android:gravity="center|left"
+                android:hint="@string/code_verify_input_notify"
+                android:textColorHint="@color/white_1"
                 android:layout_toLeftOf="@+id/home_code_delete"
                 />
             <ImageView
@@ -65,12 +69,10 @@
             >
             <TextView
                 android:id="@+id/home_code_num1"
-                android:layout_width="177dp"
-                android:layout_height="94dp"
                 android:gravity="center"
                 android:text="1"
                 android:background="@drawable/home_code_key_bg"
-                android:textColor="@color/home_code_title_color"
+                style="@style/code_num_key"
                 />
             <View
                 android:id="@+id/line_h_1"
@@ -84,13 +86,11 @@
 
             <TextView
                 android:id="@+id/home_code_num2"
-                android:layout_width="177dp"
-                android:layout_height="94dp"
                 android:layout_toRightOf="@+id/line_h_1"
                 android:text="2"
                 android:gravity="center"
                 android:background="@drawable/home_code_key_bg"
-                android:textColor="@color/home_code_title_color"
+                style="@style/code_num_key"
                 />
             <View
                 android:id="@+id/line_h_2"
@@ -104,12 +104,10 @@
             <TextView
                 android:id="@+id/home_code_num3"
                 android:layout_toRightOf="@+id/line_h_2"
-                android:layout_width="177dp"
-                android:layout_height="94dp"
                 android:text="3"
                 android:gravity="center"
                 android:background="@drawable/home_code_key_bg"
-                android:textColor="@color/home_code_title_color"
+                style="@style/code_num_key"
                 />
             <View
                 android:id="@+id/line_v_1"
@@ -123,34 +121,28 @@
             <TextView
                 android:id="@+id/home_code_num4"
                 android:layout_below="@+id/line_v_1"
-                android:layout_width="177dp"
-                android:layout_height="94dp"
                 android:text="4"
                 android:gravity="center"
                 android:background="@drawable/home_code_key_bg"
-                android:textColor="@color/home_code_title_color"
+                style="@style/code_num_key"
                 />
             <TextView
                 android:id="@+id/home_code_num5"
                 android:layout_below="@+id/line_v_1"
                 android:layout_alignLeft="@+id/home_code_num2"
-                android:layout_width="177dp"
-                android:layout_height="94dp"
                 android:text="5"
                 android:gravity="center"
                 android:background="@drawable/home_code_key_bg"
-                android:textColor="@color/home_code_title_color"
+                style="@style/code_num_key"
                 />
             <TextView
                 android:id="@+id/home_code_num6"
                 android:layout_below="@+id/line_v_1"
                 android:layout_alignLeft="@+id/home_code_num3"
-                android:layout_width="177dp"
-                android:layout_height="94dp"
                 android:text="6"
                 android:gravity="center"
                 android:background="@drawable/home_code_key_bg"
-                android:textColor="@color/home_code_title_color"
+                style="@style/code_num_key"
                 />
             <View
                 android:id="@+id/line_v_2"
@@ -163,35 +155,29 @@
                 />
             <TextView
                 android:id="@+id/home_code_num7"
-                android:layout_width="177dp"
-                android:layout_height="94dp"
                 android:layout_below="@+id/line_v_2"
                 android:text="7"
                 android:gravity="center"
                 android:background="@drawable/home_code_key_bg"
-                android:textColor="@color/home_code_title_color"
+                style="@style/code_num_key"
                 />
             <TextView
                 android:id="@+id/home_code_num8"
-                android:layout_width="177dp"
-                android:layout_height="94dp"
                 android:layout_below="@+id/line_v_2"
                 android:layout_alignLeft="@+id/home_code_num2"
                 android:text="8"
                 android:gravity="center"
                 android:background="@drawable/home_code_key_bg"
-                android:textColor="@color/home_code_title_color"
+                style="@style/code_num_key"
                 />
             <TextView
                 android:id="@+id/home_code_num9"
-                android:layout_width="177dp"
-                android:layout_height="94dp"
                 android:layout_below="@+id/line_v_2"
                 android:layout_alignLeft="@+id/home_code_num3"
                 android:text="9"
                 android:gravity="center"
                 android:background="@drawable/home_code_key_bg"
-                android:textColor="@color/home_code_title_color"
+                style="@style/code_num_key"
                 />
             <View
                 android:id="@+id/line_v_3"
@@ -204,25 +190,24 @@
                 />
             <TextView
                 android:id="@+id/home_code_num0"
-                android:layout_width="177dp"
-                android:layout_height="94dp"
                 android:layout_below="@+id/line_v_3"
                 android:text="0"
                 android:gravity="center"
                 android:background="@drawable/home_code_key_0_bg"
-                android:textColor="@color/home_code_title_color"
+                style="@style/code_num_key"
                 />
             <Button
                 android:id="@+id/home_code_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="提交验证"
+                android:text="@string/home_code_submit"
                 android:layout_toRightOf="@+id/home_code_num0"
                 android:layout_below="@+id/home_code_num8"
                 android:layout_alignBottom="@+id/home_code_num0"
                 android:layout_alignRight="@+id/home_code_num9"
-                android:background="@drawable/home_code_submit_can_bg"
-                android:textColor="@color/home_code_title_color"
+                android:background="@drawable/home_code_submit_unable_bg"
+                style="@style/code_confirm_key"
+                android:clickable="false"
                 />
         </RelativeLayout>
     </LinearLayout>

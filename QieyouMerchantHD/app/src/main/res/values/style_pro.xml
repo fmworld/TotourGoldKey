@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="pro_detail_title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="pro_detail_notify">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="pro_detail_content">
+        <item name="android:textColor">@color/white_1</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="pro_detail_content_title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="pro_detail_content_right">
+        <item name="android:textColor">@color/white_1</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">left|center</item>
+    </style>
+    <style name="pro_detail_content_right_tag">
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="pro_detail_content_right_intro_title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="pro_detail_lable">
+        <item name="android:textColor">@color/white_1</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="pro_detail_price">
+        <item name="android:textColor">@color/white_1</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="pro_detail_price_button">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="pro_detail_price_min">
+        <item name="android:textColor">@color/white_1</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="pro_detail_price_max">
+        <item name="android:textColor">@color/white_1</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">left</item>
+    </style>
+
+    <style name="pro_comments_title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="pro_comments_score">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="pro_comments_score_num">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="pro_comments_name">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="pro_comments_content">
+        <item name="android:textColor">@color/white_1</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">left|center</item>
+    </style>
+</resources>

@@ -3,14 +3,17 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="855dp"
     android:layout_height="554dp"
-    android:background="#898989"
     android:orientation="vertical">
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/store_vp_post"
         android:layout_width="855dp"
         android:layout_height="554dp"
+        fresco:placeholderImage="@drawable/pro_default_post"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:actualImageScaleType="centerCrop"
         />
     <RelativeLayout
+        android:id="@+id/store_vp_bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="87dp"
         android:background="@color/store_vp_item_bottom_bg"
@@ -44,18 +47,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="10dp"
             />
-        <TextView
-            android:id="@+id/store_vp_item_price_unit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/store_vp_price_unit"
-            android:textColor="@color/store_sudoku_grid_item_price_unit"
-            android:lines="1"
-            android:text="@string/rmb_unit"
-            android:layout_toRightOf="@+id/store_vp_item_price"
-            android:layout_alignTop="@+id/store_vp_item_price"
-            android:layout_marginLeft="5dp"
-            />
+
 
         <TextView
             android:id="@+id/store_vp_item_old_price"
@@ -65,23 +57,10 @@
             android:textColor="@color/store_sudoku_grid_item_price_unit"
             android:lines="1"
             android:text="@string/store_item_price_init"
-            android:layout_toRightOf="@+id/store_vp_item_price_unit"
-            android:layout_alignBottom="@+id/store_vp_item_price_unit"
+            android:layout_toRightOf="@+id/store_vp_item_price"
+            android:layout_alignBottom="@+id/store_vp_item_price"
             android:layout_marginLeft="10dp"
             />
-        <TextView
-            android:id="@+id/store_vp_item_old_price_unit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/store_vp_old_price_unit"
-            android:textColor="@color/store_sudoku_grid_item_price_unit"
-            android:lines="1"
-            android:text="@string/rmb_unit"
-            android:layout_toRightOf="@+id/store_vp_item_old_price"
-            android:layout_alignTop="@+id/store_vp_item_old_price"
-            android:layout_marginLeft="5dp"
-            />
-
         <Button
             android:id="@+id/store_vp_item_bottom_button"
             android:layout_width="187dp"

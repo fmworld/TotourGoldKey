@@ -9,7 +9,13 @@ import java.util.List;
  * Created by zhoufeng'an on 2015/8/3.
  */
 public interface ProductState extends BaseState {
-    public static class InnFetchProductBreEvent {
+    enum LaunchProfileType{
+        ad,
+        shop,
+        slider,
+        store
+    }
+    class InnFetchProductBreEvent {
         public List<ProductBreviary> infos;
 
         public InnFetchProductBreEvent(List<ProductBreviary> infos) {
@@ -17,9 +23,16 @@ public interface ProductState extends BaseState {
         }
     }
 
-    public static class ProductFetchTagListEvent {
+     class ProductFetchTagListEvent {
 
         public ProductFetchTagListEvent() {
+        }
+    }
+
+    class ProductFetchSubmitUrlEvent {
+        public String item;
+        public ProductFetchSubmitUrlEvent(String item) {
+            this.item = item;
         }
     }
 

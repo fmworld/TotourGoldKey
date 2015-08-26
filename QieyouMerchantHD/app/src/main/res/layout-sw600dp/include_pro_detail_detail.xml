@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:id="@+id/detail_top_imgs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        ></LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray_line"/>
+    <RelativeLayout
+        android:id="@+id/detail_pro_detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        >
+        <ImageView
+            android:id="@+id/detail_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/detail_pro_detail"
+            android:layout_marginLeft="15dp"
+            />
+
+        <TextView
+            android:id="@+id/detail_detail_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            style="@style/pro_detail_content_title"
+            android:layout_alignBottom="@+id/detail_logo"
+            android:text="@string/detail_detail_title"
+            />
+        <TextView
+            android:id="@+id/detail_detail_content"
+            android:layout_alignLeft="@+id/detail_detail_title"
+            android:layout_below="@+id/detail_detail_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            style="@style/pro_detail_content"
+            android:lineSpacingExtra="5dp"
+            android:layout_marginTop="10dp"
+            />
+    </RelativeLayout>
+</merge>

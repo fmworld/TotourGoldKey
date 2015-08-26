@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.qieyou.qieyoustore.ui.widget.TransLinearlayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
-    xmlns:storeTabBar="http://schemas.android.com/apk/res-auto"
+    xmlns:linearIndicator="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     >
     <RelativeLayout
@@ -33,4 +33,13 @@
         android:layout_gravity="center"
         >
     </android.support.v4.view.ViewPager>
-</LinearLayout>
+    <com.qieyou.qieyoustore.ui.widget.StoreNumTextIndicator
+        android:id="@+id/store_vp_indicator"
+        android:layout_width="855dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        linearIndicator:layer="top"
+        >
+    </com.qieyou.qieyoustore.ui.widget.StoreNumTextIndicator>
+</com.qieyou.qieyoustore.ui.widget.TransLinearlayout>

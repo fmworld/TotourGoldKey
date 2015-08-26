@@ -9,6 +9,7 @@ import com.fm.fmlib.state.HomeState;
 import com.fm.fmlib.state.InnState;
 import com.fm.fmlib.tasks.InnFetchStoreCardRunnable;
 import com.fm.fmlib.tasks.InnFetchManagerTransferRunnable;
+import com.fm.fmlib.tasks.LaunchFetchProfileRunnable;
 import com.fm.fmlib.tasks.ProfileFetchProOptionsRunnable;
 import com.fm.fmlib.tasks.ProfileFetchTagListRunnable;
 import com.fm.fmlib.tasks.UserFetchUserInfoRuunable;
@@ -32,19 +33,25 @@ public class MainController extends BaseUiController<MainController.MainUi, Main
         SETTING,
         PERSON_INFO,
         MGR_PRO_AE,
-        STORE_SUDOKU
+        STORE_SUDOKU,
+        PRO_DETAIL,
+        COMMENTS,
+        VERIFY_SUCCESS,
+        WEB
     }
 
     private BackgroundExecutor mExecutor;
     private UserController mUserController;
     private InnController mInnController;
     private ProductController mProductController;
+//    private LaunchController mLaunchController;
 private ApplicationState mApplicationState;
     public MainController(){
         mApplicationState = new ApplicationState();
         mUserController = new UserController();
         mInnController = new InnController();
         mProductController =new ProductController();
+//        mLaunchController = new LaunchController();
         mExecutor = BackgroundExecutorProvider.providerBackgroundExecutor();
     }
 
@@ -176,9 +183,14 @@ private ApplicationState mApplicationState;
         return mProductController;
     }
 
+//    public LaunchController getLaunchController() {
+//        return mLaunchController;
+//    }
+
     public InnState getInnState() {
         return (InnState)mApplicationState;
     }
+
 
     @Subscribe
     public void fetchedManagerPage(HomeState.HomeManagerFetchEvent event){
@@ -222,6 +234,10 @@ private ApplicationState mApplicationState;
                 }
             }
         }
+    }
+
+    private class LaunchFetchProfileTask extends LaunchFetchProfileRunnable {
+
     }
 
 

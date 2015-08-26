@@ -16,8 +16,9 @@ public class TourDBConfig {
         CategoryTitle,
         CategoryList,
         LocalTitle,
-        LocalList
-
+        LocalList,
+        LaunchProfile,
+        Product
     }
     public enum UserTable{
         account,
@@ -92,6 +93,36 @@ public class TourDBConfig {
         tuan_end_time
 
     }
+    public enum LaunchProfileTable{
+        type,
+        img,
+        link,
+        tag
+    }
+
+    public enum ProductTable{
+        product_id,
+        state,//
+        product_name,//
+        price,
+        old_price,
+        score,
+        comments,
+        agent,
+        shelf_count,//
+        content,
+        thumb,//
+        quantity,//
+        bought_count,
+        tuan_end_time,//
+        category,
+        category_id,
+        lon,
+        lat,
+        bdgps,
+        on_shelves
+    }
+
 
     public String getSourceDir() {
         return sourceDir;

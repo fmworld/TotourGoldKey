@@ -93,6 +93,7 @@ public class UserDaoProvider implements UserInterface{
         mCurrentUser.setState(copy.getState());
         mCurrentUser.setToken(copy.getToken());
         mCurrentUser.setRole(copy.getRole());
+        mCurrentUser.setIslogin(copy.getIslogin());
     }
 
     private void initUserInfo(UserInfo info) {
@@ -103,11 +104,13 @@ public class UserDaoProvider implements UserInterface{
 
     private User getLoginedUser(){
         QueryBuilder<User> queryBuilder = mUserDao.queryBuilder();
-        queryBuilder.where(UserDao.Properties.Islogin.eq(true));
+        queryBuilder.where(UserDao.Properties.Islogin.eq(Boolean.TRUE));
         if(0 < queryBuilder.list().size()){
             return queryBuilder.list().get(0);
         }
-        return new User();
+        User user = new User();
+        user.setIslogin(Boolean.FALSE);
+        return user;
     }
 
     public User getmCurrentUser(){

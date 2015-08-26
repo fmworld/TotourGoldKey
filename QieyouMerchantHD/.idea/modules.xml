@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/PullToRefreshLibrary/PullToRefreshLibrary.iml" filepath="$PROJECT_DIR$/PullToRefreshLibrary/PullToRefreshLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/QieyouMerchantHD.iml" filepath="$PROJECT_DIR$/QieyouMerchantHD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Rubberlibrary/Rubberlibrary.iml" filepath="$PROJECT_DIR$/Rubberlibrary/Rubberlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/WPTranslibrary/WPTranslibrary.iml" filepath="$PROJECT_DIR$/WPTranslibrary/WPTranslibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WaveRefreshlibrary/WaveRefreshlibrary.iml" filepath="$PROJECT_DIR$/WaveRefreshlibrary/WaveRefreshlibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib/lib.iml" filepath="$PROJECT_DIR$/lib/lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/social_sdk_library_project/social_sdk_library_project.iml" filepath="$PROJECT_DIR$/social_sdk_library_project/social_sdk_library_project.iml" />

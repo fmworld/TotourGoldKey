@@ -7,6 +7,7 @@ import com.fm.fmlib.network.TokenCheckedRunnable;
 import com.fm.fmlib.state.UserState;
 import com.fm.fmlib.tour.entity.LoginOutEntity;
 import com.fm.fmlib.tour.entity.LoginResetPwdEntity;
+import com.fm.fmlib.utils.StringUtils;
 
 import retrofit.RetrofitError;
 
@@ -26,7 +27,7 @@ public class UserSetNewPwdRuunable extends TokenCheckedRunnable<LoginResetPwdEnt
     }
     @Override
     public LoginResetPwdEntity doBackground() throws RetrofitError {
-        return TourApplication.instance().getmTotour().getmUserService().changePassword(mobile, code, pwd);
+        return TourApplication.instance().getmTotour().getmUserService().changePassword(mobile, code, StringUtils.md5(pwd));
     }
 
     @Override

@@ -10,7 +10,10 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/PullToRefreshLibrary" />
+            <option value="$PROJECT_DIR$/Rubberlibrary" />
             <option value="$PROJECT_DIR$/WPTranslibrary" />
+            <option value="$PROJECT_DIR$/WaveRefreshlibrary" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/lib" />
             <option value="$PROJECT_DIR$/social_sdk_library_project" />

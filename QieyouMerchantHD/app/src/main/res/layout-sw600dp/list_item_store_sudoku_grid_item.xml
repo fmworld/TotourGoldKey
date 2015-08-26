@@ -9,6 +9,9 @@
         android:id="@+id/store_sdk_post"
         android:layout_width="299dp"
         android:layout_height="189dp"
+        fresco:placeholderImage="@drawable/pro_default_post"
+        fresco:placeholderImageScaleType="centerCrop"
+        fresco:actualImageScaleType="centerCrop"
         />
     <RelativeLayout
         android:layout_width="match_parent"

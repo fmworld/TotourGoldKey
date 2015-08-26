@@ -1,26 +1,20 @@
 package com.qieyou.qieyoustore.ui.widget;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.fm.fmlib.dao.ProductTag;
-import com.fm.fmlib.utils.DisplayUtil;
 import com.qieyou.qieyoustore.R;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
+
 
 /**
  * Created by zhoufeng'an on 2015/8/18.
  */
-public class StoreNumTextIndicator <>extends AbstLinearIndicator implements View.OnClickListener {
+public class StoreNumTextIndicator extends AbstLinearIndicator implements View.OnClickListener {
 
     public StoreNumTextIndicator(Context context) {
         super(context);
@@ -34,17 +28,18 @@ public class StoreNumTextIndicator <>extends AbstLinearIndicator implements View
         super(context, attrs, defStyleAttr);
     }
 
+
     @Override
     public View getTag(Object dataItem) {
-        return null;
+        View tag = View.inflate(this.getContext(),R.layout.widget_store_indicator_item, null);
+        ((TextView)(tag.findViewById(R.id.store_indicator_text))).setText((String) dataItem);
+        return tag;
     }
 
     @Override
     public View initFocusUI() {
-        TextView
-        return null;
+        return View.inflate(this.getContext(),R.layout.widget_store_indicator_focus,null);
     }
-
 
     @Override
     public void viewFocused(View focused) {
@@ -54,6 +49,10 @@ public class StoreNumTextIndicator <>extends AbstLinearIndicator implements View
     @Override
     public void viewUnfocused(View unfocused) {
 
+    }
+
+    public void updateFoucusState(Object data){
+        ((TextView)focusView).setText(this.getContext().getString(R.string.store_indicator_mask_text_str,(int)data));
     }
 
 

@@ -3,9 +3,11 @@ package com.fm.fmlib.utils;
 import android.content.Context;
 
 import com.fm.fmlib.dao.DaoSession;
+import com.fm.fmlib.dao.LaunchProfileDao;
 import com.fm.fmlib.utils.provider.CategoryDaoProvider;
 import com.fm.fmlib.utils.provider.DaoProvider;
 import com.fm.fmlib.utils.provider.InnDaoProvider;
+import com.fm.fmlib.utils.provider.LaunchProfileProvider;
 import com.fm.fmlib.utils.provider.LocalDaoProvider;
 import com.fm.fmlib.utils.provider.ProductTagDaoProvider;
 import com.fm.fmlib.utils.provider.PropertyDaoProvider;
@@ -19,9 +21,10 @@ public class DataMemCacheUtil{
     private UserDaoProvider userDao;
     private InnDaoProvider innDao;
     private PropertyDaoProvider propertyDao;
-private ProductTagDaoProvider tagsDao;
+    private ProductTagDaoProvider tagsDao;
     private CategoryDaoProvider categoryDao;
     private LocalDaoProvider localDao;
+    private LaunchProfileProvider launchProfileDao;
     public DataMemCacheUtil(Context context) {
         mSession = DaoProvider.provideDaoSession(context);
         userDao = new UserDaoProvider(mSession);
@@ -30,9 +33,11 @@ private ProductTagDaoProvider tagsDao;
         tagsDao = new ProductTagDaoProvider(mSession);
         categoryDao = new CategoryDaoProvider(mSession);
         localDao = new LocalDaoProvider(mSession);
+        launchProfileDao = new LaunchProfileProvider(mSession);
     }
 
     public UserDaoProvider getUserDao() {
+        UserDaoProvider u = userDao;
         return userDao;
     }
 
@@ -54,5 +59,9 @@ private ProductTagDaoProvider tagsDao;
 
     public CategoryDaoProvider getCategoryDao() {
         return categoryDao;
+    }
+
+    public LaunchProfileProvider getLaunchProfileDao(){
+        return launchProfileDao;
     }
 }

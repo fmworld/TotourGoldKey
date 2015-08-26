@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qieyou.qieyoustore.ui.widget.TransLinearlayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="531dp"
+        android:layout_height="444dp"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/code_success_back"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:background="@drawable/bg_coners_gray_18_top_round"
+            android:drawableLeft="@drawable/back"
+            android:paddingLeft="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_coners_black_12_bottom_round"
+            android:gravity="center|top"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/code_vetify_success"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:drawableLeft="@drawable/ok"
+                android:drawablePadding="15dp"
+                android:text="@string/code_verify_success_notify" />
+
+            <TextView
+                android:id="@+id/code_verfy_pro_name"
+                style="@style/code_vetify_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+                <TextView
+                    style="@style/code_vetify_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/code_verify_success_price_a"
+                    />
+                <TextView
+                    android:id="@+id/code_price"
+                    style="@style/code_vetify_content_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    style="@style/code_vetify_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/code_verify_success_price_c"
+                    android:layout_marginLeft="2dp"
+                    />
+                <TextView
+                    android:id="@+id/code_old_price"
+                    style="@style/code_vetify_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                     />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</com.qieyou.qieyoustore.ui.widget.TransLinearlayout>

@@ -56,6 +56,7 @@ public class AndroidDisplay implements Display {
     @Override
     public void showHomePage() {
         mActiviyt.startActivity(new Intent(mActiviyt, HomeAcitvity.class));
+        mActiviyt.finish();
     }
 
     @Override
@@ -129,6 +130,12 @@ public class AndroidDisplay implements Display {
             return;
         }
 
+        if (menu == MainController.HomeMenu.STORE_SUDOKU) {
+            checkMenuState();
+            showConttentItem(menu);
+            return;
+        }
+
         if (menu == MainController.HomeMenu.MALL) {
             checkMenuState();
             showConttentItem(menu);
@@ -136,7 +143,7 @@ public class AndroidDisplay implements Display {
         }
 
         if (menu == MainController.HomeMenu.CODE) {
-            showHomeSecondContent(menu);
+            mActiviyt.startActivity(new Intent(mActiviyt, CodeActivity.class));
             return;
         }
 
@@ -146,6 +153,19 @@ public class AndroidDisplay implements Display {
             return;
         }
 
+    }
+
+    @Override
+    public void showHomeMenuItem(MainController.HomeMenu menu, String data) {
+        if (menu == MainController.HomeMenu.WEB) {
+            checkScMenuState();
+            Bundle bundle = new Bundle();
+            bundle.putString("link", data);
+            showHomeSecondContent(menu, bundle);
+            return;
+        }else{
+            showHomeMenuItem(menu);
+        }
     }
 
     @Override
@@ -168,6 +188,7 @@ public class AndroidDisplay implements Display {
 
     @Override
     public void showHomeSecondContent(MainController.HomeMenu menu, Bundle bundle) {
+
         if (View.GONE == mActiviyt.findViewById(R.id.fragment_content_second_layout).getVisibility()
                 || ((HomeAcitvity) mActiviyt).getCurrentSContentTag() != menu) {
             mActiviyt.findViewById(R.id.fragment_content_second_layout).setVisibility(View.VISIBLE);
@@ -180,9 +201,10 @@ public class AndroidDisplay implements Display {
                     .replace(R.id.fragment_content_second_layout, fragment, menu.toString())
                     .commit();
             ((HomeAcitvity) mActiviyt).setCurrentSContentTag(menu);
-        } else {
-            hideHomeSecondContent();
         }
+//        else {
+//            hideHomeSecondContent();
+//        }
     }
 
     @Override
@@ -191,25 +213,80 @@ public class AndroidDisplay implements Display {
         AnimListenFragment fragment = (AnimListenFragment) mActiviyt.getFragmentManager()
                 .findFragmentByTag(null != ((HomeAcitvity) mActiviyt).getCurrentSContentTag()
                         ? ((HomeAcitvity) mActiviyt).getCurrentSContentTag().toString() : "");
-        if (null != fragment) {
-            fragment.setAnimationListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    mActiviyt.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mActiviyt.findViewById(R.id.fragment_content_second_layout).setVisibility(View.GONE);
-                        }
-                    });
-                }
-            });
+        if (null == fragment) {
+            return;
         }
+        fragment.setAnimationListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mActiviyt.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mActiviyt.findViewById(R.id.fragment_content_second_layout).setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
         mActiviyt.getFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.home_scontent_in_right_to_left, R.anim.home_scontent_out_left_to_right)
                 .remove(fragment)
                 .commit();
         ((HomeAcitvity) mActiviyt).setCurrentSContentTag(null);
+    }
+
+    @Override
+    public void showHomeThirdContent(MainController.HomeMenu menu, Bundle bundle) {
+        if (View.GONE == mActiviyt.findViewById(R.id.fragment_content_third_layout).getVisibility()
+                || ((HomeAcitvity) mActiviyt).getCurrentThirdContentTag() != menu) {
+            mActiviyt.findViewById(R.id.fragment_content_third_layout).setVisibility(View.VISIBLE);
+
+            AnimListenFragment fragment = (AnimListenFragment) HomeFragmentFactory.create(menu);
+            fragment.setArguments(bundle);
+            mActiviyt.getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.home_scontent_in_right_to_left, R.anim.home_scontent_out_left_to_right)
+                    .replace(R.id.fragment_content_third_layout, fragment, menu.toString())
+                    .commit();
+            ((HomeAcitvity) mActiviyt).setCurrentThirdContentTag(menu);
+        } else {
+            hideHomeThirdContent();
+        }
+    }
+
+    @Override
+    public void hideHomeThirdContent() {
+        AnimListenFragment fragment = (AnimListenFragment) mActiviyt.getFragmentManager()
+                .findFragmentByTag(null != ((HomeAcitvity) mActiviyt).getCurrentThirdContentTag()
+                        ? ((HomeAcitvity) mActiviyt).getCurrentThirdContentTag().toString() : "");
+        if (null == fragment) {
+            return;
+        }
+        fragment.setAnimationListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mActiviyt.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mActiviyt.findViewById(R.id.fragment_content_third_layout).setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
+
+        mActiviyt.getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.home_scontent_in_right_to_left, R.anim.home_scontent_out_left_to_right)
+                .remove(fragment)
+                .commit();
+        ((HomeAcitvity) mActiviyt).setCurrentThirdContentTag(null);
+    }
+
+    private void checkScMenuState() {
+        MainController.HomeMenu temp = ((HomeAcitvity) mActiviyt).getCurrentMenuTag();
+        if (temp == MainController.HomeMenu.SETTING || temp == MainController.HomeMenu.PERSON_INFO) {
+            hideHomeProfile();
+        }
     }
 
     private void checkMenuState() {
@@ -226,14 +303,29 @@ public class AndroidDisplay implements Display {
 
     private void showConttentItem(MainController.HomeMenu menu) {
         if (menu != (((HomeAcitvity) mActiviyt).getCurrentContentTag())) {
-            Fragment fragment = HomeFragmentFactory.create(menu);
+            AnimListenFragment fragment = (AnimListenFragment) HomeFragmentFactory.create(menu);
             if (null == fragment) {
                 return;
             }
+            int animIn, animOut;
+            if(menu == MainController.HomeMenu.STORE_SUDOKU){
+                animIn = R.anim.home_scontent_in_right_to_left;
+                animOut = R.anim.code_out_right_to_left;
+            }else
+            if(menu == MainController.HomeMenu.STORE_GALLERY
+                    && MainController.HomeMenu.STORE_SUDOKU ==
+                            (((HomeAcitvity) mActiviyt).getCurrentContentTag())){
+                animIn = R.anim.code_in_left_to_right;
+                animOut = R.anim.code_out_left_to_right;
+            }else
+            {
+                animIn = R.anim.home_menu_in_left_to_right;
+                animOut = R.anim.home_menu_out_right_to_left;
+            }
             mActiviyt.getFragmentManager()
                     .beginTransaction()
-                    .setCustomAnimations(R.anim.home_menu_in_left_to_right, R.anim.home_menu_out_right_to_left)
-            .replace(R.id.fragment_content_layout, fragment, menu.toString())
+                    .setCustomAnimations(animIn, animOut)
+                    .replace(R.id.fragment_content_layout, fragment, menu.toString())
                     .commit();
             ((HomeAcitvity) mActiviyt).setCurrentContentTag(menu);
         }
@@ -262,11 +354,13 @@ public class AndroidDisplay implements Display {
     }
 
     @Override
-    public void showPaymentType(String url) {
+    public void showWebViewNotify(String url, int type) {
         Intent intent = new Intent(mActiviyt, CheckTypeActivity.class);
         intent.putExtra("url", url);
+        intent.putExtra("type", String.valueOf(type));
         mActiviyt.startActivity(intent);
     }
+
 
     @Override
     public void showProductInfo(ProductInfo info) {
@@ -319,12 +413,38 @@ public class AndroidDisplay implements Display {
     public void showProductBre(List<ProductBreviary> pros) {
         MainController.HomeMenu menu = ((HomeAcitvity) mActiviyt).getCurrentSContentTag();
         Fragment fragment = mActiviyt.getFragmentManager().findFragmentByTag(null == menu ? "" : menu.toString());
-        if(null == fragment){
+        if (null == fragment) {
             fragment = mActiviyt.getFragmentManager().findFragmentByTag(((HomeAcitvity) mActiviyt).getCurrentContentTag().toString());
         }
 
         if (null != fragment) {
             ((HomeStoreFragment) fragment).showProductBre(pros);
         }
+    }
+
+    @Override
+    public void showVerifyCode(MainController.HomeMenu menu, Bundle bundle) {
+        AnimListenFragment fragment = (AnimListenFragment)mActiviyt.getFragmentManager().findFragmentByTag(menu.toString());
+        int animIn, animOut;
+        if(null == fragment){
+            fragment = (AnimListenFragment) HomeFragmentFactory.create(menu);
+        }
+
+        if(menu == MainController.HomeMenu.VERIFY_SUCCESS){
+            animIn = R.anim.code_in_right_to_left;
+            animOut = R.anim.code_out_right_to_left;
+        }else{
+            animIn = R.anim.code_in_left_to_right;
+            animOut = R.anim.code_out_left_to_right;
+        }
+        if (null == fragment) {
+            return;
+        }
+        fragment.setArguments(bundle);
+        mActiviyt.getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(animIn, animOut)
+                .replace(R.id.fragment_code_main, fragment, menu.toString())
+                .commit();
     }
 }

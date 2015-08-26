@@ -2,6 +2,7 @@ package com.qieyou.qieyoustore.util;
 
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.dao.ProductBreviary;
+import com.fm.fmlib.tour.bean.ProductDetail;
 import com.qieyou.qieyoustore.R;
 
 /**
@@ -22,4 +23,20 @@ public class CodeBusinessMap {
 
         return false;
     }
+
+    public static boolean productStateStr(ProductDetail info){
+        String state = info.state;
+        if(ProductState.Y.toString().equals(state)||ProductState.T.toString().equals(state)){
+            return Integer.valueOf(info.quantity) > 0;
+        }
+
+        return false;
+    }
+
+//    public static String getString(String  state){
+//        if(ProductState.Y.toString().equals(state))
+//        {
+//            TourApplication.instance().getString(R.string)
+//        }
+//    }
 }

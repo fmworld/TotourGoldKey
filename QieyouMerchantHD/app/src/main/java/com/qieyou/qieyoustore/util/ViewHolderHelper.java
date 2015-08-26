@@ -2,6 +2,7 @@ package com.qieyou.qieyoustore.util;
 
 import android.content.Context;
 import android.net.Uri;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -77,6 +78,14 @@ public class ViewHolderHelper {
         view.setText(value);
         return this;
     }
+
+    public ViewHolderHelper setText(int viewId, Spanned value){
+        TextView view = findViewById(viewId);
+        view.setText(value);
+        return this;
+    }
+
+
 
     public ViewHolderHelper setFlags(int viewId, int value){
         TextView view = findViewById(viewId);

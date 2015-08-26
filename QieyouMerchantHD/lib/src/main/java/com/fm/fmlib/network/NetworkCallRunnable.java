@@ -36,11 +36,13 @@ public abstract class NetworkCallRunnable<R> {
 
     public abstract void onSuccess(R result);
 
-    public void onSuccessBadCode(String errorInfo){
-        Toast.makeText(TourApplication.instance().getApplicationContext(),errorInfo,Toast.LENGTH_SHORT).show();
-    }
+
 
     public void onSuccessInBackground(R result){}
+
+    public void onSuccessBadCode(int code, String errorInfo){
+        Toast.makeText(TourApplication.instance().getApplicationContext(),errorInfo,Toast.LENGTH_SHORT).show();
+    }
 
     public abstract void onError(RetrofitError be);
 

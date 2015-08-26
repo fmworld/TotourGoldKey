@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:orientation="horizontal">
+    
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/mall_pro_post"
+        android:layout_width="199dp"
+        android:layout_height="132dp"
+        android:layout_centerVertical="true"
+        />
+
+    <TextView
+        android:id="@+id/mall_pro_content"
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:layout_toRightOf="@+id/mall_pro_post"
+        android:layout_marginLeft="5dp"
+        android:layout_alignTop="@+id/mall_pro_post"
+        android:layout_toLeftOf="@+id/mall_shelf_state"
+        android:layout_marginRight="25dp"
+        android:background="@drawable/mall_pro_content_bg"
+        style="@style/mall_pro_content"
+        />
+
+    <TextView
+        android:id="@+id/mall_pro_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/mall_pro_content"
+        android:layout_above="@+id/mall_pro_price"
+        android:layout_marginBottom="5dp"
+        android:paddingLeft="10dp"
+        style="@style/mall_pro_name"
+        />
+    <TextView
+        android:id="@+id/mall_pro_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/mall_pro_post"
+        android:layout_alignLeft="@+id/mall_pro_content"
+        android:paddingLeft="10dp"
+        style="@style/mall_pro_name"
+        />
+
+    <TextView
+        android:id="@+id/mall_shelf_state"
+        android:layout_width="166dp"
+        android:layout_height="78dp"
+        android:text="已上架"
+        android:drawableTop="@drawable/mall_pro_has_shelf"
+        android:drawablePadding="8dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:paddingTop="5dp"
+        style="@style/mall_pro_item_button"
+        android:layout_alignTop="@+id/mall_pro_post"
+        android:background="@drawable/bg_coners_gray_round"
+        />
+
+    <TextView
+        android:id="@+id/mall_pro_sale_state"
+        android:layout_width="166dp"
+        android:layout_height="35dp"
+        android:text="售罄"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/mall_shelf_state"
+        android:layout_marginTop="12dp"
+        style="@style/mall_pro_item_button"
+        android:background="@drawable/bg_coners_gray_12_round"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginLeft="8dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_line"
+        />
+</RelativeLayout>

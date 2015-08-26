@@ -35,4 +35,9 @@ public class AnimListenFragment extends Fragment {
         this.listener = _lisnter;
     }
 
+    @Override
+    public void onDestroy() {
+        setAnimationListener(null);
+        super.onDestroy();
+    }
 }

@@ -13,6 +13,7 @@ import com.fm.fmlib.utils.BackgroundExecutor;
 import com.fm.fmlib.utils.DataMemCacheUtil;
 import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
 import com.fm.fmlib.utils.provider.CategoryDaoProvider;
+import com.fm.fmlib.utils.provider.LaunchProfileProvider;
 import com.fm.fmlib.utils.provider.LocalDaoProvider;
 import com.fm.fmlib.utils.provider.Networkprovider;
 import com.fm.fmlib.utils.provider.ProductTagDaoProvider;
@@ -162,6 +163,10 @@ public class TourApplication extends Application {
 
     public CategoryDaoProvider getDaoCategory(){
         return dataMemCache.getCategoryDao();
+    }
+
+    public LaunchProfileProvider getDaoLaunProfile(){
+        return dataMemCache.getLaunchProfileDao();
     }
 
 

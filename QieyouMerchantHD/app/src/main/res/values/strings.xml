@@ -6,6 +6,8 @@
     <string name="positive">确定</string>
     <string name="navitive">取消</string>
     <string name="rmb_unit">元</string>
+    <string name="sale_state_able">立即抢购</string>
+    <string name="sale_state_unable">售罄</string>
     <!-- login -->
     <string name="foget_pwd_notify">忘记密码？</string>
     <string name="login_phone_number">400-885-7171</string>
@@ -39,7 +41,9 @@
     <!-- home code-->
     <string name="home_code_close">关闭</string>
     <string name="home_code_verify">快速验码</string>
-
+    <string name="home_code_submit">提交验证</string>
+    <!-- home manager-->
+    <string name="manager_choose_check_type">选择支付方式</string>
     <!-- home manager pro addedit-->
     <string name="home_mgr_pro_addedit_cancel">取消</string>
     <string name="home_mgr_pro_addedit_done">完成</string>
@@ -83,10 +87,68 @@
     <!-- home store-->
     <string name="store_item_load">正在加载...</string>
     <string name="store_item_price_init">0.00</string>
-    <string name="store_sale_state_able">立即抢购</string>
-    <string name="store_sale_state_unable">售罄</string>
+    <string name="store_item_web_notify">查看详情</string>
+    <string name="store_item_price"><Data><![CDATA[<font color="#f85c5c">%1$s</font> 元]]></Data></string>
+    <string name="store_item_old_price">%1s元</string>
+    <string name="store_indicator_mask_text_str">第%1s页</string>
 
     <!-- home store sudoku-->
     <string name="store_sudoku_title">我的铺子</string>
+    <string name="mall_cate_id_all">全部</string>
 
+    <!-- home mall-->
+    <string name="mall_submit_order_hint">提交订单</string>
+    <string name="mall_product_price_str"><Data><![CDATA[原价: %1$s元　售价: <font color="#f85c5c">%2$s</font> 元]]> </Data></string>
+    <string name="mall_product_content_htm_str"><Data><![CDATA[<img/><font color="yellow"> 推荐理由 </font>%1$s <p><font color="yellow">%2$s</font> 金钥匙已上架　累计出售 <font color="yellow">%3$s</font> 件</p>]]> </Data> </string>
+
+    <!-- home mall filter-->
+    <string name="mall_filter_title_1">筛选</string>
+    <string name="mall_filter_title_2">排序</string>
+    <string name="mall_filter_local_all">全城</string>
+    <string name="mall_filter_sort_default">默认</string>
+    <string name="mall_filter_sort_popular">人气最高</string>
+    <string name="mall_filter_sort_tip">小费最高</string>
+    <string name="mall_filter_sale">售价最低</string>
+    <string name="mall_filter_dis">距离最近</string>
+    <string name="mall_filter_new">上架时间最近</string>
+    <string name="mall_filter_init">全城/默认</string>
+
+    <!-- home pro detail-->
+    <string name="pro_detail_view_str">看过　%1s</string>
+    <string name="pro_detail_buy_str">买过　%1s</string>
+    <string name="detail_attention_title">购买须知</string>
+    <string name="detail_detail_title">商品详情</string>
+    <string name="detail_intro_title">推荐理由</string>
+    <string name="detail_price_str"><Data><![CDATA[ <font color="#ff5d5d">%1s</font> 元]]></Data></string>
+    <string name="detail_old_price_str">%1s 元</string>
+    <string name="detail_tip_str"><Data><![CDATA[ 小费: <font color="#ff5d5d">%1s</font> 元]]></Data></string>
+    <string name="detail_remainders_str">剩余: %1s</string>
+    <string name="detail_refund_anytime_str">随时退款</string>
+    <string name="detail_refund_overdue_str">过期退款</string>
+    <string name="detail_refund_offline_str">线下退款</string>
+    <string name="detail_invoice_str">提供发票</string>
+    <string name="detail_score_comments_str">%1s 人 评价</string>
+    <string name="detail_comment_title">达人点评</string>
+    <string name="detail_comment_tra_tag">旅行达人</string>
+    <string name="detail_comment_boss_tag">客栈老板</string>
+
+    <!-- home pro comments-->
+    <string name="pro_comments_title">评价详情</string>
+    <string name="pro_comments_score_title">买家口碑</string>
+    <string name="pro_comments_score_commentnum">%1s 条评价</string>
+    <string name="pro_comments_empty_notify">暂无评论</string>
+
+    <!-- home code-->
+    <string name="code_verify_success_notify">验证成功</string>
+    <string name="code_verify_success_price"><Data><![CDATA[价格：<font color="#ff5d5d" size="36px">%1s</font> 元　原价:]]></Data></string>
+    <string name="code_verify_success_old_price">%1s 元</string>
+    <string name="code_verify_input_notify">请输入且游券密码</string>
+    <string name="code_verify_input_bad">且游密码券错误！</string>
+    <string name="code_verify_success_name">%1$sX%2$s</string>
+    <string name="code_verify_success_price_a">价格：</string>
+    <string name="code_verify_success_price_c"> 元　原价:</string>
+
+    <!-- home town traver-->
+    <string name="town_traver_title">古镇游踪</string>
+    <string name="town_traver_backtag">我的铺子</string>
 </resources>

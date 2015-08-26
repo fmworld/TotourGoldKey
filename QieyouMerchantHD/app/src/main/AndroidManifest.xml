@@ -34,6 +34,12 @@
             android:label="@string/app_name"
             android:screenOrientation="landscape"
             >
+
+        </activity>
+        <activity
+            android:name="com.qieyou.qieyoustore.LaunchActivity"
+            android:screenOrientation="landscape"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -52,7 +58,13 @@
             >
 
         </activity>
+        <activity
+            android:name="com.qieyou.qieyoustore.CodeActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/translucent"
+            >
 
+        </activity>
         <activity
             android:name="com.qieyou.qieyoustore.NewTagActivity"
             android:screenOrientation="landscape"

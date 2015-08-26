@@ -25,8 +25,8 @@ import java.util.List;
  */
 public class InnController extends BaseUiController<InnController.InnUi,InnController.InnUiCallbacks>{
     public enum InnType{
-        inn
-
+        inn,
+        item
     }
 
     public enum InnTransfer{
@@ -168,7 +168,7 @@ public class InnController extends BaseUiController<InnController.InnUi,InnContr
 
     @Subscribe
     public void showedOrderPaymentType(InnState.InnFetchPaymentTypeEvent event){
-        this.getDisplay().showPaymentType(event.paymentUrl);
+        this.getDisplay().showWebViewNotify(event.paymentUrl, 1);
     }
 
     @Subscribe
@@ -191,6 +191,8 @@ public class InnController extends BaseUiController<InnController.InnUi,InnContr
         }
 
     }
+
+
 
     private class InEditProductInfoTask extends InnUpdateProductInfoRunnable {
         public InEditProductInfoTask(ProductParams params) {

@@ -20,16 +20,16 @@ public class UserLoginInRuunable extends TokenCheckedRunnable<LoginEntity> {
 
     public UserLoginInRuunable(String name, String pwd){
         this.name = name;
-        this.pwd = StringUtils.md5(pwd);
+        this.pwd = pwd;
     }
     @Override
     public LoginEntity doBackground() throws RetrofitError {
-        return TourApplication.instance().getmTotour().getmUserService().loginIn(name, pwd);
+        return TourApplication.instance().getmTotour().getmUserService().loginIn(name, StringUtils.md5(pwd));
     }
 
     public void onSuccessInBackground(LoginEntity result){
         User newUser = new User();
-        newUser.setIslogin(true);
+        newUser.setIslogin(Boolean.TRUE);
         newUser.setAccount(name);
         newUser.setPassword(pwd);
         newUser.setToken(result.msg.token);
@@ -40,10 +40,10 @@ public class UserLoginInRuunable extends TokenCheckedRunnable<LoginEntity> {
     }
     @Override
     public void onSuccess(LoginEntity result) {
-        Log.v("totour0888", "result errorInfo "+result.errorInfo);
-        Log.v("totour0888", "result code "+result.code);
-        Log.v("totour0888", "result msg "+result.msg);
-        this.getBus().post(new UserState.UserLoginExecutedEvent(-1, name, pwd));
+//        Log.v("totour0888", "result errorInfo "+result.errorInfo);
+//        Log.v("totour0888", "result code "+result.code);
+//        Log.v("totour0888", "result msg "+result.msg);
+//        this.getBus().post(new UserState.UserLoginExecutedEvent(-1, name, pwd));
 //        this.getBus().post(new UserState.UserLoginAccessCodeEvent());
     }
 

@@ -21,7 +21,7 @@ public class HomeFragmentFactory {
         }
 
         if(HomeMenu.CODE == menu){
-            return HomeCode.create();
+            return HomeCodeInput.create();
         }
 
         if(HomeMenu.MALL == menu){
@@ -36,6 +36,22 @@ public class HomeFragmentFactory {
         }
         if(HomeMenu.STORE_SUDOKU == menu){
             return HomeStoreSudoku.create();
+        }
+
+        if(HomeMenu.PRO_DETAIL == menu){
+            return HomeProDetail.create();
+        }
+
+        if(HomeMenu.COMMENTS == menu){
+            return ProductComments.create();
+        }
+
+        if(HomeMenu.VERIFY_SUCCESS == menu){
+            return HomeCodeSuccess.create();
+        }
+
+        if(HomeMenu.WEB == menu){
+            return HomeTownTraver.create();
         }
         return null;
     }

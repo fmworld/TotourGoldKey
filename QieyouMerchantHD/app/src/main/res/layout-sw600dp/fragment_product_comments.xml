@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qieyou.qieyoustore.ui.widget.TransRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    >
+    <LinearLayout
+        android:id="@+id/comments_layout"
+        android:layout_width="464dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/black_13"
+        android:layout_alignParentRight="true"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/pro_comments_title"
+                style="@style/pro_comments_title"
+                />
+            <ImageView
+                android:id="@+id/pro_comments_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:src="@drawable/pro_detail_in"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_line"
+            android:layout_marginBottom="20dp"
+            />
+
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/include_pro_comments_score"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_line"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="25dp"
+            />
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/comment_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical" />
+        </android.support.v4.widget.SwipeRefreshLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pro_comments_empty_notify"
+            style="@style/pro_comments_title"
+            android:layout_gravity="center"
+            android:layout_marginTop="200dp"
+            />
+    </LinearLayout>
+
+</com.qieyou.qieyoustore.ui.widget.TransRelativeLayout>

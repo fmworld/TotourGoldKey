@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:starScore="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/pro_detail_score_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <com.qieyou.qieyoustore.ui.widget.ScoreLinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="65dp"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        starScore:emptyScore="@drawable/star_empty"
+        starScore:fullScore="@drawable/star_full"
+        starScore:score="5.0"
+        android:layout_marginLeft="10dp"
+        starScore:scoreTextColor="@color/white_1">
+
+    </com.qieyou.qieyoustore.ui.widget.ScoreLinearLayout>
+
+    <ImageView
+        android:id="@+id/pro_detail_score_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:padding="10dp"
+        android:src="@drawable/pro_detail_in" />
+
+    <TextView
+        android:id="@+id/pro_detail_comment_num"
+        style="@style/pro_detail_content_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/pro_detail_score_in"
+        android:text="@string/detail_score_comments_str" />
+</RelativeLayout>

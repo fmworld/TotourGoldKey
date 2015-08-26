@@ -1,5 +1,6 @@
 package com.fm.fmlib.tour.Service;
 
+import com.fm.fmlib.tour.entity.LaunchProfileEntity;
 import com.fm.fmlib.tour.entity.ProOptionsEntity;
 import com.fm.fmlib.tour.entity.StateEntity;
 import com.fm.fmlib.tour.entity.TagListEntity;
@@ -70,4 +71,6 @@ public interface UtilService {
     @POST("/upload")
     StateEntity uploadData(@Query("token") String token, @Query("type") String product, @Part("imgFile") TypedFile pic);
 
+    @GET("/login/deviceAd")
+    LaunchProfileEntity fetchLaunchProfile();
 }

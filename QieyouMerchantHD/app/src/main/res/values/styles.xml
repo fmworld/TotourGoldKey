@@ -34,5 +34,28 @@
         <item name="android:windowExitAnimation">@anim/push_up_out</item>
     </style>
 
+    <style name="store_vp_indicator_text">
+        <item name="android:textColor">@color/white_1</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+    </style>
 
+    <style name="mall_category_item_unselected">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="mall_category_city_unselected">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="mall_filter">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/mall_filter_bg</item>
+    </style>
 </resources>

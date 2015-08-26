@@ -10,6 +10,7 @@ import android.widget.ListView;
 import com.fm.fmlib.Display;
 import com.fm.fmlib.controllers.MainController;
 import com.qieyou.qieyoustore.Adapter.HomeNavigationAdapter;
+import com.qieyou.qieyoustore.bean.HomeNaviItem;
 import com.qieyou.qieyoustore.util.TourPicConfig;
 
 /**
@@ -19,6 +20,8 @@ public class HomeAcitvity extends BaseTourActivity implements MainController.Nav
     private MainController.HomeMenu currentMenuTag;
     private MainController.HomeMenu currentContentTag;
     private MainController.HomeMenu currentSecondContentTag;
+    private MainController.HomeMenu currentThirdContentTag;
+
     private HomeNavigationAdapter naviAdapter;
     private boolean meunuFragCanMove = true;
     private MainController.NavigationCallbacks mNavigationCallbacks;
@@ -39,7 +42,8 @@ public class HomeAcitvity extends BaseTourActivity implements MainController.Nav
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 naviAdapter.onItemClick(position);
-                HomeAcitvity.this.getDisplay().showHomeMenuItem((MainController.HomeMenu) naviAdapter.getItem(position));
+                HomeAcitvity.this.getDisplay()
+                        .showHomeMenuItem(((HomeNaviItem) naviAdapter.getItem(position)).tag, ((HomeNaviItem) naviAdapter.getItem(position)).title);
             }
         });
         findViewById(R.id.home_navi_user).setOnClickListener(this);
@@ -130,6 +134,14 @@ public class HomeAcitvity extends BaseTourActivity implements MainController.Nav
 
     public void setCurrentSContentTag(MainController.HomeMenu currentSContentTag) {
         this.currentSecondContentTag = currentSContentTag;
+    }
+
+    public void setCurrentThirdContentTag(MainController.HomeMenu currentThirdContentTag) {
+        this.currentThirdContentTag = currentThirdContentTag;
+    }
+
+    public MainController.HomeMenu getCurrentThirdContentTag() {
+        return currentThirdContentTag;
     }
 
     @Override
