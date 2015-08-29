@@ -32,6 +32,7 @@ public abstract class AbstLinearIndicator<T, V extends View> extends RelativeLay
 
     private List<T> tagsData;
     private int focusWidth;
+    private int focusBg;
     private int colorFocusedText;
     private int colorUnfocusedText;
     private float textSize;
@@ -78,6 +79,8 @@ public abstract class AbstLinearIndicator<T, V extends View> extends RelativeLay
                     this.getContext().getResources().getColor(R.color.store_tab_bar_focus_text));
             colorUnfocusedText = a.getColor(R.styleable.StoreTabBar_focusWidth,
                     this.getContext().getResources().getColor(R.color.store_tab_bar_unfocus_text));
+            focusBg = a.getResourceId(R.styleable.StoreTabBar_focusedResource,
+                    R.drawable.store_indicator_mask_bg);
             textSize = a.getDimension(R.styleable.StoreTabBar_textSize, 14);
             layer = a.getInt(R.styleable.StoreTabBar_layer, 0);
             a.recycle();
@@ -135,7 +138,7 @@ public abstract class AbstLinearIndicator<T, V extends View> extends RelativeLay
             params.bottomMargin = DisplayUtil.dip2px(this.getContext(), 2);
             focusView = initFocusUI();
             focusView.setLayoutParams(params);
-            focusView.setBackgroundResource(R.drawable.store_indicator_mask_bg);
+            focusView.setBackgroundResource(focusBg);
             focusView.setVisibility(View.INVISIBLE);
             this.addView(focusView, layer);
         } else {

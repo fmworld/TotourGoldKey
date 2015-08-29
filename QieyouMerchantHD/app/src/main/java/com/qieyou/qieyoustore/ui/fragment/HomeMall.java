@@ -34,6 +34,7 @@ import com.qieyou.qieyoustore.Adapter.HomeNavigationAdapter;
 import com.qieyou.qieyoustore.Adapter.MallAddAdapter;
 import com.qieyou.qieyoustore.Adapter.MallProductAdapter;
 import com.qieyou.qieyoustore.BaseTourActivity;
+import com.qieyou.qieyoustore.HomeAcitvity;
 import com.qieyou.qieyoustore.MerchanthdApplication;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.ui.widget.AnimListenFragment;
@@ -123,17 +124,6 @@ public class HomeMall extends AnimListenFragment implements ProductController.Ma
                 }, 3000);
             }
         });
-        refreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Product pro = (Product) productAdapter.getItem(position);
-                Bundle bundle = new Bundle();
-                bundle.putString("item", pro.getProduct_id());
-                ((BaseTourActivity) (HomeMall.this.getActivity()))
-                        .getDisplay()
-                        .showHomeSecondContent(MainController.HomeMenu.PRO_DETAIL, bundle);
-            }
-        });
 
         this.setAnimationListener(new AnimatorListenerAdapter() {
             public void onAnimationEnd(Animator animation) {
@@ -180,6 +170,7 @@ public class HomeMall extends AnimListenFragment implements ProductController.Ma
     public void onResume() {
         super.onResume();
         getController().attachUi(this);
+        ((HomeAcitvity)getActivity()).selectNavigationItem(MainController.HomeMenu.MALL);
         if(null != addTimer){
             initAddTasks();
         }
@@ -190,18 +181,18 @@ public class HomeMall extends AnimListenFragment implements ProductController.Ma
         addTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if(null != adds){
+                if (null != adds) {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
                             adds.setCurrentItem(adds.getCurrentItem() <
-                                    adds.getAdapter().getCount()-1?adds.getCurrentItem()+1:0);
+                                    adds.getAdapter().getCount() - 1 ? adds.getCurrentItem() + 1 : 0);
                         }
                     });
 
                 }
             }
-        },3000,3000);
+        }, 3000, 3000);
     }
 
     @Override
@@ -231,6 +222,7 @@ public class HomeMall extends AnimListenFragment implements ProductController.Ma
     @Override
     public void onClick(View v) {
         if (R.id.mall_filter == v.getId()) {
+
             if (null == filterPopWindow) {
                 filterPopWindow = new MallFilterPopWindow(this.getActivity());
                 filterPopWindow.initView();
@@ -240,6 +232,8 @@ public class HomeMall extends AnimListenFragment implements ProductController.Ma
             if (!filterPopWindow.isShowing()) {
 
                 filterPopWindow.showAsDropDown(filter);
+            }else{
+                filterPopWindow.dismiss();
             }
         }
     }
@@ -277,6 +271,13 @@ public class HomeMall extends AnimListenFragment implements ProductController.Ma
        }
         productAdapter.setdata(products);
 
+    }
+
+    @Override
+    public void refreshStateChange() {
+        if(null !=productAdapter){
+            productAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override

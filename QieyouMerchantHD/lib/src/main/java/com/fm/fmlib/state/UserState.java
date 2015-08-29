@@ -4,6 +4,11 @@ package com.fm.fmlib.state;
  * Created by zhoufeng'an on 2015/8/3.
  */
 public interface UserState extends BaseState {
+    enum Setting{
+        about,
+        feedback,
+        changepwd
+    }
     public static class UserLoginExecutedEvent {
         public final int callingId;
         public final String name;

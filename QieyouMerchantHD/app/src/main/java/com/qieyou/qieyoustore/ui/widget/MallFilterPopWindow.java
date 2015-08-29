@@ -15,6 +15,7 @@ import com.fm.fmlib.utils.DisplayUtil;
 import com.qieyou.qieyoustore.Adapter.MallFilterAdapter;
 import com.qieyou.qieyoustore.R;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,25 @@ public class MallFilterPopWindow extends PopupWindow implements View.OnClickList
     public MallFilterPopWindow(Context context){
         super(context);
         mContext = context;
+
+    }
+    public void setPopupWindowTouchModal(PopupWindow popupWindow,
+                                                boolean touchModal) {
+        if (null == popupWindow) {
+            return;
+        }
+        Method method;
+        try {
+
+            method = PopupWindow.class.getDeclaredMethod("setTouchModal",
+                    boolean.class);
+            method.setAccessible(true);
+            method.invoke(popupWindow, touchModal);
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -62,8 +82,9 @@ public class MallFilterPopWindow extends PopupWindow implements View.OnClickList
         this.setContentView(view);
         this.setWidth(DisplayUtil.dip2px(this.mContext, 382));
         this.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
-        this.setOutsideTouchable(false);
         this.setBackgroundDrawable(new BitmapDrawable());
+        this.setOutsideTouchable(true);
+
     }
 
     public void setTarText(TextView tarText) {

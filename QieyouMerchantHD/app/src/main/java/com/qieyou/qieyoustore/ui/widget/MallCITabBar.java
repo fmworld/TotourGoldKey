@@ -64,24 +64,23 @@ public class MallCITabBar extends LinearLayout implements View.OnClickListener{
         View view;
         for(CategoryList title:titles){
             view = createItemView(title);
-            LayoutParams params = new LayoutParams(DisplayUtil.dip2px(this.getContext(),116),DisplayUtil.dip2px(this.getContext(),25));
+            LayoutParams params = new LayoutParams(DisplayUtil.dip2px(this.getContext(),116),DisplayUtil.dip2px(this.getContext(),50));
             params.gravity = Gravity.CENTER;
-            params.topMargin = DisplayUtil.dip2px(this.getContext(),12);
-            params.bottomMargin = DisplayUtil.dip2px(this.getContext(),12);
             this.addView(view,params);
         }
         itemClicked(this.getChildAt(0));
     }
 
     private View createItemView(CategoryList title){
-        TextView view = new TextView(this.getContext());
+        View view_layout = View.inflate(this.getContext(),R.layout.widget_mall_ci_item,null);
+        TextView view = (TextView)view_layout.findViewById(R.id.mall_ci_item);
         view.setTextColor(this.getContext().getResources().getColor(R.color.gray_12));
         view.setTextSize(14);
         view.setGravity(Gravity.CENTER);
-        view.setTag(title.getCategory_id());
         view.setText(title.getName());
-        view.setOnClickListener(this);
-        return view;
+        view_layout.setOnClickListener(this);
+        view_layout.setTag(title.getCategory_id());
+        return view_layout;
     }
 
     private void itemClicked(View view){
@@ -95,14 +94,14 @@ public class MallCITabBar extends LinearLayout implements View.OnClickListener{
 
     private void previousUnSelected() {
         if (null != currentView) {
-            currentView.setBackgroundColor(this.getResources().getColor(R.color.black_11));
-            ((TextView)currentView).setTextColor(this.getContext().getResources().getColor(R.color.gray_12));
+            currentView.findViewById(R.id.mall_ci_item).setBackgroundColor(this.getResources().getColor(R.color.black_11));
+            ((TextView)currentView.findViewById(R.id.mall_ci_item)).setTextColor(this.getContext().getResources().getColor(R.color.gray_12));
         }
     }
 
     private void currentSelected(View view){
-        view.setBackgroundResource(R.drawable.mall_cate_id_selected_bg);
-        ((TextView)view).setTextColor(this.getContext().getResources().getColor(R.color.yellow));
+        view.findViewById(R.id.mall_ci_item).setBackgroundResource(R.drawable.mall_cate_id_selected_bg);
+        ((TextView)view.findViewById(R.id.mall_ci_item)).setTextColor(this.getContext().getResources().getColor(R.color.yellow));
         currentView = view;
     }
 

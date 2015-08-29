@@ -96,7 +96,7 @@
     <Button
         android:id="@+id/detail_sale_state"
         android:layout_width="132dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/pro_refund_anytime"
         android:layout_marginLeft="10dp"
         style="@style/pro_detail_price_button"
@@ -105,7 +105,7 @@
     <Button
         android:id="@+id/detail_shelf_state"
         android:layout_width="148dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/pro_refund_anytime"
         android:layout_marginLeft="10dp"

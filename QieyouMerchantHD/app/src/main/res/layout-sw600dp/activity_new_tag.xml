@@ -51,7 +51,7 @@
         android:id="@+id/tag_new_confirm"
         android:text="@string/positive"
         android:layout_width="475dp"
-        android:layout_height="91dp"
+        android:layout_height="52dp"
         android:background="@drawable/home_mgr_pro_tag_confirm_corners_bg"
         android:layout_gravity="center"
         android:layout_marginBottom="30dp"

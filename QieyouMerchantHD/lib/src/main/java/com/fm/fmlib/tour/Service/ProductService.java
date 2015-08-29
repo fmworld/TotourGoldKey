@@ -81,5 +81,12 @@ public interface ProductService {
                                     @Field("page") String page,
                                     @Field("perpage") String perpage);
 
+    @FormUrlEncoded
+    @POST("/item/changeShelves")
+    StateEntity changeShelfState(
+                                       @Field("tag_id") String tag_id,
+                                       @Field("product_id") String product_id,
+                                       @Field("action") String action
+                                       );
 
 }

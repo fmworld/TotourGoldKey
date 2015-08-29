@@ -4,6 +4,7 @@ import com.fm.fmlib.tour.entity.GetVeriCodeEntity;
 import com.fm.fmlib.tour.entity.LoginEntity;
 import com.fm.fmlib.tour.entity.LoginOutEntity;
 import com.fm.fmlib.tour.entity.LoginResetPwdEntity;
+import com.fm.fmlib.tour.entity.StateEntity;
 import com.fm.fmlib.tour.entity.UserInfoEntity;
 
 import retrofit.http.Field;
@@ -46,7 +47,7 @@ public interface UserService {
 
 
     /**
-     * 修改登录密码
+     * 找回登录密码
      * @param mobile
      * @param code
      * @param password
@@ -54,7 +55,7 @@ public interface UserService {
      */
     @POST("/login/forgetPwd")
     @FormUrlEncoded
-    LoginResetPwdEntity changePassword(@Field("mobile") String mobile, @Field("verifycode") String code, @Field("password") String password);
+    LoginResetPwdEntity findPassword(@Field("mobile") String mobile, @Field("verifycode") String code, @Field("password") String password);
 
     /**
      * 获取用户信息（数据不全mobile、innname、innhead）
@@ -63,4 +64,23 @@ public interface UserService {
      */
     @POST("/user/info")
     UserInfoEntity fetchUserInfo(@Query("token") String token);
+
+    @FormUrlEncoded
+    @POST("/user/userFeedback")
+    StateEntity commiteFeedback(@Query("token") String token,
+                                   @Field("client") String client,
+                                   @Field("device") String device,
+                                   @Field("note") String note,
+                                   @Field("version") String version);
+
+    /**
+     * 修改登录密码
+     * @param token
+     * @param code
+     * @param password
+     * @return
+     */
+    @POST("/user/changepwd")
+    @FormUrlEncoded
+    LoginResetPwdEntity changePassword(@Query("token") String token, @Field("verifycode") String code, @Field("password") String password);
 }

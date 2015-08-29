@@ -42,35 +42,40 @@ public class HomeNavigationAdapter extends BaseAdapter {
         items.clear();
         //store
         HomeNaviItem item = new HomeNaviItem();
-        item.local_icon = R.drawable.test_stor_icon;
+        item.local_icon = R.drawable.tabbar_shop_s;
+        item.local_icon_u=R.drawable.tabbar_shop_n;
         item.title = mContext.getString(R.string.home_store_title);
         item.tag = MainController.HomeMenu.STORE_GALLERY;
         items.add(item);
 
         //mall
         item = new HomeNaviItem();
-        item.local_icon = R.drawable.test_mall_icon;
+        item.local_icon = R.drawable.tabbar_special_s;
+        item.local_icon_u=R.drawable.tabbar_special_n;
         item.title = mContext.getString(R.string.home_mall_title);
         item.tag = MainController.HomeMenu.MALL;
         items.add(item);
 
         //code
         item = new HomeNaviItem();
-        item.local_icon = R.drawable.test_code_icon;
+        item.local_icon = R.drawable.tabbar_quick_code_s;
+        item.local_icon_u = R.drawable.tabbar_quick_code_n;
         item.title = mContext.getString(R.string.home_code_title);
         item.tag = MainController.HomeMenu.CODE;
         items.add(item);
 
         //manager
         item = new HomeNaviItem();
-        item.local_icon = R.drawable.test_manager_icon;
+        item.local_icon = R.drawable.tabbar_manager_s;
+        item.local_icon_u = R.drawable.tabbar_manager_n;
         item.title = mContext.getString(R.string.home_manager_title);
         item.tag = MainController.HomeMenu.MANAGER;
         items.add(item);
 
         //setting
         item = new HomeNaviItem();
-        item.local_icon = R.drawable.test_setting_icon;
+        item.local_icon = R.drawable.tabbar_setting_s;
+        item.local_icon_u = R.drawable.tabbar_setting_n;
         item.title = mContext.getString(R.string.home_setting_title);
         item.tag = MainController.HomeMenu.SETTING;
         items.add(item);
@@ -84,7 +89,6 @@ public class HomeNavigationAdapter extends BaseAdapter {
             item.title = profiles.get(0).getLink();
             items.add(item);
         }
-
     }
 
     @Override
@@ -112,9 +116,10 @@ public class HomeNavigationAdapter extends BaseAdapter {
         }else{
             view = View.inflate(mContext, R.layout.adapter_home_navi_item, null);
             (view.findViewById(R.id.home_navitem)).setSelected(currentIndex == position);
-            ((ColorTextButton)view.findViewById(R.id.home_navitem)).setCompoundDrawablesWithIntrinsicBounds(0, item.local_icon, 0, 0);
+            ((ColorTextButton)view.findViewById(R.id.home_navitem))
+                    .setCompoundDrawablesWithIntrinsicBounds(0,
+                            currentIndex == position?item.local_icon:item.local_icon_u, 0, 0);
             ((ColorTextButton)view.findViewById(R.id.home_navitem)) .setText(item.title);
-
         }
 
         return view;

@@ -29,6 +29,7 @@ import com.liangfeizc.RubberIndicator;
 import com.qieyou.qieyoustore.Adapter.MallAddAdapter;
 import com.qieyou.qieyoustore.Adapter.MallProductAdapter;
 import com.qieyou.qieyoustore.BaseTourActivity;
+import com.qieyou.qieyoustore.HomeAcitvity;
 import com.qieyou.qieyoustore.MerchanthdApplication;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.ui.widget.AnimListenFragment;
@@ -48,9 +49,8 @@ import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 /**
  * Created by zhoufeng'an on 2015/8/9.
  */
-public class HomeTownTraver extends AnimListenFragment implements ProductController.MallUi, View.OnClickListener{
+public class HomeTownTraver extends AnimListenFragment implements View.OnClickListener{
     private WebView webView;
-    ProductController.ProductMallCallbacks mallCallbacks;
 
     public HomeTownTraver() {
     }
@@ -73,9 +73,7 @@ public class HomeTownTraver extends AnimListenFragment implements ProductControl
         webView.getSettings().setJavaScriptEnabled(true);
         this.setAnimationListener(new AnimatorListenerAdapter() {
             public void onAnimationEnd(Animator animation) {
-                if (null != mallCallbacks) {
                     webView.loadUrl(link);
-                }
             }
         });
 
@@ -87,38 +85,17 @@ public class HomeTownTraver extends AnimListenFragment implements ProductControl
     @Override
     public void onResume() {
         super.onResume();
-        getController().attachUi(this);
+        ((HomeAcitvity)getActivity()).selectNavigationItem(MainController.HomeMenu.WEB);
     }
 
 
     @Override
     public void onPause() {
-        getController().detachUi(this);
         super.onPause();
     }
 
     ProductController getController() {
         return MerchanthdApplication.instance().getmMainController().getProductController();
-    }
-
-    @Override
-    public void setCallbacks(ProductController.ProductUiCallbacks callbacks) {
-        mallCallbacks = (ProductController.ProductMallCallbacks) callbacks;
-    }
-
-    @Override
-    public boolean isModal() {
-        return false;
-    }
-
-    @Override
-    public void refreshProductList(List<Product> products) {
-
-    }
-
-    @Override
-    public void updateTabBar() {
-
     }
 
     @Override

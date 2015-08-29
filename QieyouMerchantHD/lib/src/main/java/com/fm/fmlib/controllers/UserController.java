@@ -6,11 +6,18 @@ import android.widget.Toast;
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.state.UserState;
 import com.fm.fmlib.tasks.LaunchFetchProfileRunnable;
+import com.fm.fmlib.tasks.UserCommitFeedbackRuunable;
 import com.fm.fmlib.tasks.UserGetVerifyCodeRuunable;
 import com.fm.fmlib.tasks.UserLoginInRuunable;
+import com.fm.fmlib.tasks.UserLoginOutRuunable;
+import com.fm.fmlib.tasks.UserFindPwdRuunable;
 import com.fm.fmlib.tasks.UserSetNewPwdRuunable;
+import com.fm.fmlib.tour.entity.GetVeriCodeEntity;
 import com.fm.fmlib.tour.entity.LaunchProfileEntity;
 import com.fm.fmlib.tour.entity.LoginEntity;
+import com.fm.fmlib.tour.entity.LoginOutEntity;
+import com.fm.fmlib.tour.entity.LoginResetPwdEntity;
+import com.fm.fmlib.tour.entity.StateEntity;
 import com.fm.fmlib.utils.BackgroundExecutor;
 import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
 import com.squareup.otto.Subscribe;
@@ -38,8 +45,18 @@ public class UserController extends BaseUiController<UserController.UserUi,UserC
     public interface UserFindPwdUi extends UserUi{
     }
 
+    public interface SetFeedbackUi extends UserUi{
+        void submitFeedbackSuccess();
+    }
+
+    public interface SetChangePwdUi extends UserUi{
+        void passwordChanged(String pwd);
+        void showCuntDown();
+    }
+
     public interface UserSettingUi extends UserUi{
         void initView();
+        void loginOut();
     }
 
     public interface UserUiCallbacks{
@@ -47,6 +64,10 @@ public class UserController extends BaseUiController<UserController.UserUi,UserC
 
     public interface UserLoginUiCallbacks extends UserUiCallbacks{
         void loginIn(String account, String password);
+    }
+
+    public interface SettingUiCallbacks extends UserUiCallbacks{
+        void loginOut();
     }
 
     public interface AppLaunchUiCallbacks extends UserUiCallbacks{
@@ -57,6 +78,14 @@ public class UserController extends BaseUiController<UserController.UserUi,UserC
     public interface UserLoginFindPwdCallbacks extends UserUiCallbacks{
         void getVeriCode(String mobile);
         void changePassword(String mobile, String code, String password);
+    }
+
+    public interface SetChangePwdCallbacks extends UserLoginFindPwdCallbacks{
+    }
+
+    public interface SetFeedbackCallbacks extends UserUiCallbacks{
+        void submitFeedback(String note, String version);
+
     }
 
     public UserController() {
@@ -85,6 +114,32 @@ public class UserController extends BaseUiController<UserController.UserUi,UserC
                     mExecutor.execute(new UserLoginInTask(account, password));
                 }
             };
+        } else if(ui instanceof SetChangePwdUi){
+            return new SetChangePwdCallbacks(){
+                @Override
+                public void getVeriCode(String mobile) {
+                    mExecutor.execute(new SetChangePwdGetVeryCodetask(mobile));
+                }
+
+                @Override
+                public void changePassword(String mobile, String code, String password) {
+                    mExecutor.execute(new SetChangePwdTask(code, password));
+                }
+            };
+        } else if(ui instanceof SetFeedbackUi){
+            return new SetFeedbackCallbacks(){
+                @Override
+                public void submitFeedback(String note, String version) {
+                    mExecutor.execute(new UserCommitFeedbackTask(note, version));
+                }
+            };
+        } else if(ui instanceof UserSettingUi){
+            return new SettingUiCallbacks(){
+                @Override
+                public void loginOut() {
+                    mExecutor.execute(new UserLoginOutTask());
+                }
+            };
         }
         else{
             return new UserLoginFindPwdCallbacks(){
@@ -96,7 +151,7 @@ public class UserController extends BaseUiController<UserController.UserUi,UserC
 
                 @Override
                 public void changePassword(String mobile, String code, String password) {
-                    mExecutor.execute(new UserSetNewPwdRuunable(mobile, code, password));
+                    mExecutor.execute(new UserFindPwdRuunable(mobile, code, password));
                 }
             };
         }
@@ -113,6 +168,7 @@ public class UserController extends BaseUiController<UserController.UserUi,UserC
         TourApplication.instance().getmBus().unregister(this);
         super.onSuspended();
     }
+
 
 //    @Subscribe
 //    public void uiLoginSuccessed(UserState.UserLoginExecutedEvent event) {
@@ -176,4 +232,63 @@ public class UserController extends BaseUiController<UserController.UserUi,UserC
 
         }
     }
+
+    private class SetChangePwdTask extends UserSetNewPwdRuunable {
+        public SetChangePwdTask(String code, String pwd){
+            super(code, pwd);
+        }
+        @Override
+        public void onSuccess(LoginResetPwdEntity result) {
+            for(Ui item : getUis()){
+                if(item instanceof SetChangePwdUi){
+                    ((SetChangePwdUi)item).passwordChanged(this.pwd);
+                    break;
+                }
+            }
+        }
+    }
+
+    private class SetChangePwdGetVeryCodetask extends UserGetVerifyCodeRuunable{
+        public SetChangePwdGetVeryCodetask(String mobile){
+            super(mobile);
+        }
+        public void onSuccess(GetVeriCodeEntity result) {
+            for(Ui item : getUis()){
+                if(item instanceof SetChangePwdUi){
+                    ((SetChangePwdUi)item).showCuntDown();
+                    break;
+                }
+            }
+        }
+    }
+
+    private class UserCommitFeedbackTask extends UserCommitFeedbackRuunable{
+        public UserCommitFeedbackTask(String note, String version){
+            super(note, version);
+        }
+
+        public void onSuccess(StateEntity result) {
+            for(Ui item : getUis()){
+                if(item instanceof SetFeedbackUi){
+                    ((SetFeedbackUi)item).submitFeedbackSuccess();
+                    break;
+                }
+            }
+        }
+    }
+
+    private class UserLoginOutTask extends UserLoginOutRuunable {
+        public UserLoginOutTask(){}
+        public void onSuccess(LoginOutEntity result) {
+            for(Ui item : getUis()){
+                if(item instanceof UserSettingUi){
+                    ((UserSettingUi)item).loginOut();
+                    break;
+                }
+            }
+        }
+
+    }
+
+
 }

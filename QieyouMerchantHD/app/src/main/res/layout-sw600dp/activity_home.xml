@@ -6,7 +6,7 @@
     android:orientation="horizontal">
 
     <RelativeLayout
-        android:layout_width="62dp"
+        android:layout_width="68dp"
         android:layout_height="match_parent"
         android:layout_gravity="center|top"
         android:background="@color/home_navogation_bg"
@@ -19,17 +19,28 @@
             android:divider="@null"
             android:dividerHeight="0dp"
             android:gravity="center"
-            android:listSelector="@android:color/transparent"></ListView>
+            android:layout_marginTop="15dp"
+            android:listSelector="@android:color/transparent"/>
 
         <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/home_navi_user"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="25dp"
+            android:layout_above="@+id/navi_person_name"
+            android:layout_marginBottom="10dp"
             fresco:placeholderImage="@drawable/user_default_icon"
             fresco:roundAsCircle="true" />
+        <TextView
+            android:id="@+id/navi_person_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_person_title"
+            style="@style/home_person_title"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="35dp"
+            />
     </RelativeLayout>
 
     <FrameLayout

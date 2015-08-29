@@ -164,6 +164,9 @@ public class StoreTabBar extends RelativeLayout implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
+        if(selectedView == v)
+            return;
+
         if (null != mLinearIndicatorListener) {
             mLinearIndicatorListener.onTarBarItemClicked(this, v.getTag());
         }

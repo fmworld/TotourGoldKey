@@ -4,19 +4,22 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.controllers.MainController;
+import com.fm.fmlib.state.ProductState;
 import com.fm.fmlib.tour.bean.ProductDetail;
 import com.fm.fmlib.utils.DisplayUtil;
 import com.qieyou.qieyoustore.BaseTourActivity;
 import com.qieyou.qieyoustore.R;
+import com.qieyou.qieyoustore.ui.widget.ProductTagsDialog;
 import com.qieyou.qieyoustore.util.CodeBusinessMap;
 import com.qieyou.qieyoustore.util.DateUtil;
 import com.qieyou.qieyoustore.util.TourStringUtil;
@@ -29,7 +32,7 @@ import java.util.List;
  */
 public class ProDetailRightAdapter extends BaseAdapter implements View.OnClickListener {
 
-
+    private ProductTagsDialog tagsDialog;
     enum State {
         intro,
         price,
@@ -123,8 +126,8 @@ public class ProDetailRightAdapter extends BaseAdapter implements View.OnClickLi
         ((TextView) view.findViewById(R.id.detail_intro_content)).setText(detail.content);
         LinearLayout linear = ((LinearLayout) view.findViewById(R.id.detail_intro_tags));
 
-//        String[] tags = detail.keyword.split(",");
-        String[] tags = "会觉得,hdfsj,合适的风景".split(",");
+        String[] tags = detail.keyword.split(",");
+//        String[] tags = "会觉得,hdfsj,合适的风景".split(",");
         if (null != tags) {
             for (String item : tags) {
                 if (!TourStringUtil.isNULLorEmpty(item))
@@ -153,23 +156,66 @@ public class ProDetailRightAdapter extends BaseAdapter implements View.OnClickLi
         if (null == detail) {
             return view;
         }
-        ((TextView) view.findViewById(R.id.pro_detail_price)).setText(Html.fromHtml(mContext.getString(R.string.detail_price_str, detail.price)));
-        ((TextView) view.findViewById(R.id.pro_detail_old_price)).setText(mContext.getString(R.string.detail_old_price_str, detail.old_price));
-        ((TextView) view.findViewById(R.id.pro_detail_old_price)).getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        ((TextView) view.findViewById(R.id.pro_detail_tip))
-                .setText(Html.fromHtml(mContext.getString(R.string.detail_tip_str,
-                        TourStringUtil.isNULLorEmpty(detail.facility) ? "0.00" : detail.facility)));
-        ((TextView) view.findViewById(R.id.pro_detail_remainders))
-                .setText(mContext.getString(R.string.detail_remainders_str, DateUtil.formatDate(Long.valueOf(detail.tuan_end_time) * 1000)));
-        if (CodeBusinessMap.productStateStr(detail)) {
-            (view.findViewById(R.id.detail_sale_state)).setBackgroundResource(R.drawable.bg_coners_oringe_round);
-            ((TextView) view.findViewById(R.id.detail_sale_state)).setText(mContext.getString(R.string.sale_state_able));
+        ((TextView) view.findViewById(R.id.pro_detail_price))
+                .setText(Html.fromHtml(mContext.getString(R.string.detail_price_str, detail.price)));
+        ((TextView) view.findViewById(R.id.pro_detail_old_price))
+                .setText(mContext.getString(R.string.detail_old_price_str, detail.old_price));
+        ((TextView) view.findViewById(R.id.pro_detail_old_price))
+                .getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        String showTip = TourApplication.instance().getDaoProperty().getValue(ProductState.Tip);
+        if (null == showTip || "0".equals(showTip)) {
+            (view.findViewById(R.id.pro_detail_tip)).setVisibility(View.GONE);
         } else {
-            (view.findViewById(R.id.detail_sale_state)).setBackgroundResource(R.drawable.bg_coners_gray_12_round);
-            ((TextView) view.findViewById(R.id.detail_sale_state)).setText(mContext.getString(R.string.sale_state_unable));
+            (view.findViewById(R.id.pro_detail_tip)).setVisibility(View.VISIBLE);
+            ((TextView) view.findViewById(R.id.pro_detail_tip))
+                    .setText(Html.fromHtml(mContext.getString(R.string.detail_tip_str,
+                            TourStringUtil.isNULLorEmpty(detail.agent) ? "0.00" : detail.agent)));
         }
-        (view.findViewById(R.id.detail_shelf_state)).setBackgroundResource(R.drawable.bg_coners_gray_12_round);
+
+
+        ((TextView) view.findViewById(R.id.pro_detail_remainders))
+                .setText(mContext.getString(R.string.detail_remainders_str,
+                        DateUtil.formatDate(Long.valueOf(detail.tuan_end_time) * 1000)));
+        (view.findViewById(R.id.detail_sale_state))
+                .setBackgroundResource(CodeBusinessMap.productStateStr(detail) ?
+                        R.drawable.bg_coners_oringe_round : R.drawable.bg_coners_gray_12_round);
+        ((TextView) view.findViewById(R.id.detail_sale_state))
+                .setText(CodeBusinessMap.productGetStateStr(detail));
+        initSaleState((TextView) view.findViewById(R.id.detail_sale_state),CodeBusinessMap.productStateStr(detail), detail.product_id);
+        initShelfState((TextView) view.findViewById(R.id.detail_shelf_state), "1".equals(detail.on_shelves));
+
         return view;
+    }
+
+    private void initSaleState(TextView view, boolean saleable,String pro_id) {
+        if(saleable){
+            view.setBackgroundResource(R.drawable.bg_coners_oringe_round);
+            view.setText(mContext.getString(R.string.sale_state_able));
+            view.setTag(pro_id);
+            view.setOnClickListener(this);
+        }else{
+            view.setBackgroundResource(R.drawable.bg_coners_gray_12_round);
+            view.setText(CodeBusinessMap.productUnsaleStateStr(detail));
+            view.setOnClickListener(null);
+        }
+    }
+
+    private void initShelfState(TextView view, boolean shelfed) {
+        if (shelfed) {
+            view.setText(mContext.getString(R.string.mall_pro_has_shelved));
+            view.setBackgroundResource(R.drawable.bg_coners_gray_round);
+            view.setTextColor(mContext.getResources().getColor(R.color.green));
+            view.setCompoundDrawablesWithIntrinsicBounds(R.drawable.mall_pro_has_shelf
+                    , 0, 0, 0);
+            view.setOnClickListener(null);
+        } else {
+            view.setText(mContext.getString(R.string.mall_pro_to_shelve));
+            view.setBackgroundResource(R.drawable.bg_coners_bule_round);
+            view.setTextColor(mContext.getResources().getColor(R.color.white));
+            view.setCompoundDrawablesWithIntrinsicBounds(R.drawable.mall_pro_to_shelf
+                    , 0, 0, 0);
+            view.setOnClickListener(this);
+        }
     }
 
     private View initScoreView() {
@@ -230,16 +276,27 @@ public class ProDetailRightAdapter extends BaseAdapter implements View.OnClickLi
             bundle.putString("4", detail.comment_score.four);
             bundle.putString("5", detail.comment_score.five);
             ((BaseTourActivity) mContext).getDisplay()
-                    .showHomeThirdContent(MainController.HomeMenu.COMMENTS,bundle);
-        }
-
-        if(R.id.pro_detail_item_button_layout == v.getId()&& null != scroll){
-            if(State.detail == (State)v.getTag()){
-                scroll.setScrollY(scroll.findViewById(R.id.detail_pro_detail_layout).getTop());
-//                ((ScrollView)scroll).smoothScrollTo();
-            }else{
-                scroll.setScrollY(scroll.findViewById(R.id.detail_pro_attention_layout).getTop());
+                    .showHomeThirdContent(MainController.HomeMenu.COMMENTS, bundle);
+        } else if (R.id.pro_detail_item_button_layout == v.getId() && null != scroll) {
+            scroll.setScrollY(scroll.findViewById(State.detail == (State) v.getTag() ?
+                    R.id.detail_pro_detail_layout : R.id.detail_pro_attention_layout).getTop());
+//
+        } else if (R.id.detail_sale_state == v.getId()) {
+            TourApplication.instance().getmBus()
+                    .post(new ProductState.ProductFetchSubmitUrlEvent((String)v.getTag()));
+        } else if (R.id.detail_shelf_state == v.getId()) {
+            if (null == tagsDialog) {
+                tagsDialog = new ProductTagsDialog(mContext, R.style.translucent);
             }
+            tagsDialog.setConfirmListener(new ProductTagsDialog.ConfirmListener() {
+                @Override
+                public void tagSelected(String tag_id) {
+                    TourApplication.instance().getmBus()
+                            .post(new ProductState.ProductChangeShelfStateEvent
+                                    (tag_id,detail.product_id,"up" ));
+                }
+            });
+            tagsDialog.show();
         }
     }
 

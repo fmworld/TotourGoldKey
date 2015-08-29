@@ -20,6 +20,7 @@ import com.fm.fmlib.dao.ProductTag;
 import com.fm.fmlib.state.ProductState;
 import com.qieyou.qieyoustore.Adapter.StoreViewPagerAdapter;
 import com.qieyou.qieyoustore.BaseTourActivity;
+import com.qieyou.qieyoustore.HomeAcitvity;
 import com.qieyou.qieyoustore.MerchanthdApplication;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.ui.widget.AbstLinearIndicator;
@@ -83,7 +84,7 @@ public class HomeStoreViewPager extends HomeStoreFragment implements View.OnClic
     public void onResume() {
         super.onResume();
         getController().attachUi(this);
-
+        ((HomeAcitvity)getActivity()).selectNavigationItem(MainController.HomeMenu.STORE_GALLERY);
     }
 
     @Override

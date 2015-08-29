@@ -5,10 +5,9 @@ import android.widget.Toast;
 
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.dao.Product;
-import com.fm.fmlib.state.InnState;
 import com.fm.fmlib.state.ProductState;
-import com.fm.fmlib.tasks.InnFetchStoreShareInfoRunnable;
 import com.fm.fmlib.tasks.ProFetchShareInfoRunnable;
+import com.fm.fmlib.tasks.ProductChangeShelfStateRunnable;
 import com.fm.fmlib.tasks.ProductFetchCodeVeriStateRunnable;
 import com.fm.fmlib.tasks.ProductFetchCommentsRunnable;
 import com.fm.fmlib.tasks.ProductFetchMallProductRunnable;
@@ -22,6 +21,7 @@ import com.fm.fmlib.tour.entity.CodeInfoEntity;
 import com.fm.fmlib.tour.entity.ProCommentsEntity;
 import com.fm.fmlib.tour.entity.ProductDetailEntity;
 import com.fm.fmlib.tour.entity.ProductsEntity;
+import com.fm.fmlib.tour.entity.StateEntity;
 import com.fm.fmlib.tour.entity.StoreShareEntity;
 import com.fm.fmlib.tour.entity.TransferEntity;
 import com.fm.fmlib.utils.BackgroundExecutor;
@@ -48,11 +48,16 @@ public class ProductController extends BaseUiController<ProductController.Produc
 
     }
 
-    public interface MallUi extends ProductUi {
-        void refreshProductList(List<Product> products);
+    public interface ProStateUi extends ProductUi {
+        void refreshStateChange();
     }
 
-    public interface DetailUi extends ProductUi {
+    public interface MallUi extends ProStateUi {
+        void refreshProductList(List<Product> products);
+
+    }
+
+    public interface DetailUi extends ProStateUi {
         void refreshProDetail(ProductDetail detail);
     }
 
@@ -174,6 +179,21 @@ public class ProductController extends BaseUiController<ProductController.Produc
         mExecutor.execute(new ProductFetchSubmitTransferTask(event.item));
     }
 
+    @Subscribe
+    public void notifyTipStateChanged(ProductState.ProductTipStateChangeEvent event){
+        TourApplication.instance().getDaoProperty().saveProperty(ProductState.Tip, event.state);
+        for(Ui item : getUis()){
+            if(item instanceof ProductController.ProStateUi){
+                ((ProductController.ProStateUi)item).refreshStateChange();
+            }
+        }
+    }
+
+    @Subscribe
+    public void changeProShelfState(ProductState.ProductChangeShelfStateEvent event){
+        mExecutor.execute(new ProductChangeShelfStateTask(event.tag_id,event.pro_id,event.state));
+    }
+
     private class ProductFetchSubmitTransferTask extends ProductFetchSubmitTransferRunnable {
 
         public ProductFetchSubmitTransferTask(String item) {
@@ -273,6 +293,20 @@ public class ProductController extends BaseUiController<ProductController.Produc
                 if(item instanceof ProductController.CommentsUi){
                     ((ProductController.CommentsUi)item).refreshComment(result.msg);
                     break;
+                }
+            }
+        }
+    }
+
+    private class ProductChangeShelfStateTask extends ProductChangeShelfStateRunnable{
+        public ProductChangeShelfStateTask(String tag_id,String product_id ,String action){
+            super(tag_id, product_id,action);
+        }
+
+        public void onSuccess(StateEntity result){
+            for(Ui item : getUis()){
+                if(item instanceof ProductController.ProStateUi){
+                    ((ProductController.ProStateUi)item).refreshStateChange();
                 }
             }
         }

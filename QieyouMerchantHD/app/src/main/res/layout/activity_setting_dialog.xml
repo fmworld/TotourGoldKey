@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qieyou.qieyoustore.ui.widget.TransLinearlayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/about_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#77232323"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="531dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="68dp"
+            android:background="@drawable/bg_coners_gray_26_top_round">
+
+            <TextView
+                android:id="@+id/setting_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/home_setting_about"
+                style="@style/setting_about_title"
+                />
+
+            <TextView
+                android:id="@+id/setting_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:padding="10dp"
+                android:text="@string/close"
+                style="@style/setting_about_close"
+                />
+        </RelativeLayout>
+        <FrameLayout
+            android:id="@+id/setting_dialog_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_coners_black_15_bottom_round"/>
+    </LinearLayout>
+</com.qieyou.qieyoustore.ui.widget.TransLinearlayout>

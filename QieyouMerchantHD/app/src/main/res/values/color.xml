@@ -14,13 +14,14 @@
     <color name="gray_15">#767676</color>
     <color name="gray_16">#c0c0c0</color>
     <color name="gray_17">#66323232</color>
-    <color name="gray_18">#262626</color>
+    <color name="gray_26">#262626</color>
     <color name="black_1">#202020</color>
     <color name="black_11">#212121</color>
-    <color name="black_12">#151515</color>
+    <color name="black_15">#151515</color>
     <color name="black_13">#3c3c3c</color>
     <color name="black_14">#ee2c2c2c</color>
     <color name="black_bg">#2d2e32</color>
+    <color name="black_68">#686868</color>
     <color name="yellow">#ffcf00</color>
     <color name="oringe">#ff6c00</color>
     <color name="green">#6ab400</color>

@@ -66,6 +66,13 @@
 
         </activity>
         <activity
+            android:name="com.qieyou.qieyoustore.SettingActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/translucent"
+            >
+        </activity>
+
+        <activity
             android:name="com.qieyou.qieyoustore.NewTagActivity"
             android:screenOrientation="landscape"
             android:theme="@style/new_tag_translucent"

@@ -5,7 +5,6 @@ import android.util.Log;
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.network.TokenCheckedRunnable;
 import com.fm.fmlib.state.UserState;
-import com.fm.fmlib.tour.entity.LoginOutEntity;
 import com.fm.fmlib.tour.entity.LoginResetPwdEntity;
 import com.fm.fmlib.utils.StringUtils;
 
@@ -15,19 +14,18 @@ import retrofit.RetrofitError;
  * Created by zhou feng'an on 2015/7/30.
  */
 public class UserSetNewPwdRuunable extends TokenCheckedRunnable<LoginResetPwdEntity> {
-    private String mobile;
     private String code;
-    private String pwd;
+    protected String pwd;
     public UserSetNewPwdRuunable(){}
 
-    public UserSetNewPwdRuunable(String mobile, String code, String pwd){
-        this.mobile = mobile;
+    public UserSetNewPwdRuunable(String code, String pwd){
         this.code = code;
         this.pwd = pwd;
     }
     @Override
     public LoginResetPwdEntity doBackground() throws RetrofitError {
-        return TourApplication.instance().getmTotour().getmUserService().changePassword(mobile, code, StringUtils.md5(pwd));
+        return TourApplication.instance().getmTotour().getmUserService()
+                .changePassword(TourApplication.instance().getToken(), code, StringUtils.md5(pwd));
     }
 
     @Override
@@ -35,7 +33,6 @@ public class UserSetNewPwdRuunable extends TokenCheckedRunnable<LoginResetPwdEnt
         Log.v(TAG, "result code "+result.code);
         Log.v(TAG, "result msg "+result.msg);
         Log.v(TAG, "result errorInfo "+result.errorInfo);
-        this.getBus().post(new UserState.UserResetPasswordEvent());
     }
 
     @Override

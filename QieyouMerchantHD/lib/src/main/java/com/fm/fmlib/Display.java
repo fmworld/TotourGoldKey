@@ -75,4 +75,8 @@ public interface Display {
 
     //显示tag分类后的商品
     void showVerifyCode(MainController.HomeMenu menu, Bundle bundle);
+
+    void showSetChangePwd();
+
+    void showSettingItem(String item);
 }

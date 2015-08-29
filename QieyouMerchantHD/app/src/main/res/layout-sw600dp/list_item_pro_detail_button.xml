@@ -11,7 +11,7 @@
        android:layout_alignParentLeft="true"
        android:layout_centerVertical="true"
        android:layout_marginLeft="15dp"
-       style="@style/pro_detail_content_right"
+       style="@style/pro_detail_content_right_title"
        android:drawablePadding="10dp"
        />
 

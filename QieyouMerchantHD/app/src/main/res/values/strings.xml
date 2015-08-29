@@ -5,9 +5,11 @@
     <string name="complete">完成</string>
     <string name="positive">确定</string>
     <string name="navitive">取消</string>
+    <string name="version_failed">获取失败</string>
     <string name="rmb_unit">元</string>
     <string name="sale_state_able">立即抢购</string>
     <string name="sale_state_unable">售罄</string>
+    <string name="close">关闭</string>
     <!-- login -->
     <string name="foget_pwd_notify">忘记密码？</string>
     <string name="login_phone_number">400-885-7171</string>
@@ -25,6 +27,7 @@
     <string name="home_code_title">验码</string>
     <string name="home_manager_title">管理</string>
     <string name="home_setting_title">设置</string>
+    <string name="home_person_title">掌柜</string>
 
     <!-- home person-->
     <string name="home_person_score_unit">分</string>
@@ -37,13 +40,42 @@
     <string name="home_setting_cache_str">%1sM</string>
     <string name="home_setting_version_str">V %1s</string>
     <string name="home_setting_loginout_str">退出登录</string>
+    <string name="home_setting_server">且游客户</string>
+    <string name="home_setting_feedback">意见反馈</string>
+    <string name="home_setting_about">关于且游</string>
+    <string name="cache_clean_notify">确定清除缓存吗？</string>
+    <string name="setting_loginout_notify">您确定退出登录吗？</string>
+
+    <!-- home setting about-->
+    <string name="about_title">关于且游</string>
+    <string name="about_network">且游网</string>
+    <string name="about_welfare">且游公益</string>
+    <string name="about_target">且游目标</string>
+    <string name="about_network_value">且游控股集团旗下的旅游O2O创业项目。且游网专注于特卖模式的周边游市场，利用移动互联网手段帮助客栈成为旅游业供应链中的核心企业，为游客提供行中的及时门店服务，满足游客食住行游购娱的一站式需求。\n且游网以旅游目的地为核心，立足于丽江古城，展望全中国，用移动电商的方式连接各旅游产品供应商和服务商，为商户和游客提供个性化的旅游产品定制服务，实现旅游目的地智慧旅游和定制旅游的目的。</string>
+    <string name="about_welfare_value">且游旗下的【且游公益】，结合公益助学，公平贸易，打通大学生和旅游目的地客栈，以及贫困山区学校的慈善公益渠道，达到“且游且公益”，的社会效应。</string>
+    <string name="about_target_value">且游带你玩透每座城！\n快乐分享健康成长！\n诚信，团队，创新，进取！</string>
+
+    <!-- home setting change pwd-->
+    <string name="change_pwd_title">修改登录密码</string>
+    <string name="change_pwd_verfy_code_hint">请输入手机验证码</string>
+    <string name="change_pwd_verfy_code_get">获取验证码</string>
+    <string name="change_pwd_submit">提交</string>
+    <string name="change_pwd_new_hint">请输入6-16位字母、数字组合的新密码</string>
+
+    <!-- home setting feedback-->
+    <string name="change_feedback_title">意见反馈</string>
+    <string name="change_feedback_fail_notify">反馈内容不能为空</string>
+    <string name="change_feedback_hint">有什么想说的，尽管来吐槽吧~</string>
+
+
 
     <!-- home code-->
-    <string name="home_code_close">关闭</string>
     <string name="home_code_verify">快速验码</string>
     <string name="home_code_submit">提交验证</string>
+
     <!-- home manager-->
     <string name="manager_choose_check_type">选择支付方式</string>
+
     <!-- home manager pro addedit-->
     <string name="home_mgr_pro_addedit_cancel">取消</string>
     <string name="home_mgr_pro_addedit_done">完成</string>
@@ -99,7 +131,12 @@
     <!-- home mall-->
     <string name="mall_submit_order_hint">提交订单</string>
     <string name="mall_product_price_str"><Data><![CDATA[原价: %1$s元　售价: <font color="#f85c5c">%2$s</font> 元]]> </Data></string>
+    <string name="mall_product_price_with_tip_str"><Data><![CDATA[原价: %1$s元　售价: <font color="#f85c5c">%2$s</font> 元　小费: <font color="#f85c5c">%3$s</font> 元]]> </Data></string>
     <string name="mall_product_content_htm_str"><Data><![CDATA[<img/><font color="yellow"> 推荐理由 </font>%1$s <p><font color="yellow">%2$s</font> 金钥匙已上架　累计出售 <font color="yellow">%3$s</font> 件</p>]]> </Data> </string>
+    <string name="mall_pro_has_shelved">已上架</string>
+    <string name="mall_pro_to_shelve">上架到铺子</string>
+    <string name="mall_pro_not_shelve">已下架</string>
+    <string name="mall_pro_end_time">团购已结束</string>
 
     <!-- home mall filter-->
     <string name="mall_filter_title_1">筛选</string>

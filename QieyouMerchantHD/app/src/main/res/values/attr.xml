@@ -20,7 +20,7 @@
         <attr name="focusWidth" format="dimension" />
         <attr name="focusedTextColor" format="color" />
         <attr name="unfocusedTextColor" format="color" />
-        <attr name="focusedResource" format="integer" />
+        <attr name="focusedResource" format="reference" />
         <attr name="layer">
             <enum name="bottom" value="0" />
             <enum name="top" value="1" />

@@ -2,6 +2,7 @@
 <com.qieyou.qieyoustore.ui.widget.TransLinearlayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
     xmlns:linearIndicator="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/myshop_bg"
     android:orientation="vertical"
     >
     <RelativeLayout
@@ -23,7 +24,7 @@
             android:layout_centerVertical="true"
             android:padding="10dp"
             android:layout_alignParentRight="true"
-            android:src="@drawable/store_sudoku_choose_button"
+            android:src="@drawable/myshop_grid_btn_icon"
             />
     </RelativeLayout>
     <android.support.v4.view.ViewPager
@@ -36,8 +37,8 @@
     <com.qieyou.qieyoustore.ui.widget.StoreNumTextIndicator
         android:id="@+id/store_vp_indicator"
         android:layout_width="855dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
         android:layout_gravity="center"
         linearIndicator:layer="top"
         >

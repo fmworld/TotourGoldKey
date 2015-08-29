@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:padding="10dp"
-                android:text="@string/home_code_close"
+                android:text="@string/close"
                 style="@style/code_close" />
 
             <TextView

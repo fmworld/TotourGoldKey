@@ -8,6 +8,7 @@ import com.fm.fmlib.controllers.MainController;
 public class HomeNaviItem {
     public String icon;
     public int local_icon;
+    public int local_icon_u;
     public String title;
     public MainController.HomeMenu tag;
 }

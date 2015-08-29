@@ -14,6 +14,7 @@ import com.fm.fmlib.Display;
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.controllers.MainController;
 import com.fm.fmlib.dao.ProductBreviary;
+import com.fm.fmlib.state.UserState;
 import com.fm.fmlib.tour.TourConfig;
 import com.fm.fmlib.tour.bean.ProductInfo;
 import com.qieyou.qieyoustore.ui.fragment.HomeFragmentFactory;
@@ -22,6 +23,9 @@ import com.qieyou.qieyoustore.ui.fragment.HomeStoreSudoku;
 import com.qieyou.qieyoustore.ui.fragment.LoginFindpwdFragment;
 import com.qieyou.qieyoustore.ui.fragment.LoginInFragment;
 import com.qieyou.qieyoustore.ui.fragment.ProductAddEdit;
+import com.qieyou.qieyoustore.ui.fragment.SetAboutFragment;
+import com.qieyou.qieyoustore.ui.fragment.SetChangepwdFragment;
+import com.qieyou.qieyoustore.ui.fragment.SettingFragmentFactory;
 import com.qieyou.qieyoustore.util.MyShareUtils;
 import com.qieyou.qieyoustore.ui.widget.AnimListenFragment;
 
@@ -163,7 +167,7 @@ public class AndroidDisplay implements Display {
             bundle.putString("link", data);
             showHomeSecondContent(menu, bundle);
             return;
-        }else{
+        } else {
             showHomeMenuItem(menu);
         }
     }
@@ -308,17 +312,15 @@ public class AndroidDisplay implements Display {
                 return;
             }
             int animIn, animOut;
-            if(menu == MainController.HomeMenu.STORE_SUDOKU){
+            if (menu == MainController.HomeMenu.STORE_SUDOKU) {
                 animIn = R.anim.home_scontent_in_right_to_left;
                 animOut = R.anim.code_out_right_to_left;
-            }else
-            if(menu == MainController.HomeMenu.STORE_GALLERY
+            } else if (menu == MainController.HomeMenu.STORE_GALLERY
                     && MainController.HomeMenu.STORE_SUDOKU ==
-                            (((HomeAcitvity) mActiviyt).getCurrentContentTag())){
+                    (((HomeAcitvity) mActiviyt).getCurrentContentTag())) {
                 animIn = R.anim.code_in_left_to_right;
                 animOut = R.anim.code_out_left_to_right;
-            }else
-            {
+            } else {
                 animIn = R.anim.home_menu_in_left_to_right;
                 animOut = R.anim.home_menu_out_right_to_left;
             }
@@ -424,16 +426,16 @@ public class AndroidDisplay implements Display {
 
     @Override
     public void showVerifyCode(MainController.HomeMenu menu, Bundle bundle) {
-        AnimListenFragment fragment = (AnimListenFragment)mActiviyt.getFragmentManager().findFragmentByTag(menu.toString());
+        AnimListenFragment fragment = (AnimListenFragment) mActiviyt.getFragmentManager().findFragmentByTag(menu.toString());
         int animIn, animOut;
-        if(null == fragment){
+        if (null == fragment) {
             fragment = (AnimListenFragment) HomeFragmentFactory.create(menu);
         }
 
-        if(menu == MainController.HomeMenu.VERIFY_SUCCESS){
+        if (menu == MainController.HomeMenu.VERIFY_SUCCESS) {
             animIn = R.anim.code_in_right_to_left;
             animOut = R.anim.code_out_right_to_left;
-        }else{
+        } else {
             animIn = R.anim.code_in_left_to_right;
             animOut = R.anim.code_out_left_to_right;
         }
@@ -445,6 +447,30 @@ public class AndroidDisplay implements Display {
                 .beginTransaction()
                 .setCustomAnimations(animIn, animOut)
                 .replace(R.id.fragment_code_main, fragment, menu.toString())
+                .commit();
+    }
+
+    @Override
+    public void showSetChangePwd() {
+        AnimListenFragment fragment = (AnimListenFragment) SetChangepwdFragment.create();
+        mActiviyt.getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.code_in_right_to_left, R.anim.code_out_left_to_right)
+                .replace(R.id.fragment_code_main, fragment)
+                .commit();
+    }
+
+    @Override
+    public void showSettingItem(String item) {
+        AnimListenFragment
+                fragment = (AnimListenFragment) SettingFragmentFactory.create(item);
+        if (null == fragment) {
+            return;
+        }
+        mActiviyt.getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(R.anim.code_in_right_to_left, R.anim.code_out_left_to_right)
+                .replace(R.id.setting_dialog_content, fragment)
                 .commit();
     }
 }

@@ -6,7 +6,7 @@
     android:gravity="center">
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/navi_web_item"
-        android:layout_width="45dp" android:layout_height="45dp"
+        android:layout_width="45dp" android:layout_height="67dp"
         fresco:actualImageScaleType="centerInside"
         />
 </LinearLayout>

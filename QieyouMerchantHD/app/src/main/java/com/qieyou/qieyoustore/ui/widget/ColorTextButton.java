@@ -4,13 +4,14 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.qieyou.qieyoustore.R;
 
 /**
  * Created by zhoufeng'an on 2015/8/9.
  */
-public class ColorTextButton extends Button {
+public class ColorTextButton extends TextView {
     private int selectedTextColor ;
     private int unselectedTextColor;
     public ColorTextButton(Context context) {

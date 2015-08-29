@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.state.InnState;
 import com.fm.fmlib.tasks.InnAddProductInfoRunnable;
+import com.fm.fmlib.tasks.InnFetchManagerTransferRunnable;
 import com.fm.fmlib.tasks.InnFetchOrderPmentTransferRunnable;
 import com.fm.fmlib.tasks.InnFetchProductInfoRunnable;
 import com.fm.fmlib.tasks.InnFetchStoreShareInfoRunnable;
@@ -13,6 +14,7 @@ import com.fm.fmlib.tasks.InnUpdateProductInfoRunnable;
 import com.fm.fmlib.tasks.UtilUploadProImageRunnable;
 import com.fm.fmlib.tour.bean.ProductInfo;
 import com.fm.fmlib.tour.entity.StateEntity;
+import com.fm.fmlib.tour.entity.TransferEntity;
 import com.fm.fmlib.tour.params.ProductParams;
 import com.fm.fmlib.utils.BackgroundExecutor;
 import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
@@ -73,6 +75,7 @@ public class InnController extends BaseUiController<InnController.InnUi,InnContr
         void shareStoreInfo(String inn_id);
         void showCheckType(String order_id);
         void showProdcutEdit(String product_id);
+        void fetchManagerUrl();
         void showProdcutAdd();
     }
 
@@ -110,6 +113,11 @@ public class InnController extends BaseUiController<InnController.InnUi,InnContr
                     Bundle bundle = new Bundle();
                     bundle.putString("order", product_id);
                     InnController.this.getDisplay().showHomeSecondContent(MainController.HomeMenu.MGR_PRO_AE, bundle);
+                }
+
+                @Override
+                public void fetchManagerUrl() {
+                    mExecutor.execute(new InnFetchManagerTeansferTask());
                 }
 
                 @Override
@@ -211,6 +219,18 @@ public class InnController extends BaseUiController<InnController.InnUi,InnContr
         @Override
         public void onSuccess(StateEntity result) {
             getDisplay().showProductAddSuccessed();
+        }
+    }
+
+    private class InnFetchManagerTeansferTask extends InnFetchManagerTransferRunnable {
+        @Override
+        public void onSuccess(TransferEntity result) {
+            for(Ui item : getUis()){
+                if(item instanceof InnController.InnManagerUi){
+                    ((InnController.InnManagerUi)item).showManager();
+                    break;
+                }
+            }
         }
     }
 

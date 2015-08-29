@@ -6,7 +6,7 @@
         android:id="@+id/mall_cate_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black_12"
+        android:background="@color/black_15"
         >
         <TextView
             android:id="@+id/mall_city_choose"
@@ -43,6 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/mall_filter"
             android:scrollbars="none"
+            android:layout_marginRight="5dp"
             android:layout_centerInParent="true">
             <com.qieyou.qieyoustore.ui.widget.MallCITabBar
                 android:id="@+id/mall_category_id_list"

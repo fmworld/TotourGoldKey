@@ -1,14 +1,9 @@
 package com.qieyou.qieyoustore.ui.widget;
 
-import android.app.ActionBar;
-import android.app.Dialog;
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.SparseArray;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,11 +11,8 @@ import android.widget.TextView;
 import com.fm.fmlib.dao.CategoryTitle;
 import com.fm.fmlib.utils.DisplayUtil;
 import com.qieyou.qieyoustore.R;
-import com.qieyou.qieyoustore.ui.widget.WheelDatePick;
-import com.qieyou.qieyoustore.util.DateUtil;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -99,7 +91,7 @@ public class MallTabBar extends LinearLayout implements View.OnClickListener{
 
     private void previousUnSelected() {
         if (null != currentView) {
-            currentView.setBackgroundColor(this.getResources().getColor(R.color.black_12));
+            currentView.setBackgroundColor(this.getResources().getColor(R.color.black_15));
             ((TextView)currentView.findViewById(R.id.mall_category_item_name))
                     .setTextColor(this.getResources().getColor(R.color.white));
             ((ImageView)currentView.findViewById(R.id.mall_category_item_icon))

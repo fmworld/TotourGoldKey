@@ -18,7 +18,7 @@ public abstract class TokenCheckedRunnable<R> extends NetworkCallRunnable<R> {
         BaseEntity entity = (BaseEntity) result;
         if (4004 == entity.code) {
             LoginEntity logined = TourApplication.instance().getmTotour().getmUserService()
-                    .loginIn(TourApplication.instance().getAccount(), TourApplication.instance().getPassword());
+                    .loginIn(TourApplication.instance().getAccount(), StringUtils.md5(TourApplication.instance().getPassword()));
             if(1==logined.code)
             {
                 TourApplication.instance().setToken(logined.msg.token);

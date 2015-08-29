@@ -43,7 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/pro_detail_traver_icon"
         android:layout_marginLeft="10dp"
-        android:minHeight="115dp"
+        android:minHeight="80dp"
+        android:layout_alignTop="@+id/pro_detail_traver_icon"
         style="@style/pro_detail_content_right"
         />
 

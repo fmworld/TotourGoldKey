@@ -53,6 +53,15 @@ public class HomeAcitvity extends BaseTourActivity implements MainController.Nav
     }
 
 
+    public void selectNavigationItem(MainController.HomeMenu index){
+        if(null != naviAdapter && null != index){
+            naviAdapter.onItemClick(index.ordinal());
+        }
+    }
+    public void selectCurrentNavigationItem(){
+        selectNavigationItem(this.getCurrentContentTag());
+    }
+
     @Override
     public void onClick(View v) {
         if (R.id.home_navi_user == v.getId()) {
@@ -93,7 +102,6 @@ public class HomeAcitvity extends BaseTourActivity implements MainController.Nav
         if(firstResume){
 
             mNavigationCallbacks.fetchProOptions();
-            mNavigationCallbacks.fetchManagerUrl();
             mNavigationCallbacks.fetchUserInfo();
             mNavigationCallbacks.fetchStoreInfo();
             mNavigationCallbacks.fetchTagList();

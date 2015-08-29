@@ -2,12 +2,14 @@
 <com.qieyou.qieyoustore.ui.widget.TransScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/home_setting_bg"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/home_setting_bg"
+
         android:orientation="vertical">
 
         <LinearLayout
@@ -55,6 +57,7 @@
                 android:textSize="@dimen/home_setting_text_size" />
 
             <com.qieyou.qieyoustore.ui.widget.SlideSwitch
+                android:id="@+id/setting_tip_switch"
                 android:layout_width="70dp"
                 android:layout_height="30dp"
                 android:layout_alignParentRight="true"
@@ -140,6 +143,7 @@
                 android:src="@drawable/home_setting_show" />
 
             <TextView
+                android:id="@+id/setting_cache_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -181,16 +185,17 @@
                 android:src="@drawable/home_setting_show" />
 
             <TextView
+                android:id="@+id/setting_version_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/tag1"
-                android:text="@string/home_setting_version_str"
                 android:textColor="@color/home_setting_item_value" />
         </RelativeLayout>
 
         <Button
+            android:id="@+id/setting_loginout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/home_setting_item_left_mar"

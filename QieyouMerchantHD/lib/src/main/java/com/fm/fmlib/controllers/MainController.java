@@ -31,13 +31,13 @@ public class MainController extends BaseUiController<MainController.MainUi, Main
         CODE,
         MANAGER,
         SETTING,
+        WEB,
         PERSON_INFO,
         MGR_PRO_AE,
         STORE_SUDOKU,
         PRO_DETAIL,
         COMMENTS,
-        VERIFY_SUCCESS,
-        WEB
+        VERIFY_SUCCESS
     }
 
     private BackgroundExecutor mExecutor;
@@ -75,7 +75,6 @@ private ApplicationState mApplicationState;
     public interface  NavigationCallbacks extends  MainUiCallbacks{
         void fetchUserInfo();
         void fetchStoreInfo();
-        void fetchManagerUrl();
         void fetchTagList();
         void fetchProOptions();
     }
@@ -104,11 +103,6 @@ private ApplicationState mApplicationState;
                 @Override
                 public void fetchStoreInfo() {
                     mExecutor.execute(new InnFetchStoreCardTask());
-                }
-
-                @Override
-                public void fetchManagerUrl() {
-                    mExecutor.execute(new InnFetchManagerTeansferTask());
                 }
 
                 @Override
@@ -216,20 +210,6 @@ private ApplicationState mApplicationState;
             for(Ui item : getmUserController().getUis()){
                 if(item instanceof UserController.UserSettingUi){
                     ((UserController.UserSettingUi)item).initView();
-                    break;
-                }
-            }
-        }
-    }
-
-
-
-    private class InnFetchManagerTeansferTask extends InnFetchManagerTransferRunnable {
-        @Override
-        public void onSuccess(TransferEntity result) {
-            for(Ui item : getInnController().getUis()){
-                if(item instanceof InnController.InnManagerUi){
-                    ((InnController.InnManagerUi)item).showManager();
                     break;
                 }
             }

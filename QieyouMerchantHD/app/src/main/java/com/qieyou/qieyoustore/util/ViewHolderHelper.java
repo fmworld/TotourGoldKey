@@ -79,6 +79,12 @@ public class ViewHolderHelper {
         return this;
     }
 
+    public ViewHolderHelper setTextColor(int viewId, int colorRes){
+        TextView view = findViewById(viewId);
+        view.setTextColor(mContext.getResources().getColor(colorRes));
+        return this;
+    }
+
     public ViewHolderHelper setText(int viewId, Spanned value){
         TextView view = findViewById(viewId);
         view.setText(value);

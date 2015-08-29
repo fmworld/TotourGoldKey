@@ -24,10 +24,16 @@ import java.util.Date;
 /**
  * Created by zhoufeng'an on 2015/8/17.
  */
-public class ProductTagsDialog extends Dialog implements View.OnClickListener{
-    private  TextView tagShow;
-    private  ProTagListAdapter tagList;
+public class ProductTagsDialog extends Dialog implements View.OnClickListener {
+    public interface ConfirmListener {
+        void tagSelected(String tag_id);
+    }
+
+    private TextView tagShow;
+    private ProTagListAdapter tagList;
     private ProductTag currentTag;
+    private ConfirmListener confirmListener;
+
     public ProductTagsDialog(Context context) {
         super(context);
         initView();
@@ -46,19 +52,19 @@ public class ProductTagsDialog extends Dialog implements View.OnClickListener{
     private void initView() {
         ActionBar.LayoutParams prams = new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         prams.gravity = Gravity.CENTER;
-        View view = View.inflate(this.getContext(), R.layout.widget_product_tag_choose,null);
+        View view = View.inflate(this.getContext(), R.layout.widget_product_tag_choose, null);
         tagList = new ProTagListAdapter(this.getContext());
         tagList.setdata(TourApplication.instance().getDaoProductTag().getProductTags());
-        ((ListView)view.findViewById(R.id.pro_tag_list)).setAdapter(tagList);
-        ((ListView)view.findViewById(R.id.pro_tag_list)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ((ListView) view.findViewById(R.id.pro_tag_list)).setAdapter(tagList);
+        ((ListView) view.findViewById(R.id.pro_tag_list)).setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 tagList.onItemClick(position);
             }
         });
-        ((View)view.findViewById(R.id.pro_tag_list_close)).setOnClickListener(this);
-        ((View)view.findViewById(R.id.tag_list_add_layout)).setOnClickListener(this);
-        ((View)view.findViewById(R.id.pro_tag_confirm)).setOnClickListener(this);
+        ((View) view.findViewById(R.id.pro_tag_list_close)).setOnClickListener(this);
+        ((View) view.findViewById(R.id.tag_list_add_layout)).setOnClickListener(this);
+        ((View) view.findViewById(R.id.pro_tag_confirm)).setOnClickListener(this);
 
         addContentView(view, prams);
 
@@ -71,29 +77,37 @@ public class ProductTagsDialog extends Dialog implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if(R.id.pro_tag_list_close == v.getId()){
+        if (R.id.pro_tag_list_close == v.getId()) {
             this.dismiss();
             return;
         }
 
-        if(R.id.tag_list_add_layout == v.getId()){
+        if (R.id.tag_list_add_layout == v.getId()) {
             this.getContext().startActivity(new Intent(getContext(), NewTagActivity.class));
             return;
         }
 
-        if(R.id.pro_tag_confirm == v.getId()){
-            if(null != tagShow){
-                currentTag =tagList.getCurrentTag();
-                if(null !=currentTag){
-                    tagShow.setText(currentTag.getTag_name());
-                }
+        if (R.id.pro_tag_confirm == v.getId()) {
+            currentTag = tagList.getCurrentTag();
+            if (null == currentTag) {
+                return;
+            }
+            if (null != tagShow) {
+                tagShow.setText(currentTag.getTag_name());
+            }
+            if (null != confirmListener) {
+                confirmListener.tagSelected(currentTag.getTag_id());
             }
             dismiss();
             return;
         }
     }
 
-    public ProductTag getChosedTag(){
+    public void setConfirmListener(ConfirmListener confirmListener) {
+        this.confirmListener = confirmListener;
+    }
+
+    public ProductTag getChosedTag() {
         return currentTag;
     }
 }

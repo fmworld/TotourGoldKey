@@ -11,6 +11,8 @@ import android.webkit.WebView;
 
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.controllers.InnController;
+import com.fm.fmlib.controllers.MainController;
+import com.qieyou.qieyoustore.HomeAcitvity;
 import com.qieyou.qieyoustore.MerchanthdApplication;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.ui.widget.AnimListenFragment;
@@ -40,12 +42,13 @@ public class HomeManager extends AnimListenFragment implements InnController.Inn
         View view = inflater.inflate(R.layout.fragment_home_manager, null);
         mWebView = (WebView) view.findViewById(R.id.home_manager_web);
         mWebView.getSettings().setJavaScriptEnabled(true);
+//        mWebView.getSettings().setCacheMode();
         mWebView.setBackgroundColor(this.getResources().getColor(R.color.home_manager_bg));
         this.setAnimationListener(new AnimatorListenerAdapter() {
             public void onAnimationEnd(Animator animation) {
                 if (null != mManagerCallbacks) {
                     mWebView.setWebViewClient(new TourWebViewClient(HomeManager.this.getActivity(), mManagerCallbacks));
-                    showManager();
+                    mManagerCallbacks.fetchManagerUrl();
                 }
             }
         });
@@ -54,8 +57,9 @@ public class HomeManager extends AnimListenFragment implements InnController.Inn
 
     @Override
     public void onResume() {
-        getController().attachUi(this);
         super.onResume();
+        getController().attachUi(this);
+        ((HomeAcitvity)getActivity()).selectNavigationItem(MainController.HomeMenu.MANAGER);
     }
 
 

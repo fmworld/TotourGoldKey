@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="意见反馈"
+            android:text="@string/home_setting_feedback"
             android:textColor="@color/home_setting_text_color"
             android:textSize="@dimen/home_setting_text_size" />
 
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="关于且游"
+            android:text="@string/home_setting_about"
             android:textColor="@color/home_setting_text_color"
             android:textSize="@dimen/home_setting_text_size" />
 
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="且游客户"
+            android:text="@string/home_setting_server"
             android:textColor="@color/home_setting_text_color"
             android:textSize="@dimen/home_setting_text_size" />
 

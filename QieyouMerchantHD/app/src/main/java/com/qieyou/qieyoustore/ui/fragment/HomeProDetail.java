@@ -24,6 +24,7 @@ import com.qieyou.qieyoustore.BaseTourActivity;
 import com.qieyou.qieyoustore.MerchanthdApplication;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.ui.widget.AnimListenFragment;
+import com.qieyou.qieyoustore.util.TourStringUtil;
 
 /**
  * Created by zhoufeng'an on 2015/8/9.
@@ -32,6 +33,7 @@ public class HomeProDetail extends AnimListenFragment implements ProductControll
     private ProductController.ProductDetailCallbacks mProductDetailCallbacks;
     private String item;
     private View content;
+    private ProDetailRightAdapter rightAdapter;
 
     public HomeProDetail() {
     }
@@ -48,9 +50,9 @@ public class HomeProDetail extends AnimListenFragment implements ProductControll
         item = (String) this.getArguments().get("item");
         (content.findViewById(R.id.detail_back)).setOnClickListener(this);
         (content.findViewById(R.id.detail_share)).setOnClickListener(this);
-        this.setAnimationListener(new AnimatorListenerAdapter(){
+        this.setAnimationListener(new AnimatorListenerAdapter() {
             public void onAnimationEnd(Animator animation) {
-                if(null != mProductDetailCallbacks){
+                if (null != mProductDetailCallbacks) {
                     mProductDetailCallbacks.fetchDetail(item);
                 }
             }
@@ -90,7 +92,7 @@ public class HomeProDetail extends AnimListenFragment implements ProductControll
     public void onClick(View v) {
         if (R.id.detail_back == v.getId()) {
             ((BaseTourActivity) this.getActivity()).getDisplay().hideHomeSecondContent();
-        }else if(R.id.detail_share == v.getId()){
+        } else if (R.id.detail_share == v.getId()) {
             mProductDetailCallbacks.fetchShareInfo(item);
         }
     }
@@ -110,12 +112,20 @@ public class HomeProDetail extends AnimListenFragment implements ProductControll
         ((TextView) content.findViewById(R.id.detail_attention_content)).setText(detail.booking_info);
         initImages((LinearLayout) content.findViewById(R.id.detail_top_imgs), detail.product_images);
         initImages((LinearLayout) content.findViewById(R.id.detail_bottom_imgs), detail.detail_images);
-        ProDetailRightAdapter rightAdapter = new ProDetailRightAdapter(this.getActivity(), detail);
+        rightAdapter = new ProDetailRightAdapter(this.getActivity(), detail);
         rightAdapter.setScroll(content.findViewById(R.id.detail_content_layout));
         ((ListView) content.findViewById(R.id.pro_detail_right)).setAdapter(rightAdapter);
     }
 
+    @Override
+    public void refreshStateChange() {
+        rightAdapter.notifyDataSetChanged();
+    }
+
     private void initImages(LinearLayout layout, String imgstr) {
+        if(TourStringUtil.isNULLorEmpty(imgstr)){
+            return;
+        }
         String[] imgs = imgstr.split(",");
         layout.removeAllViews();
         SimpleDraweeView view;

@@ -2,7 +2,10 @@ package com.fm.fmlib;
 
 import android.app.Application;
 
+import com.facebook.cache.disk.DiskCacheConfig;
+import com.facebook.common.internal.Supplier;
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.fm.fmlib.controllers.MainController;
 import com.fm.fmlib.dao.Inn;
 import com.fm.fmlib.dao.ProductTagDao;
@@ -10,6 +13,7 @@ import com.fm.fmlib.dao.User;
 import com.fm.fmlib.tour.Totour0888;
 import com.fm.fmlib.tour.bean.UserInfo;
 import com.fm.fmlib.utils.BackgroundExecutor;
+import com.fm.fmlib.utils.DataCleanManager;
 import com.fm.fmlib.utils.DataMemCacheUtil;
 import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
 import com.fm.fmlib.utils.provider.CategoryDaoProvider;
@@ -19,6 +23,8 @@ import com.fm.fmlib.utils.provider.Networkprovider;
 import com.fm.fmlib.utils.provider.ProductTagDaoProvider;
 import com.fm.fmlib.utils.provider.PropertyDaoProvider;
 import com.squareup.otto.Bus;
+
+import java.io.File;
 
 /**
  * Created by zhou feng'an on 2015/7/29.
@@ -67,9 +73,25 @@ public class TourApplication extends Application {
         dataMemCache = new DataMemCacheUtil(this);
         mMainController = new MainController();
         mBus = new Bus();
-        Fresco.initialize(this);
+        initFrescoConfig();
 
         mTotour = Networkprovider.providerTotour0888();
+    }
+
+    private void initFrescoConfig(){
+        DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder()
+                .setBaseDirectoryName(DataCleanManager.FRESCO_CACHE)
+                .setBaseDirectoryPathSupplier(new Supplier() {
+                    public File get() {
+                        return getCacheDir();
+                    }
+                })
+                .build();
+        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
+                .setMainDiskCacheConfig(diskCacheConfig)
+                .build();
+        Fresco.initialize(this,config);
+
     }
 
     public MainController getmMainController() {

@@ -22,4 +22,12 @@ public class AlertDialogUtil {
             }
         }).setNegativeButton(context.getString(R.string.navitive),null).show();
     }
+
+    public static void showAlertDialog(final Context context, final String message, DialogInterface.OnClickListener postiveListener){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(message)
+                .setPositiveButton(context.getString(R.string.positive), postiveListener)
+                .setNegativeButton(context.getString(R.string.navitive),null)
+                .show();
+    }
 }
