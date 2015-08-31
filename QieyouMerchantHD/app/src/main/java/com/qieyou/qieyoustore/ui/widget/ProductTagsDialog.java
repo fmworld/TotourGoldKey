@@ -14,10 +14,12 @@ import android.widget.TextView;
 
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.dao.ProductTag;
+import com.fm.fmlib.state.ProductState;
 import com.qieyou.qieyoustore.Adapter.ProTagListAdapter;
 import com.qieyou.qieyoustore.NewTagActivity;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.util.DateUtil;
+import com.squareup.otto.Subscribe;
 
 import java.util.Date;
 
@@ -103,11 +105,29 @@ public class ProductTagsDialog extends Dialog implements View.OnClickListener {
         }
     }
 
+    public void dismiss(){
+        TourApplication.instance().getmBus().unregister(this);
+        super.dismiss();
+    }
+
+    public void show(){
+        super.show();
+        TourApplication.instance().getmBus().register(this);
+    }
+
     public void setConfirmListener(ConfirmListener confirmListener) {
         this.confirmListener = confirmListener;
     }
 
     public ProductTag getChosedTag() {
         return currentTag;
+    }
+
+    @Subscribe
+    public void updateTagsUI(ProductState.ProductAddNewTagEvent event){
+        if(null != tagList){
+            tagList.setdata(TourApplication.instance()
+                    .getDaoProductTag().getProductTags());
+        }
     }
 }

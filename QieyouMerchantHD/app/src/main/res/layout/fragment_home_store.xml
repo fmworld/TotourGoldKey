@@ -8,15 +8,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.qieyou.qieyoustore.ui.widget.StoreTabBar
-            android:layout_marginTop="18dp"
-            android:id="@+id/store_gallery_tab_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="53dp"
-            android:minWidth="100dp"
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="18dp"
-            />
+            android:layout_toLeftOf="@+id/store_sudoku_choose_button"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:scrollbars="none"
+            >
+            <com.qieyou.qieyoustore.ui.widget.StoreTabBar
+                android:layout_marginTop="18dp"
+                android:id="@+id/store_gallery_tab_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="53dp"
+                android:minWidth="100dp"
+                />
+        </HorizontalScrollView>
+
         <ImageView
             android:id="@+id/store_sudoku_choose_button"
             android:layout_width="wrap_content"
@@ -43,4 +53,11 @@
         linearIndicator:layer="top"
         >
     </com.qieyou.qieyoustore.ui.widget.StoreNumTextIndicator>
+    <com.qieyou.qieyoustore.ui.widget.StoreItemEmptyView
+        android:id="@+id/store_item_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        >
+    </com.qieyou.qieyoustore.ui.widget.StoreItemEmptyView>
 </com.qieyou.qieyoustore.ui.widget.TransLinearlayout>

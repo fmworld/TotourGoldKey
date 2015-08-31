@@ -89,8 +89,11 @@ public class HomeMgrProaePicsAdapter extends BaseAdapter implements View.OnClick
         } else {
             HomeMgrProPicItem item = items.get(position);
             holderHelper.setVisibility(R.id.home_mgr_pro_pic_delete_icon, View.VISIBLE);
-            holderHelper.setImageURI(R.id.home_mgr_pro_pic, item.uri);
-            holderHelper.setClickListener(R.id.home_mgr_pro_pic_delete_icon, this, position);
+            try{
+                holderHelper.setImageURI(R.id.home_mgr_pro_pic, item.uri);
+                holderHelper.setClickListener(R.id.home_mgr_pro_pic_delete_icon, this, position);
+            }catch (Exception e){}
+
         }
 
         return holderHelper.mConvertView;
@@ -114,7 +117,7 @@ public class HomeMgrProaePicsAdapter extends BaseAdapter implements View.OnClick
         layout.findViewById(R.id.btn_1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseTourActivity)mContext).selectPicFromCamera();
+                ((BaseTourActivity)mContext).launchCamera();
                 mDialog.dismiss();
             }
         });

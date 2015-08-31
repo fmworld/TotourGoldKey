@@ -14,11 +14,13 @@ import com.fm.fmlib.tasks.ProductFetchMallProductRunnable;
 import com.fm.fmlib.tasks.ProductFetchProDetailRunnable;
 import com.fm.fmlib.tasks.ProductFetchStoreProductRunnable;
 import com.fm.fmlib.tasks.ProductFetchSubmitTransferRunnable;
+import com.fm.fmlib.tasks.ProfileAddTagRunnable;
 import com.fm.fmlib.tour.bean.CodeInfo;
 import com.fm.fmlib.tour.bean.ProComment;
 import com.fm.fmlib.tour.bean.ProductDetail;
 import com.fm.fmlib.tour.entity.CodeInfoEntity;
 import com.fm.fmlib.tour.entity.ProCommentsEntity;
+import com.fm.fmlib.tour.entity.ProductBreEntity;
 import com.fm.fmlib.tour.entity.ProductDetailEntity;
 import com.fm.fmlib.tour.entity.ProductsEntity;
 import com.fm.fmlib.tour.entity.StateEntity;
@@ -44,16 +46,20 @@ public class ProductController extends BaseUiController<ProductController.Produc
         void updateTabBar();
     }
 
-    public interface StoreUi extends ProductUi {
+    public interface AddNewTagUi extends ProductUi {
+        void newTagAdded();
+    }
 
+    public interface StoreUi extends ProductUi {
+        void showEmptyItem();
     }
 
     public interface ProStateUi extends ProductUi {
-        void refreshStateChange();
+        void refreshStateChange(String pro_id);
     }
 
     public interface MallUi extends ProStateUi {
-        void refreshProductList(List<Product> products);
+        void refreshProductList(int page,List<Product> products);
 
     }
 
@@ -85,13 +91,17 @@ public class ProductController extends BaseUiController<ProductController.Produc
         void verifyCode(String code);
     }
 
+    public interface AddNewTagCallbacks extends ProductUiCallbacks {
+        void addNewTag(String tag_name);
+    }
+
     public interface ProductDetailCallbacks extends ProductUiCallbacks {
         void fetchDetail(String item);
         void fetchShareInfo(String id);
     }
 
     public interface ProductMallCallbacks extends ProductUiCallbacks {
-        void fetchProducts(String page, String perpage, String city, String cid, String ccid, String dest, String sort);
+        void fetchProducts(int page, String perpage, String city, String cid, String ccid, String dest, String sort);
     }
 
     @Override
@@ -101,15 +111,15 @@ public class ProductController extends BaseUiController<ProductController.Produc
 
                 @Override
                 public void fetchProBre(String items) {
-                    mExecutor.execute(new ProductFetchStoreProductRunnable(items));
+                    mExecutor.execute(new ProductFetchStoreProductTask(items));
                 }
             };
         } else if (ui instanceof MallUi) {
             return new ProductMallCallbacks() {
 
                 @Override
-                public void fetchProducts(String page, String perpage, String city, String cid, String ccid, String dest, String sort) {
-                    mExecutor.execute(new ProductFetchMallProductTask(page, perpage, city, cid, ccid, dest, sort));
+                public void fetchProducts(int page, String perpage, String city, String cid, String ccid, String dest, String sort) {
+                    mExecutor.execute(new ProductFetchMallProductTask(String.valueOf(page), perpage, city, cid, ccid, dest, sort));
                 }
             };
         }else if (ui instanceof DetailUi) {
@@ -137,6 +147,13 @@ public class ProductController extends BaseUiController<ProductController.Produc
                 @Override
                 public void fetchProComments(String proId, String page, String perPage) {
                     mExecutor.execute(new ProductFetchCommentsTask(proId, page, perPage));
+                }
+            };
+        } else if(ui instanceof AddNewTagUi){
+            return new AddNewTagCallbacks() {
+                @Override
+                public void addNewTag(String tag_name) {
+                    mExecutor.execute(new ProfileAddTagTask(tag_name));
                 }
             };
         }
@@ -184,7 +201,7 @@ public class ProductController extends BaseUiController<ProductController.Produc
         TourApplication.instance().getDaoProperty().saveProperty(ProductState.Tip, event.state);
         for(Ui item : getUis()){
             if(item instanceof ProductController.ProStateUi){
-                ((ProductController.ProStateUi)item).refreshStateChange();
+                ((ProductController.ProStateUi)item).refreshStateChange(null);
             }
         }
     }
@@ -218,7 +235,7 @@ public class ProductController extends BaseUiController<ProductController.Produc
 //            Log.v(TAG, "result errorInfo " + result.errorInfo);
             for(Ui item : getUis()){
                 if(item instanceof ProductController.MallUi){
-                    ((ProductController.MallUi)item).refreshProductList(result.msg);
+                    ((ProductController.MallUi)item).refreshProductList(Integer.valueOf(page),result.msg);
                     break;
                 }
             }
@@ -302,13 +319,47 @@ public class ProductController extends BaseUiController<ProductController.Produc
         public ProductChangeShelfStateTask(String tag_id,String product_id ,String action){
             super(tag_id, product_id,action);
         }
-
         public void onSuccess(StateEntity result){
             for(Ui item : getUis()){
                 if(item instanceof ProductController.ProStateUi){
-                    ((ProductController.ProStateUi)item).refreshStateChange();
+                    ((ProductController.ProStateUi)item).refreshStateChange(product_id);
                 }
             }
+        }
+    }
+
+    private class ProfileAddTagTask extends ProfileAddTagRunnable {
+        public ProfileAddTagTask(String tag_name){
+            super(tag_name);
+        }
+
+        @Override
+        public void onSuccess(StateEntity result) {
+            super.onSuccess(result);
+            for(Ui item : getUis()){
+                if(item instanceof ProductController.AddNewTagUi){
+                    ((ProductController.AddNewTagUi)item).newTagAdded();
+                }
+            }
+        }
+    }
+
+    private class ProductFetchStoreProductTask extends ProductFetchStoreProductRunnable{
+        public ProductFetchStoreProductTask(String items){
+            super(items);
+        }
+
+        public void onSuccessBadCode(int code, String errorInfo){
+            for(Ui item : getUis()){
+                if(item instanceof ProductController.StoreUi){
+                    ((ProductController.StoreUi)item).showEmptyItem();
+                    break;
+                }
+            }
+        }
+
+        public void onSuccess(ProductBreEntity result) {
+            getDisplay().showProductBre(result.msg);
         }
     }
 

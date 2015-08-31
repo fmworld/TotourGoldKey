@@ -77,6 +77,7 @@
     <string name="manager_choose_check_type">选择支付方式</string>
 
     <!-- home manager pro addedit-->
+    <string name="home_mgr_pro_addedit_exit">确定退出编辑吗？</string>
     <string name="home_mgr_pro_addedit_cancel">取消</string>
     <string name="home_mgr_pro_addedit_done">完成</string>
     <string name="home_mgr_pro_addedit_edit">编辑商品</string>
@@ -107,6 +108,7 @@
     <string name="home_mgr_pro_ae_need_pics">至少添加一张主图</string>
     <string name="home_mgr_pro_ae_edit_success">编辑商品成功</string>
     <string name="home_mgr_pro_ae_add_success">添加商品成功</string>
+    <string name="home_mgr_pro_ae_add_input_notify">请填写完整的资料</string>
 
     <!-- home mgr pro tag list-->
     <string name="home_mgr_pro_tag_list_title">选择标签</string>
@@ -123,6 +125,9 @@
     <string name="store_item_price"><Data><![CDATA[<font color="#f85c5c">%1$s</font> 元]]></Data></string>
     <string name="store_item_old_price">%1s元</string>
     <string name="store_indicator_mask_text_str">第%1s页</string>
+    <string name="store_item_empty">当前标签下没有任何商品</string>
+    <string name="store_go_mall">去商城选货</string>
+    <string name="store_add_product">添加自营商品</string>
 
     <!-- home store sudoku-->
     <string name="store_sudoku_title">我的铺子</string>
@@ -168,6 +173,7 @@
     <string name="detail_comment_title">达人点评</string>
     <string name="detail_comment_tra_tag">旅行达人</string>
     <string name="detail_comment_boss_tag">客栈老板</string>
+    <string name="detail_comment_empty">暂无</string>
 
     <!-- home pro comments-->
     <string name="pro_comments_title">评价详情</string>

@@ -2,6 +2,7 @@ package com.qieyou.qieyoustore.ui.fragment;
 
 import android.app.ActionBar;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ import com.qieyou.qieyoustore.ui.widget.KeywordsLinearLayout;
 import com.qieyou.qieyoustore.ui.widget.ProTypeChooseDialog;
 import com.qieyou.qieyoustore.ui.widget.ProductTagsDialog;
 import com.qieyou.qieyoustore.ui.widget.WheelDatePick;
+import com.qieyou.qieyoustore.util.AlertDialogUtil;
 import com.qieyou.qieyoustore.util.DateUtil;
 import com.qieyou.qieyoustore.util.ToastUtil;
 import com.qieyou.qieyoustore.util.TourStringUtil;
@@ -66,7 +68,10 @@ public class ProductAddEdit extends AnimListenFragment implements InnController.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         content = inflater.inflate(R.layout.fragment_manager_product_addedit, null);
-        order_id = (String) this.getArguments().get("order");
+        if(null != this.getArguments()){
+            order_id = (String) this.getArguments().get("order");
+        }
+
         picsAdapter = new HomeMgrProaePicsAdapter(this.getActivity());
         ((GridView) content.findViewById(R.id.home_mgr_pro_ae_pics)).setAdapter(picsAdapter);
         content.findViewById(R.id.pro_price_deadline_value).setOnClickListener(this);
@@ -121,7 +126,13 @@ public class ProductAddEdit extends AnimListenFragment implements InnController.
         } else if (R.id.pro_info_label_value == v.getId()) {
             showTags();
         } else if (R.id.home_mgr_pro_ae_cancel == v.getId()) {
-            ((BaseTourActivity) this.getActivity()).getDisplay().hideHomeSecondContent();
+            AlertDialogUtil.showAlertDialog(this.getActivity(), this.getString(R.string.home_mgr_pro_addedit_exit), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ((BaseTourActivity) ProductAddEdit.this.getActivity()).getDisplay().hideHomeSecondContent();
+                }
+            });
+
         } else if (R.id.pro_info_type_value == v.getId()) {
             showTypes();
         }else if(R.id.home_mgr_pro_ae_done == v.getId() || R.id.home_mgr_pro_ae_bottom_done == v.getId()){
@@ -213,14 +224,51 @@ public class ProductAddEdit extends AnimListenFragment implements InnController.
         }
 
         if(TourStringUtil.isNULLorEmpty(product_name)){
-
+            ToastUtil.showShortToast(this.getString(R.string.home_mgr_pro_ae_add_input_notify));
+            return false;
         }
+
+        if(TourStringUtil.isNULLorEmpty(old_price)){
+            ToastUtil.showShortToast(this.getString(R.string.home_mgr_pro_ae_add_input_notify));
+            return false;
+        }
+
+        if(TourStringUtil.isNULLorEmpty(price)){
+            ToastUtil.showShortToast(this.getString(R.string.home_mgr_pro_ae_add_input_notify));
+            return false;
+        }
+
+        if(TourStringUtil.isNULLorEmpty(tuan_end_time)){
+            ToastUtil.showShortToast(this.getString(R.string.home_mgr_pro_ae_add_input_notify));
+            return false;
+        }
+
+        if(TourStringUtil.isNULLorEmpty(quantity)){
+            ToastUtil.showShortToast(this.getString(R.string.home_mgr_pro_ae_add_input_notify));
+            return false;
+        }
+
+        if(TourStringUtil.isNULLorEmpty(note)){
+            ToastUtil.showShortToast(this.getString(R.string.home_mgr_pro_ae_add_input_notify));
+            return false;
+        }
+
+        if(TourStringUtil.isNULLorEmpty(contentValue)){
+            ToastUtil.showShortToast(this.getString(R.string.home_mgr_pro_ae_add_input_notify));
+            return false;
+        }
+
+
+
 
         return true;
     }
 
     @Override
     public void updateProduct(String addPics) {
+        if(!isSubmitable()){
+            return;
+        }
         String product_name =
                 ((TextView) content.findViewById(R.id.pro_info_name_value)).getText().toString();
         String old_price = ((TextView) content.findViewById(R.id.pro_old_price_value)).getText().toString();
@@ -257,6 +305,8 @@ public class ProductAddEdit extends AnimListenFragment implements InnController.
         params.old_price =old_price.replace(this.getString(R.string.rmb_unit),"");
         params.quantity = quantity;
         params.item = currentInfo.product_id;
+
+        ((BaseTourActivity)this.getActivity()).showLoading();
         if( null != order_id){
             mInnProductUICallbacks.updateProductInfo(params);
         }else{
@@ -270,10 +320,12 @@ public class ProductAddEdit extends AnimListenFragment implements InnController.
     }
 
     public void showProductAddSuccessed(){
+        ((BaseTourActivity)this.getActivity()).dismissLoading();
         ToastUtil.showShortToast(this.getString(R.string.home_mgr_pro_ae_add_success));
     }
 
     public void showProductEditSuccessed(){
+        ((BaseTourActivity)this.getActivity()).dismissLoading();
         ToastUtil.showShortToast(this.getString(R.string.home_mgr_pro_ae_edit_success));
     }
 

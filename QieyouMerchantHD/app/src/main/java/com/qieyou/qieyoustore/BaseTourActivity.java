@@ -7,12 +7,15 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.Toast;
 
+import com.desmond.squarecamera.CameraActivity;
 import com.fm.fmlib.Display;
 import com.fm.fmlib.controllers.MainController;
 import com.fm.fmlib.utils.DisplayUtil;
+import com.qieyou.qieyoustore.ui.widget.LoadDialog;
 import com.qieyou.qieyoustore.util.TourPicConfig;
 
 import java.io.File;
@@ -24,6 +27,7 @@ public class BaseTourActivity extends AppCompatActivity {
     public final String TAG = this.getClass().getSimpleName();
     private MainController mMainController;
     private Display mDisplay;
+    private LoadDialog load_dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,22 @@ public class BaseTourActivity extends AppCompatActivity {
     }
 
     protected void handleIntent(Intent intent, Display display) {
+    }
+
+    public void showLoading() {
+        if (null == load_dialog) {
+            load_dialog = new LoadDialog(this, R.style.translucent);
+        }
+
+        load_dialog.show();
+    }
+
+    public void dismissLoading(
+
+    ) {
+        if (null != load_dialog) {
+            load_dialog.dismiss();
+        }
     }
 
     @Override
@@ -111,12 +131,15 @@ public class BaseTourActivity extends AppCompatActivity {
             startActivityForResult(new Intent(MediaStore.ACTION_IMAGE_CAPTURE).putExtra
                             (MediaStore.EXTRA_OUTPUT, Uri.fromFile(cameraFile)),
                     TourPicConfig.REQUEST_CODE_PIC_CAMERA);
-            Log.v("take pic", "++++++++++++++++++++++++++++++++++++++++++++++++++ ");
         } catch (Exception e) {
-            Log.v("take pic", "++++++++++++++++++++++++++++++++++++++++++++++++++ " + e.getLocalizedMessage());
         }
 
 
+    }
+
+    public void launchCamera() {
+        Intent startCustomCameraIntent = new Intent(this, CameraActivity.class);
+        startActivityForResult(startCustomCameraIntent, TourPicConfig.REQUEST_CODE_PIC_CAMERA);
     }
 
 }

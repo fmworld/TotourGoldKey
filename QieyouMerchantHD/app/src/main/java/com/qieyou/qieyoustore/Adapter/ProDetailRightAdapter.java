@@ -234,8 +234,12 @@ public class ProDetailRightAdapter extends BaseAdapter implements View.OnClickLi
         if (null == detail) {
             return view;
         }
-        ((TextView) view.findViewById(R.id.pr_detail_comment_tra_value)).setText(detail.traveler);
-        ((TextView) view.findViewById(R.id.pr_detail_comment_boss_value)).setText(detail.innholder);
+        ((TextView) view.findViewById(R.id.pr_detail_comment_tra_value))
+                .setText(TourStringUtil.isNULLorEmpty(detail.traveler) ?
+                        mContext.getString(R.string.detail_comment_empty) : detail.traveler);
+        ((TextView) view.findViewById(R.id.pr_detail_comment_boss_value))
+                .setText(TourStringUtil.isNULLorEmpty(detail.innholder) ?
+                        mContext.getString(R.string.detail_comment_empty) : detail.innholder);
         return view;
     }
 

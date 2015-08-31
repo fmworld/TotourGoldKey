@@ -29,4 +29,9 @@ public class HomeStoreFragment extends AnimListenFragment implements ProductCont
     public void showProductBre(List<ProductBreviary> pros) {
 
     }
+
+    @Override
+    public void showEmptyItem() {
+
+    }
 }

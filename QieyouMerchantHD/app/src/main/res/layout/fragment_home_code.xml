@@ -48,9 +48,22 @@
                 android:background="@null"
                 style="@style/code_num_key"
                 android:gravity="center|left"
-                android:hint="@string/code_verify_input_notify"
                 android:textColorHint="@color/white_1"
                 android:layout_toLeftOf="@+id/home_code_delete"
+                />
+            <TextView
+                android:id="@+id/home_code_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:lines="1"
+                android:layout_centerVertical="true"
+                android:paddingLeft="35dp"
+                android:background="@null"
+                style="@style/code_input_hint"
+                android:gravity="center|left"
+                android:textColorHint="@color/white_1"
+                android:layout_toLeftOf="@+id/home_code_delete"
+                android:text="@string/code_verify_input_notify"
                 />
             <ImageView
                 android:id="@+id/home_code_delete"

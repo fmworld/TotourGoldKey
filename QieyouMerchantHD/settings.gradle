@@ -1,1 +1,1 @@
-include ':app', ':tourdaogenerator', ':lib', ':social_sdk_library_project', ':WPTranslibrary', ':Rubberlibrary', ':PullToRefreshLibrary', ':WaveRefreshlibrary'
+include ':app', ':tourdaogenerator', ':lib', ':social_sdk_library_project', ':WPTranslibrary', ':Rubberlibrary', ':PullToRefreshLibrary', ':WaveRefreshlibrary', ':squarecamera'

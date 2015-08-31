@@ -31,5 +31,7 @@ dependencies {
     compile project(':Rubberlibrary')
     compile project(':WaveRefreshlibrary')
     compile project(':PullToRefreshLibrary')
-
+    compile 'com.pnikosis:materialish-progress:1.5'
+    //    compile 'com.github.boxme:squarecamera:1.0.3'
+    compile project(':squarecamera')
 }

@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import android.widget.EditText;
 
 import com.fm.fmlib.Display;
+import com.fm.fmlib.controllers.ProductController;
 import com.qieyou.qieyoustore.util.ToastUtil;
 import com.qieyou.qieyoustore.util.TourStringUtil;
 import com.qieyou.qieyoustore.util.TourWebViewClient;
@@ -14,7 +15,8 @@ import com.qieyou.qieyoustore.util.TourWebViewClient;
 /**
  * Created by zhoufeng'an on 2015/8/12.
  */
-public class NewTagActivity extends BaseTourActivity implements View.OnClickListener{
+public class NewTagActivity extends BaseTourActivity implements ProductController.AddNewTagUi,View.OnClickListener{
+    private ProductController.AddNewTagCallbacks mAddNewTagCallbacks;
     protected int getContentViewLayoutId() {
         return R.layout.activity_new_tag;
     }
@@ -33,7 +35,7 @@ public class NewTagActivity extends BaseTourActivity implements View.OnClickList
         if(R.id.tag_new_confirm == v.getId()){
             String value = ((EditText)findViewById(R.id.tag_new_value)).getText().toString();
             if(!TourStringUtil.isNULLorEmpty(value)){
-
+                mAddNewTagCallbacks.addNewTag(value);
             }else{
                 ToastUtil.showShortToast(this.getString(R.string.home_mgr_pro_tag_new_notify));
             }
@@ -44,5 +46,41 @@ public class NewTagActivity extends BaseTourActivity implements View.OnClickList
             return;
         }
 
+    }
+
+    @Override
+    protected void onResume() {
+        getController().attachUi(this);
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        getController().detachUi(this);
+        super.onPause();
+    }
+
+    ProductController getController() {
+        return MerchanthdApplication.instance().getmMainController().getProductController();
+    }
+
+    @Override
+    public void newTagAdded() {
+        this.finish();
+    }
+
+    @Override
+    public void updateTabBar() {
+
+    }
+
+    @Override
+    public void setCallbacks(ProductController.ProductUiCallbacks callbacks) {
+        mAddNewTagCallbacks = (ProductController.AddNewTagCallbacks)callbacks;
+    }
+
+    @Override
+    public boolean isModal() {
+        return false;
     }
 }

@@ -57,4 +57,10 @@ public interface ProductState extends BaseState {
     }
 
 
+    class ProductAddNewTagEvent {
+
+
+    }
+
+
 }

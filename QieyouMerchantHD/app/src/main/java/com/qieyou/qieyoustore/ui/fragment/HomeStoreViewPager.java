@@ -106,6 +106,10 @@ public class HomeStoreViewPager extends HomeStoreFragment implements View.OnClic
 
 
     public void showProductBre(List<ProductBreviary> pros) {
+        content.findViewById(R.id.store_item_empty).setVisibility(View.GONE);
+        content.findViewById(R.id.store_view_pager).setVisibility(View.VISIBLE);
+        storeVPIndicator.setVisibility(View.VISIBLE);
+
         vpAdapter.setdata(pros);
         int count = pros.size();
         List<String> items = new ArrayList<>();
@@ -163,5 +167,12 @@ public class HomeStoreViewPager extends HomeStoreFragment implements View.OnClic
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void showEmptyItem() {
+        content.findViewById(R.id.store_item_empty).setVisibility(View.VISIBLE);
+        content.findViewById(R.id.store_view_pager).setVisibility(View.GONE);
+        storeVPIndicator.setVisibility(View.GONE);
     }
 }

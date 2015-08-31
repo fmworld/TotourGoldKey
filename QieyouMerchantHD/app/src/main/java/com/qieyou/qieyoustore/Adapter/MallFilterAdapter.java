@@ -1,11 +1,13 @@
 package com.qieyou.qieyoustore.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 
+import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.dao.LocalTitle;
 import com.fm.fmlib.dao.ProductTag;
 import com.qieyou.qieyoustore.R;
@@ -68,5 +70,9 @@ public class MallFilterAdapter extends BaseAdapter {
             return items.get(currentIndex);
         }
         return null;
+    }
+
+    public void resetIndex(){
+        currentIndex = 0;
     }
 }

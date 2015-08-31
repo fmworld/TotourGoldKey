@@ -2,21 +2,15 @@ package com.qieyou.qieyoustore.ui.fragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
-import android.webkit.WebView;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,46 +24,52 @@ import com.fm.fmlib.utils.DisplayUtil;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.liangfeizc.RubberIndicator;
-import com.qieyou.qieyoustore.Adapter.HomeNavigationAdapter;
 import com.qieyou.qieyoustore.Adapter.MallAddAdapter;
 import com.qieyou.qieyoustore.Adapter.MallProductAdapter;
-import com.qieyou.qieyoustore.BaseTourActivity;
 import com.qieyou.qieyoustore.HomeAcitvity;
 import com.qieyou.qieyoustore.MerchanthdApplication;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.ui.widget.AnimListenFragment;
 import com.qieyou.qieyoustore.ui.widget.MallCITabBar;
-import com.qieyou.qieyoustore.ui.widget.MallFilterPopWindow;
+import com.qieyou.qieyoustore.ui.widget.MallCityDialog;
+import com.qieyou.qieyoustore.ui.widget.MallFilterDialog;
 import com.qieyou.qieyoustore.ui.widget.MallTabBar;
 import com.qieyou.qieyoustore.ui.widget.TourWaveRefeshLayout;
 
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.LogRecord;
 
 import jp.co.recruit_lifestyle.android.widget.WaveSwipeRefreshLayout;
 
 /**
  * Created by zhoufeng'an on 2015/8/9.
  */
-public class HomeMall extends AnimListenFragment implements ProductController.MallUi, View.OnClickListener, MallTabBar.MTBItemClickListener, MallFilterPopWindow.FilterListener,WaveSwipeRefreshLayout.OnRefreshListener {
+public class HomeMall extends AnimListenFragment implements ProductController.MallUi, View.OnClickListener,
+        MallTabBar.MTBItemClickListener, MallFilterDialog.FilterListener,
+        MallCityDialog.CityChooseListener, WaveSwipeRefreshLayout.OnRefreshListener {
+    private final String PER_PAGE = "5";
     ProductController.ProductMallCallbacks mallCallbacks;
     private MallTabBar mtBar;
     private MallCITabBar mtCIBar;
-    private MallFilterPopWindow filterPopWindow;
+    private MallFilterDialog filterPopWindow;
+    private MallCityDialog cityChooser;
     private Button filter;
     private MallProductAdapter productAdapter;
     private View contentView;
     private TourWaveRefeshLayout refreshLayout;
+    PullToRefreshListView refreshListView;
     private Timer addTimer;
     private ViewPager adds;
+    private String CITY_ID = "";
+    private int currentPage = 0;
 
     Handler handler = new Handler() {
-       public void handleMessage(Message msg){
+        public void handleMessage(Message msg) {
 
-       }
+        }
     };
+
     public HomeMall() {
     }
 
@@ -87,47 +87,39 @@ public class HomeMall extends AnimListenFragment implements ProductController.Ma
         mtBar.setOnMTBClickListener(this);
         mtCIBar = (MallCITabBar) contentView.findViewById(R.id.mall_category_id_list);
         mtCIBar.setOnMTBClickListener(this);
-        filter = (Button)contentView.findViewById(R.id.mall_filter);
+        filter = (Button) contentView.findViewById(R.id.mall_filter);
         filter.setOnClickListener(this);
-
-        refreshLayout = (TourWaveRefeshLayout)contentView.findViewById(R.id.mall_wave_refresh);
+        cityChooser = new MallCityDialog(this.getActivity());
+        CITY_ID = cityChooser.initTarText((TextView) contentView.findViewById(R.id.mall_city_choose));
+        cityChooser.setCityChooseListener(this);
+        contentView.findViewById(R.id.mall_city_choose).setOnClickListener(this);
+        refreshLayout = (TourWaveRefeshLayout) contentView.findViewById(R.id.mall_wave_refresh);
         refreshLayout.setColorSchemeColors(this.getResources().getColor(R.color.white), this.getResources().getColor(R.color.red), this.getResources().getColor(R.color.yellow));
         refreshLayout.setWaveColor(this.getResources().getColor(R.color.green));
 
         refreshLayout.setMaxDropHeight(DisplayUtil.dip2px(this.getActivity(), 150));
         refreshLayout.setOnRefreshListener(this);
         productAdapter = new MallProductAdapter(this.getActivity());
-        final PullToRefreshListView refreshListView = ((PullToRefreshListView)contentView.findViewById(R.id.mall_pro_list));
+        refreshListView = ((PullToRefreshListView) contentView.findViewById(R.id.mall_pro_list));
         refreshListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
         refreshListView.setAdapter(productAdapter);
         refreshListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                Log.v("list refresh", "onRefresh");
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshListView.onRefreshComplete();
-                    }
-                }, 3000);
+
 
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                Log.v("list refresh", "onRefresh");
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshListView.onRefreshComplete();
-                    }
-                }, 3000);
+                Log.v("list refresh", "onRefresh" + (currentPage + 1));
+                fetchProducts(currentPage + 1);
             }
         });
 
         this.setAnimationListener(new AnimatorListenerAdapter() {
             public void onAnimationEnd(Animator animation) {
-                if(null != mallCallbacks){
+                if (null != mallCallbacks) {
                     initAdds(contentView);
                     mtBar.setData(TourApplication.instance().getDaoCategory().getCategoryTitles());
                     initAddTasks();
@@ -138,15 +130,15 @@ public class HomeMall extends AnimListenFragment implements ProductController.Ma
         return contentView;
     }
 
-    private void initAdds(View view){
+    private void initAdds(View view) {
         MallAddAdapter addAdapter = new MallAddAdapter(this.getActivity());
 
-        adds = (ViewPager)view.findViewById(R.id.mall_add_container);
+        adds = (ViewPager) view.findViewById(R.id.mall_add_container);
         List<LaunchProfile> profiles = TourApplication.instance().getDaoLaunProfile()
                 .getLaunProfiles(ProductState.LaunchProfileType.store.toString());
         addAdapter.setdata(profiles);
         adds.setAdapter(addAdapter);
-        final RubberIndicator indicator = (RubberIndicator)view.findViewById(R.id.mall_add_indicator);
+        final RubberIndicator indicator = (RubberIndicator) view.findViewById(R.id.mall_add_indicator);
         indicator.setCount(null == profiles ? 0 : profiles.size());
         adds.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -170,13 +162,13 @@ public class HomeMall extends AnimListenFragment implements ProductController.Ma
     public void onResume() {
         super.onResume();
         getController().attachUi(this);
-        ((HomeAcitvity)getActivity()).selectNavigationItem(MainController.HomeMenu.MALL);
-        if(null != addTimer){
+        ((HomeAcitvity) getActivity()).selectNavigationItem(MainController.HomeMenu.MALL);
+        if (null != addTimer) {
             initAddTasks();
         }
     }
 
-    private void initAddTasks(){
+    private void initAddTasks() {
         addTimer = new Timer();
         addTimer.schedule(new TimerTask() {
             @Override
@@ -198,7 +190,7 @@ public class HomeMall extends AnimListenFragment implements ProductController.Ma
     @Override
     public void onPause() {
         getController().detachUi(this);
-        if(null != addTimer){
+        if (null != addTimer) {
             addTimer.cancel();
         }
 
@@ -224,16 +216,20 @@ public class HomeMall extends AnimListenFragment implements ProductController.Ma
         if (R.id.mall_filter == v.getId()) {
 
             if (null == filterPopWindow) {
-                filterPopWindow = new MallFilterPopWindow(this.getActivity());
+                filterPopWindow = new MallFilterDialog(this.getActivity());
                 filterPopWindow.initView();
-                filterPopWindow.setTarText((TextView)contentView.findViewById(R.id.mall_filter));
+                filterPopWindow.setTarText((TextView) contentView.findViewById(R.id.mall_filter));
                 filterPopWindow.setFilterListener(this);
             }
             if (!filterPopWindow.isShowing()) {
 
-                filterPopWindow.showAsDropDown(filter);
-            }else{
+                filterPopWindow.showAtRight(5, (int)(((View)filter.getParent()).getY()+v.getY()+v.getHeight()));
+            } else {
                 filterPopWindow.dismiss();
+            }
+        } else if (R.id.mall_city_choose == v.getId()) {
+            if (null != cityChooser && !cityChooser.isShowing()) {
+                cityChooser.showAt(DisplayUtil.dip2px(this.getActivity(), 68),(int)v.getY()+v.getHeight()+DisplayUtil.dip2px(this.getActivity(), 15));
             }
         }
     }
@@ -248,51 +244,78 @@ public class HomeMall extends AnimListenFragment implements ProductController.Ma
         }
 
         if (mtCIBar == view) {
-            fetchProducts();
+            hideLoading();
+            fetchProducts(0);
             return;
         }
     }
 
-    private void fetchProducts(){
-        mallCallbacks.fetchProducts("0","20","530700",
-                mtBar.getSelectedItem(),mtCIBar.getSelectedItem(),
-                null ==filterPopWindow?"":filterPopWindow.getLocalDest(),
-                null ==filterPopWindow?"time":filterPopWindow.getSortType());
+
+    private void fetchProducts(int page) {
+        mallCallbacks.fetchProducts(page, PER_PAGE, CITY_ID,
+                mtBar.getSelectedItem(), mtCIBar.getSelectedItem(),
+                null == filterPopWindow ? "" : filterPopWindow.getLocalDest(),
+                null == filterPopWindow ? "time" : filterPopWindow.getSortType());
     }
+
     @Override
     public void updateTabBar() {
 
     }
 
     @Override
-    public void refreshProductList(List<Product> products) {
-       if(null != refreshLayout&&refreshLayout.isRefreshing()){
-           refreshLayout.setRefreshing(false);
-       }
-        productAdapter.setdata(products);
+    public void refreshProductList(int page, List<Product> products) {
+        hideLoading();
+        currentPage = page;
+        if (0 == page) {
+            productAdapter.setdata(products);
+        } else {
+            productAdapter.apenddata(products);
+        }
+
 
     }
 
+    private void hideLoading() {
+        if (null != refreshLayout && refreshLayout.isRefreshing()) {
+            refreshLayout.setRefreshing(false);
+        }
+        if (null != refreshListView && refreshListView.isRefreshing()) {
+            refreshListView.onRefreshComplete();
+        }
+    }
+
     @Override
-    public void refreshStateChange() {
-        if(null !=productAdapter){
-            productAdapter.notifyDataSetChanged();
+    public void refreshStateChange(String id) {
+        if (null != productAdapter) {
+            productAdapter.upShelf(id);
         }
     }
 
     @Override
     public void choosedFilter(String local_id, String sort) {
-        fetchProducts();
+        fetchProducts(0);
     }
 
     @Override
     public void onRefresh() {
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                fetchProducts();
+                fetchProducts(0);
             }
         }, 1000);
 
+    }
+
+    @Override
+    public void choosedCity(String city_name, String city_id) {
+        ((TextView) contentView.findViewById(R.id.mall_city_choose)).setText(city_name);
+        CITY_ID = city_id;
+        if(null != filterPopWindow){
+            filterPopWindow.resetIndex();
+        }
+        fetchProducts(0);
     }
 }

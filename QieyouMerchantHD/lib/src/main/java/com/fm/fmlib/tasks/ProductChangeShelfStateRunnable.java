@@ -5,9 +5,7 @@ import android.util.Log;
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.controllers.InnController;
 import com.fm.fmlib.network.TokenCheckedRunnable;
-import com.fm.fmlib.tour.Service.UtilService;
 import com.fm.fmlib.tour.entity.StateEntity;
-import com.fm.fmlib.tour.entity.TransferEntity;
 
 import retrofit.RetrofitError;
 
@@ -16,7 +14,7 @@ import retrofit.RetrofitError;
  */
 public class ProductChangeShelfStateRunnable extends TokenCheckedRunnable<StateEntity> {
     String tag_id;
-    String product_id;
+    public String product_id;
      String action;
     public ProductChangeShelfStateRunnable(String tag_id,String product_id ,String action){
         this.tag_id = tag_id;
@@ -25,7 +23,8 @@ public class ProductChangeShelfStateRunnable extends TokenCheckedRunnable<StateE
     }
     @Override
     public StateEntity doBackground() throws RetrofitError {
-        return TourApplication.instance().getmTotour().getProductService().changeShelfState(tag_id,product_id,action );
+        return TourApplication.instance().getmTotour().getProductService()
+                .upShelf(TourApplication.instance().getToken(),tag_id, product_id);
     }
 
     @Override

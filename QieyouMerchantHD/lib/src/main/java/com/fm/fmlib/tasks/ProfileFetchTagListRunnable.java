@@ -6,6 +6,7 @@ import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.network.TokenCheckedRunnable;
 import com.fm.fmlib.state.ProductState;
 import com.fm.fmlib.state.UserState;
+import com.fm.fmlib.tour.TourConfig;
 import com.fm.fmlib.tour.entity.LoginResetPwdEntity;
 import com.fm.fmlib.tour.entity.TagListEntity;
 import com.fm.fmlib.tour.entity.TransferEntity;
@@ -27,13 +28,17 @@ public class ProfileFetchTagListRunnable extends TokenCheckedRunnable<TagListEnt
     }
 
     public void onSuccessInBackground(TagListEntity result){
-//        if(!result.msg.count.equals(TourApplication.instance().getDaoProperty().getValue(tagsercont))
-//                || !result.msg.last_update.equals(TourApplication.instance().getDaoProperty().getValue(tagserupstame))){
-//            TourApplication.instance().getDaoProductTag().saveProductTags(result.msg.tags);
-//            TourApplication.instance().getDaoProperty().saveProperty(tagsercont, result.msg.count);
-//            TourApplication.instance().getDaoProperty().saveProperty(tagserupstame,result.msg.last_update);
-//        }
-        TourApplication.instance().getDaoProductTag().saveProductTags(result.msg);
+        if(TourConfig.instance().getModel() == TourConfig.RELE){
+            TourApplication.instance().getDaoProductTag().saveProductTags(result.msg);
+        }else{
+//            if(!result.msg.count.equals(TourApplication.instance().getDaoProperty().getValue(tagsercont))
+//                    || !result.msg.last_update.equals(TourApplication.instance().getDaoProperty().getValue(tagserupstame))) {
+//                TourApplication.instance().getDaoProductTag().saveProductTags(result.msg.tags);
+//                TourApplication.instance().getDaoProperty().saveProperty(tagsercont, result.msg.count);
+//                TourApplication.instance().getDaoProperty().saveProperty(tagserupstame, result.msg.last_update);
+//            }
+        }
+
     }
 
     @Override

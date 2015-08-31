@@ -26,6 +26,7 @@ import com.qieyou.qieyoustore.util.TourStringUtil;
 public class HomeCodeInput extends AnimListenFragment implements ProductController.CodeUi, View.OnClickListener, TextWatcher {
     private ProductController.ProductCodeCallbacks mProductCodeCallbacks;
     private TextView homeCodeValue;
+    private TextView homeCodeHint;
     private ImageView homeCodeDelete;
     private Button homeCodeSubmit;
     public HomeCodeInput() {
@@ -47,7 +48,7 @@ public class HomeCodeInput extends AnimListenFragment implements ProductControll
         homeCodeDelete.setOnClickListener(this);
         homeCodeValue =  (TextView)view.findViewById(R.id.home_code_value);
         homeCodeValue.addTextChangedListener(this);
-
+        homeCodeHint =  (TextView)view.findViewById(R.id.home_code_hint);
         homeCodeSubmit = (Button)view.findViewById(R.id.home_code_submit);
         homeCodeSubmit.setOnClickListener(this);
         (view.findViewById(R.id.home_code_num1)).setOnClickListener(this);
@@ -130,6 +131,7 @@ public class HomeCodeInput extends AnimListenFragment implements ProductControll
 
     @Override
     public void afterTextChanged(Editable s) {
+        homeCodeHint.setVisibility(s.length()==0?View.VISIBLE:View.GONE);
         homeCodeSubmit.setBackgroundResource(s.length() ==14
                     ?R.drawable.home_code_submit_can_bg:R.drawable.home_code_submit_unable_bg);
         homeCodeSubmit.setClickable(s.length() ==14);

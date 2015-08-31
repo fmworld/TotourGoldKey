@@ -10,9 +10,19 @@
         <item name="android:gravity">center_horizontal</item>
     </style>
     <style name="translucent" parent="@style/Theme.AppCompat.Light.NoActionBar">
-        <item name="android:windowBackground">@color/home_manager_check_tran_bg</item>
+        <item name="android:windowBackground">@color/translucent_2</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
+
+    <style name="deep_translucent" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/translucent_2</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+    <style name="load_translucent" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/translucent_1</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
     <style name="new_tag_translucent" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowBackground">@color/home_mgr_pro_tag_new_activity_bg</item>
         <item name="android:windowIsTranslucent">true</item>

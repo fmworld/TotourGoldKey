@@ -12,7 +12,7 @@ import retrofit.RetrofitError;
  * Created by zhou feng'an on 2015/7/30.
  */
 public class ProductFetchMallProductRunnable extends TokenCheckedRunnable<ProductsEntity> {
-    private String page;
+    protected String page;
     private String perpage;
     private String city;
     private String cid;

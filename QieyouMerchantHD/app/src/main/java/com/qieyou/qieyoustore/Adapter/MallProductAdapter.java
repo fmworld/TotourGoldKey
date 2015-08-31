@@ -36,6 +36,7 @@ public class MallProductAdapter extends BaseAdapter implements View.OnClickListe
     private Context mContext;
     private AdapterView.OnItemClickListener itemClickListener;
     private ProductTagsDialog tagsDialog;
+
     public MallProductAdapter(Context mContext) {
         this.mContext = mContext;
         items = new ArrayList<>();
@@ -79,10 +80,10 @@ public class MallProductAdapter extends BaseAdapter implements View.OnClickListe
                 , CodeBusinessMap.productStateStr(item), item, position);
 
         String showTip = TourApplication.instance().getDaoProperty().getValue(ProductState.Tip);
-        if(null ==showTip ||"0".equals(showTip)){
+        if (null == showTip || "0".equals(showTip)) {
             holderHelper.setText(R.id.mall_pro_price, Html.fromHtml(mContext
                     .getString(R.string.mall_product_price_str, item.getOld_price(), item.getPrice())));
-        }else{
+        } else {
             holderHelper.setText(R.id.mall_pro_price, Html.fromHtml(mContext
                     .getString(R.string.mall_product_price_with_tip_str, item.getOld_price(), item.getPrice(), item.getAgent())));
         }
@@ -110,7 +111,7 @@ public class MallProductAdapter extends BaseAdapter implements View.OnClickListe
         }
     }
 
-    private void initSaleState(TextView view, boolean saleable,Product product, int postion){
+    private void initSaleState(TextView view, boolean saleable, Product product, int postion) {
         if (saleable) {
             view.setText(mContext.getString(R.string.sale_state_able));
             view.setBackgroundResource(R.drawable.bg_coners_oringe_round);
@@ -125,6 +126,7 @@ public class MallProductAdapter extends BaseAdapter implements View.OnClickListe
 
 
     }
+
     public void onItemClick(int index) {
         currentIndex = index;
         this.notifyDataSetInvalidated();
@@ -132,6 +134,11 @@ public class MallProductAdapter extends BaseAdapter implements View.OnClickListe
 
     public void setdata(List<Product> items) {
         this.items = items;
+        this.notifyDataSetInvalidated();
+    }
+
+    public void apenddata(List<Product> items) {
+        this.items.addAll(items);
         this.notifyDataSetInvalidated();
     }
 
@@ -148,8 +155,8 @@ public class MallProductAdapter extends BaseAdapter implements View.OnClickListe
 
     @Override
     public void onClick(final View v) {
-        if(R.id.mall_shelf_state == v.getId()){
-            if(null == tagsDialog){
+        if (R.id.mall_shelf_state == v.getId()) {
+            if (null == tagsDialog) {
                 tagsDialog = new ProductTagsDialog(mContext, R.style.translucent);
 
             }
@@ -158,22 +165,32 @@ public class MallProductAdapter extends BaseAdapter implements View.OnClickListe
                 public void tagSelected(String tag_id) {
                     TourApplication.instance().getmBus()
                             .post(new ProductState.ProductChangeShelfStateEvent
-                                    (tag_id,items.get((int)v.getTag()).getProduct_id(),"up" ));
-                    Log.v("proadd", "tag_id "+tag_id+"  postion  "+(int)v.getTag());
+                                    (tag_id, items.get((int) v.getTag()).getProduct_id(), "up"));
+                    Log.v("proadd", "tag_id " + tag_id + "  postion  " + (int) v.getTag());
                 }
             });
             tagsDialog.show();
 
-        }else if(R.id.mall_pro_item_layout == v.getId()){
+        } else if (R.id.mall_pro_item_layout == v.getId()) {
             Product pro = (Product) getItem(((ViewHolderHelper) v.getTag()).position);
             Bundle bundle = new Bundle();
             bundle.putString("item", pro.getProduct_id());
             ((BaseTourActivity) (mContext))
                     .getDisplay()
                     .showHomeSecondContent(MainController.HomeMenu.PRO_DETAIL, bundle);
-        }else if(R.id.mall_pro_sale_state == v.getId()){
+        } else if (R.id.mall_pro_sale_state == v.getId()) {
             TourApplication.instance().getmBus()
-                    .post(new ProductState.ProductFetchSubmitUrlEvent(items.get((int)v.getTag()).getProduct_id()));
+                    .post(new ProductState.ProductFetchSubmitUrlEvent(items.get((int) v.getTag()).getProduct_id()));
         }
+    }
+
+    public void upShelf(String pro_id) {
+        for (Product item : items) {
+            if (item.getProduct_id().equals(pro_id)) {
+                item.setOn_shelves("1");
+                break;
+            }
+        }
+        this.notifyDataSetChanged();
     }
 }

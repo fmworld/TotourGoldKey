@@ -31,6 +31,19 @@ public class PropertyDaoProvider {
         return null;
     }
 
+    public String getValue(String key, String defaultValue) {
+        if (null == key) {
+            return defaultValue;
+        }
+
+        QueryBuilder<MyProperty> queryBuilder = mPropertyDao.queryBuilder();
+        queryBuilder.where(MyPropertyDao.Properties.Key.eq(key));
+        if (0 < queryBuilder.list().size()) {
+            return queryBuilder.list().get(0).getValue();
+        }
+        return defaultValue;
+    }
+
     public boolean saveProperty(String key, String value){
         QueryBuilder<MyProperty> queryBuilder = mPropertyDao.queryBuilder();
         queryBuilder.where(MyPropertyDao.Properties.Key.eq(key));

@@ -8,18 +8,31 @@
         android:layout_height="wrap_content"
         android:background="@color/black_15"
         >
-        <TextView
-            android:id="@+id/mall_city_choose"
-            style="@style/mall_category_city_unselected"
+        <LinearLayout
+            android:id="@+id/mall_city_choose_layout"
             android:layout_width="105dp"
             android:layout_height="63dp"
-            android:padding="10dp"
-            android:textColor="@color/green"
-            android:text="丽江" />
+            android:orientation="vertical"
+            android:gravity="center"
+            >
+            <TextView
+                android:id="@+id/mall_city_choose"
+                style="@style/mall_category_city_unselected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textColor="@color/green"
+                />
+            <com.qieyou.qieyoustore.ui.widget.TrangleDownView
+                android:layout_width="10dp"
+                android:layout_height="8dp"
+                />
+        </LinearLayout>
+
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/mall_city_choose"
+            android:layout_toRightOf="@+id/mall_city_choose_layout"
             android:layout_marginRight="5dp"
             android:scrollbars="none"
             >

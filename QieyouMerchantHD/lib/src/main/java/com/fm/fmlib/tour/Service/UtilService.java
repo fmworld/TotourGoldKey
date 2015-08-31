@@ -73,4 +73,8 @@ public interface UtilService {
 
     @GET("/login/deviceAd")
     LaunchProfileEntity fetchLaunchProfile();
+
+    @FormUrlEncoded
+    @POST("/item/tagAdd")
+    StateEntity addNewTag(@Query("token") String token, @Field("tag_name") String tag_name);
 }

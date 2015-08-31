@@ -19,6 +19,7 @@ import com.qieyou.qieyoustore.MerchanthdApplication;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.ui.widget.AbstLinearIndicator;
 import com.qieyou.qieyoustore.ui.widget.AnimListenFragment;
+import com.qieyou.qieyoustore.ui.widget.StoreItemEmptyView;
 import com.qieyou.qieyoustore.ui.widget.StoreTabBar;
 
 import java.util.List;
@@ -98,6 +99,8 @@ public class HomeStoreSudoku extends HomeStoreFragment implements View.OnClickLi
     }
 
     public void showProductBre(List<ProductBreviary> pros) {
+        content.findViewById(R.id.sudoku_item_empty).setVisibility(View.GONE);
+        store_sudoku_grid.setVisibility(View.VISIBLE);
         gridAdapter.setdata(pros);
     }
 
@@ -114,5 +117,13 @@ public class HomeStoreSudoku extends HomeStoreFragment implements View.OnClickLi
         ((BaseTourActivity) (this.getActivity()))
                 .getDisplay()
                 .showHomeSecondContent(MainController.HomeMenu.PRO_DETAIL, bundle);
+    }
+
+    @Override
+    public void showEmptyItem() {
+        (content.findViewById(R.id.sudoku_item_empty)).setVisibility(View.VISIBLE);
+        ((StoreItemEmptyView)content.findViewById(R.id.sudoku_item_empty))
+                .setNotifyColor(this.getResources().getColor(R.color.white));
+        store_sudoku_grid.setVisibility(View.GONE);
     }
 }

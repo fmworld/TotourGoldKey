@@ -47,6 +47,7 @@ public class HomeProDetail extends AnimListenFragment implements ProductControll
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         content = inflater.inflate(R.layout.fragment_detail, null);
+        content.setOnClickListener(this);
         item = (String) this.getArguments().get("item");
         (content.findViewById(R.id.detail_back)).setOnClickListener(this);
         (content.findViewById(R.id.detail_share)).setOnClickListener(this);
@@ -118,7 +119,7 @@ public class HomeProDetail extends AnimListenFragment implements ProductControll
     }
 
     @Override
-    public void refreshStateChange() {
+    public void refreshStateChange(String id) {
         rightAdapter.notifyDataSetChanged();
     }
 
