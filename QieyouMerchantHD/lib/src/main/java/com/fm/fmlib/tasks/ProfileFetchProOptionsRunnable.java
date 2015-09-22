@@ -39,8 +39,5 @@ public class ProfileFetchProOptionsRunnable extends TokenCheckedRunnable<ProOpti
         Log.v(TAG, "result errorInfo "+result.errorInfo);
     }
 
-    @Override
-    public void onError(RetrofitError be) {
-        Log.v(TAG, "BaseError "+be);
-    }
+
 }

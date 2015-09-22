@@ -40,8 +40,5 @@ public class ProductChangeShelfStateRunnable extends TokenCheckedRunnable<StateE
 //        this.getBus().post(new HomeState.HomeManagerFetchEvent(result.msg));
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

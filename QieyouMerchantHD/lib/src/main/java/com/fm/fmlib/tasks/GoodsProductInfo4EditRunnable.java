@@ -30,8 +30,5 @@ public class GoodsProductInfo4EditRunnable extends TokenCheckedRunnable<GoddsCom
         Log.v(TAG, "result msg "+result.msg);
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

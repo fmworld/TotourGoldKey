@@ -33,8 +33,5 @@ public class GoodsFetchHomeRunnable extends TokenCheckedRunnable<GoodsHomeEntity
         }
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

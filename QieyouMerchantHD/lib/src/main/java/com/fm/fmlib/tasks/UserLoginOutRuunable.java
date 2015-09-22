@@ -19,10 +19,6 @@ public class UserLoginOutRuunable extends TokenCheckedRunnable<LoginOutEntity> {
         return TourApplication.instance().getmTotour().getmUserService().loginOut(TourApplication.instance().getToken());
     }
 
-    public void onSuccessInBackground(LoginOutEntity result){
-        TourApplication.instance().getDaoUser().setIslogin(Boolean.FALSE);
-    }
-
     @Override
     public void onSuccess(LoginOutEntity result) {
         Log.v(TAG, "result errorInfo "+result.errorInfo);
@@ -30,8 +26,5 @@ public class UserLoginOutRuunable extends TokenCheckedRunnable<LoginOutEntity> {
         Log.v(TAG, "result msg "+result.msg);
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

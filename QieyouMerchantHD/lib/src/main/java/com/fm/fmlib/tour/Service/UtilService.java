@@ -1,5 +1,6 @@
 package com.fm.fmlib.tour.Service;
 
+import com.fm.fmlib.tour.entity.AppInfoEntity;
 import com.fm.fmlib.tour.entity.LaunchProfileEntity;
 import com.fm.fmlib.tour.entity.ProOptionsEntity;
 import com.fm.fmlib.tour.entity.StateEntity;
@@ -77,4 +78,8 @@ public interface UtilService {
     @FormUrlEncoded
     @POST("/item/tagAdd")
     StateEntity addNewTag(@Query("token") String token, @Field("tag_name") String tag_name);
+
+    @FormUrlEncoded
+    @POST("/login/deviceAd")
+    AppInfoEntity getAppInfo(@Query("imei") String imei, @Field("refer") String refer);
 }

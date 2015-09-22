@@ -66,6 +66,11 @@ public class HomeTownTraver extends AnimListenFragment implements View.OnClickLi
         super.onPause();
     }
 
+    public void onDestroy(){
+        super.onDestroy();
+        ((HomeAcitvity)getActivity()).selectCurrentNavigationItem();
+    }
+
     ProductController getController() {
         return MerchanthdApplication.instance().getmMainController().getProductController();
     }

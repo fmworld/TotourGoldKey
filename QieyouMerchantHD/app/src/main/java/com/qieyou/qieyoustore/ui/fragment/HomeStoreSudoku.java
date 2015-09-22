@@ -27,7 +27,8 @@ import java.util.List;
 /**
  * Created by zhoufeng'an on 2015/8/9.
  */
-public class HomeStoreSudoku extends HomeStoreFragment implements View.OnClickListener, AbstLinearIndicator.LinearIndicatorListener,AdapterView.OnItemClickListener {
+public class HomeStoreSudoku extends HomeStoreFragment implements View.OnClickListener,
+        AbstLinearIndicator.LinearIndicatorListener,AdapterView.OnItemClickListener {
     private View content;
     private GridView store_sudoku_grid;
     private StoreSudokuGridAdapter gridAdapter;

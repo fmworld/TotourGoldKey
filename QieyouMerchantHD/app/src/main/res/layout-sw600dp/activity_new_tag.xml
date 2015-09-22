@@ -45,6 +45,7 @@
         android:textColor="@color/black"
         android:textSize="@dimen/home_mgr_pro_tag_list_size"
         android:paddingLeft="10dp"
+        android:singleLine="true"
         />
 
     <Button

@@ -59,6 +59,7 @@ public class YangtaoConvert implements Converter {
         try {
 
             isr = new InputStreamReader(body.in(), charset);
+
             String json = getStream2String(isr);
             Log.v(NetworkCallRunnable.TAG,"result fromBody  ::::::::"+json );
             TempEntity temp = gson.fromJson(json, TempEntity.class);

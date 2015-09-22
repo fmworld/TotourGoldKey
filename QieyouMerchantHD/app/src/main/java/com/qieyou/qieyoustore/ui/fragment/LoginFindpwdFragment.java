@@ -3,6 +3,7 @@ package com.qieyou.qieyoustore.ui.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -16,6 +17,8 @@ import com.fm.fmlib.controllers.UserController;
 import com.qieyou.qieyoustore.BaseTourActivity;
 import com.qieyou.qieyoustore.MerchanthdApplication;
 import com.qieyou.qieyoustore.R;
+import com.qieyou.qieyoustore.ui.widget.SizeChangeRelative;
+import com.qieyou.qieyoustore.util.CountDownTimer;
 import com.qieyou.qieyoustore.util.TourRegularUtil;
 
 import java.util.Timer;
@@ -24,17 +27,15 @@ import java.util.TimerTask;
 /**
  * Created by zhoufeng'an on 2015/8/5.
  */
-public class LoginFindpwdFragment extends Fragment implements UserController.UserFindPwdUi, View.OnClickListener, TextWatcher, Runnable {
+public class LoginFindpwdFragment extends Fragment implements UserController.UserFindPwdUi, View.OnClickListener, TextWatcher, CountDownTimer.CountListener {
     private UserController.UserLoginFindPwdCallbacks mUserLoginFindPwdCallbacks;
     private EditText login_findpwd_account;
     private EditText login_findpwd_new;
     private EditText login_findpwd_vericode;
     private Button login_findpwd_get_vericode;
     private Button login_findpwd_submit;
-    private long getCodeStamp;
-    private final int codeInvalidateTime = 60;
-    private int left;
-    Timer countDoun;
+    CountDownTimer countDownTimer;
+    private Handler handler = new Handler();
 
     public LoginFindpwdFragment() {
     }
@@ -48,13 +49,35 @@ public class LoginFindpwdFragment extends Fragment implements UserController.Use
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_login_findpwd, null);
+        final View view = inflater.inflate(R.layout.fragment_login_findpwd, null);
         login_findpwd_account = (EditText) view.findViewById(R.id.login_findpwd_account);
         login_findpwd_vericode = (EditText) view.findViewById(R.id.login_findpwd_vericode);
         login_findpwd_new = (EditText) view.findViewById(R.id.login_findpwd_new);
         login_findpwd_get_vericode = (Button) view.findViewById(R.id.login_findpwd_get_vericode);
         login_findpwd_submit = (Button) view.findViewById(R.id.login_findpwd_submit);
+        ((SizeChangeRelative)view).setSoftInputListener(new SizeChangeRelative.SoftInputListener() {
+            @Override
+            public void softInputShowed() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.findViewById(R.id.login_findpwd_code_notify).setVisibility(View.GONE);
+                        view.findViewById(R.id.login_phone_number).setVisibility(View.GONE);
+                    }
+                });
+            }
 
+            @Override
+            public void softInputHide() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.findViewById(R.id.login_findpwd_code_notify).setVisibility(View.VISIBLE);
+                        view.findViewById(R.id.login_phone_number).setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        });
         login_findpwd_account.addTextChangedListener(this);
         login_findpwd_vericode.addTextChangedListener(this);
         login_findpwd_new.addTextChangedListener(this);
@@ -132,36 +155,29 @@ public class LoginFindpwdFragment extends Fragment implements UserController.Use
 
     private void setLoginButtonState(boolean able) {
         login_findpwd_submit.setClickable(able);
-        login_findpwd_submit.setBackgroundResource(able ? R.drawable.login_corners_bg : R.drawable.login_unclickabe_corners_bg);
+        login_findpwd_submit.setBackgroundResource(able ? R.drawable.login_corners_bg
+                : R.drawable.login_unclickabe_corners_bg);
     }
 
     public void showGetVericodeCountDown() {
         Log.v("tour0888", "showGetVericodeCountDown");
-        if (null != countDoun) {
-            countDoun.cancel();
+        if (null != countDownTimer) {
+            countDownTimer.cancel();
         }
-
-        countDoun = new Timer();
-        getCodeStamp = System.currentTimeMillis();
-        countDoun.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                left = (int) (codeInvalidateTime - (System.currentTimeMillis() - getCodeStamp) / 1000);
-                if(null != LoginFindpwdFragment.this){
-                    LoginFindpwdFragment.this.getActivity().runOnUiThread(LoginFindpwdFragment.this);
-                }
-            }
-        }, 0, 1000);
+        countDownTimer = new CountDownTimer(this.getActivity(),this);
+        countDownTimer.schedule(0, 1000);
     }
 
-    @Override
-    public void run() {
-        updateCountDoun();
+    public void onDestroy(){
+        if(null != countDownTimer){
+            countDownTimer.cancel();
+        }
+        super.onDestroy();
     }
 
-    private void updateCountDoun(){
-        if (0 <= left) {
-            login_findpwd_get_vericode.setText(LoginFindpwdFragment.this.getString(R.string.login_findpwd_get_code_params, left));
+    private void updateCountDoun(int leftTimes){
+        if (0 <= leftTimes) {
+            login_findpwd_get_vericode.setText(LoginFindpwdFragment.this.getString(R.string.login_findpwd_get_code_params, leftTimes));
             login_findpwd_get_vericode.setClickable(false);
         } else {
             login_findpwd_get_vericode.setText(R.string.login_findpwd_get_code);
@@ -169,10 +185,8 @@ public class LoginFindpwdFragment extends Fragment implements UserController.Use
         }
     }
 
-    public void onDestroy(){
-        if(null != countDoun){
-            countDoun.cancel();
-        }
-        super.onDestroy();
+    @Override
+    public void refreshCount(int leftTimes) {
+        updateCountDoun(leftTimes);
     }
 }

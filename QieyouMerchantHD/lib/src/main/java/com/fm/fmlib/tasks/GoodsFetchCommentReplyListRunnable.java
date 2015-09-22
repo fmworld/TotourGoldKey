@@ -36,8 +36,4 @@ public class GoodsFetchCommentReplyListRunnable extends TokenCheckedRunnable<God
         Log.v(TAG, "result code "+result.code);
     }
 
-    @Override
-    public void onError(RetrofitError be) {
-
-    }
 }

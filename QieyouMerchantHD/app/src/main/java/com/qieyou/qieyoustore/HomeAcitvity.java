@@ -1,10 +1,8 @@
 package com.qieyou.qieyoustore;
 
-import android.app.Fragment;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.res.Configuration;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,8 +11,6 @@ import com.fm.fmlib.Display;
 import com.fm.fmlib.controllers.MainController;
 import com.qieyou.qieyoustore.Adapter.HomeNavigationAdapter;
 import com.qieyou.qieyoustore.bean.HomeNaviItem;
-import com.qieyou.qieyoustore.ui.fragment.HomeMall;
-import com.qieyou.qieyoustore.util.TourPicConfig;
 
 /**
  * Created by zhoufeng'an on 2015/8/5.
@@ -29,6 +25,7 @@ public class HomeAcitvity extends BaseTourActivity implements MainController.Nav
     private boolean meunuFragCanMove = true;
     private MainController.NavigationCallbacks mNavigationCallbacks;
     private boolean firstResume = true;
+    private long backIntentStamp=0;
 
     protected int getContentViewLayoutId() {
         return R.layout.activity_home;
@@ -104,7 +101,6 @@ public class HomeAcitvity extends BaseTourActivity implements MainController.Nav
 
         getController().attachUi(this);
         if (firstResume) {
-
             mNavigationCallbacks.fetchProOptions();
             mNavigationCallbacks.fetchUserInfo();
             mNavigationCallbacks.fetchStoreInfo();
@@ -156,42 +152,33 @@ public class HomeAcitvity extends BaseTourActivity implements MainController.Nav
         return currentThirdContentTag;
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.v("take pic", "onActivityResult  " + requestCode+" resultCode "+resultCode);
 
-        // TODO Auto-generated method stub
-        if (resultCode == RESULT_OK) { //
-            if (requestCode == TourPicConfig.REQUEST_CODE_PIC_CAMERA) { // 发送照片
-                if (data != null) {
-                    Uri selectedImage = data.getData();
-                    Log.v("take pic", "REQUEST_CODE_PIC_CAMERA " + data.getData());
-                    getDisplay().showProLocalImg(selectedImage);
-
-                }
-
-            } else if (requestCode == TourPicConfig.REQUEST_CODE_PIC_LOCAL) { // 发送本地图片
-                if (data != null) {
-                    Log.v("take pic", "REQUEST_CODE_PIC_LOCAL " + data.getData());
-                    Uri selectedImage = data.getData();
-                    getDisplay().showProLocalImg(selectedImage);
-                }
-            }
+    public void onBackPressed(){
+        if(getDisplay().hideHomeProfile()){
+            return;
         }
-        super.onActivityResult(requestCode, resultCode, data);
+
+        if(getDisplay().hideHomeThirdContent()){
+            return;
+        }
+
+        if(getDisplay().hideHomeSecondContent()){
+            return;
+        }
+
+        long currentTime = System.currentTimeMillis();
+
+        if(currentTime-backIntentStamp <= 2000){
+            finish();
+        }else{
+            backIntentStamp = System.currentTimeMillis();
+        }
     }
 
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        Fragment fragment = this.getFragmentManager().findFragmentByTag(this.getCurrentContentTag().toString());
-//        if (null != fragment && fragment instanceof HomeMall) {
-//            if (((HomeMall) fragment).isPopWindowShowed()) {
-//                ((HomeMall) fragment).dismissPopWindow();
-//                return true;
-//            }
-//        }
-//        return super.dispatchTouchEvent(ev);
-//    }
-
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
 
 }
 

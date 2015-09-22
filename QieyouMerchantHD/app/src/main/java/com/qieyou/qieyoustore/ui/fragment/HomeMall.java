@@ -92,7 +92,7 @@ public class HomeMall extends AnimListenFragment implements ProductController.Ma
         cityChooser = new MallCityDialog(this.getActivity());
         CITY_ID = cityChooser.initTarText((TextView) contentView.findViewById(R.id.mall_city_choose));
         cityChooser.setCityChooseListener(this);
-        contentView.findViewById(R.id.mall_city_choose).setOnClickListener(this);
+        contentView.findViewById(R.id.mall_city_choose_layout).setOnClickListener(this);
         refreshLayout = (TourWaveRefeshLayout) contentView.findViewById(R.id.mall_wave_refresh);
         refreshLayout.setColorSchemeColors(this.getResources().getColor(R.color.white), this.getResources().getColor(R.color.red), this.getResources().getColor(R.color.yellow));
         refreshLayout.setWaveColor(this.getResources().getColor(R.color.green));
@@ -227,9 +227,9 @@ public class HomeMall extends AnimListenFragment implements ProductController.Ma
             } else {
                 filterPopWindow.dismiss();
             }
-        } else if (R.id.mall_city_choose == v.getId()) {
+        } else if (R.id.mall_city_choose_layout == v.getId()) {
             if (null != cityChooser && !cityChooser.isShowing()) {
-                cityChooser.showAt(DisplayUtil.dip2px(this.getActivity(), 68),(int)v.getY()+v.getHeight()+DisplayUtil.dip2px(this.getActivity(), 15));
+                cityChooser.showAt(DisplayUtil.dip2px(this.getActivity(), 68),(int)v.getY()+v.getHeight()-DisplayUtil.dip2px(this.getActivity(), 15));
             }
         }
     }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:score="http://schemas.android.com/apk/res-auto"
+    >
+    <data>
+        <import type="com.qieyou.qieyoustore.util.DateUtil"/>
+        <variable name="comment" type="com.qieyou.qieyoustore.model.PsnComment"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        >
+        <RelativeLayout
+            android:id="@+id/toplayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/psn_comment_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{comment.user_name}"
+                style="@style/set_person_comment_text"
+                android:layout_centerVertical="true"
+                />
+            <com.qieyou.qieyoustore.ui.widget.ScoreLinearLayout
+                android:id="@+id/psn_comment_user_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                score:fullScore="@drawable/home_psn_score_gray_full"
+                score:emptyScore="@drawable/home_psn_score_gray_empty"
+                score:hasText="false"
+                android:layout_toRightOf="@+id/psn_comment_user_name"
+                android:layout_alignBottom="@+id/psn_comment_user_name"
+                score:score="@{comment.point}"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                />
+
+            <TextView
+                android:id="@+id/psn_comment_publish_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{DateUtil.formatDateTime(comment.create_time)}"
+                android:layout_alignParentRight="true"
+                style="@style/set_person_comment_text"
+                android:layout_centerVertical="true"
+                />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/psn_comment_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{comment.note}"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/toplayout"
+            style="@style/set_person_comment_text"
+            android:layout_marginTop="10dp"
+            />
+    </RelativeLayout>
+
+</layout>

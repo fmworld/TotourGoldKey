@@ -14,6 +14,7 @@ import com.qieyou.qieyoustore.util.TourWebViewClient;
 
 /**
  * Created by zhoufeng'an on 2015/8/12.
+ * 新建新的标签
  */
 public class NewTagActivity extends BaseTourActivity implements ProductController.AddNewTagUi,View.OnClickListener{
     private ProductController.AddNewTagCallbacks mAddNewTagCallbacks;

@@ -33,8 +33,5 @@ public class GoodsFetchShopTagsRunnable extends TokenCheckedRunnable<ShopTagsEnt
         Log.v(TAG, "result msg "+result.msg.size());
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

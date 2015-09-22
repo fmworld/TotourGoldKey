@@ -3,6 +3,9 @@ package com.qieyou.qieyoustore.util;
 import android.text.format.DateFormat;
 import android.text.format.Time;
 
+import com.fm.fmlib.TourApplication;
+import com.qieyou.qieyoustore.R;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -14,11 +17,12 @@ import java.util.Locale;
  * Created by zhoufeng'an on 2015/8/14.
  */
 public class DateUtil {
-    public static String formatDateTime(String mseconds){
+    public static String formatDateTime(String mseconds) {
         Date date = new Date();
         date.setTime(Long.valueOf(mseconds));
         return formatDateTime(date);
     }
+
     public static String formatDateTime(Date date) {
         String text;
         long dateTime = date.getTime();
@@ -122,7 +126,7 @@ public class DateUtil {
         return date;
     }
 
-    public static String getDateStr(String format){
+    public static String getDateStr(String format) {
         SimpleDateFormat sf = new SimpleDateFormat(format);
         Date date = new Date();
         return sf.format(date);
@@ -190,6 +194,7 @@ public class DateUtil {
 
     /**
      * 两个时间相差距离多少天多少小时多少分多少秒
+     *
      * @param str1 时间参数 1 格式：1990-01-01 12:00:00
      * @param str2 时间参数 2 格式：2009-01-01 12:00:00
      * @return String 返回值为：xx天xx小时xx分xx秒
@@ -207,8 +212,8 @@ public class DateUtil {
             two = df.parse(str2);
             long time1 = one.getTime();
             long time2 = two.getTime();
-            long diff ;
-            if(time1<time2) {
+            long diff;
+            if (time1 < time2) {
                 diff = time2 - time1;
             } else {
                 diff = time1 - time2;
@@ -216,17 +221,17 @@ public class DateUtil {
             day = diff / (24 * 60 * 60 * 1000);
             hour = (diff / (60 * 60 * 1000) - day * 24);
             min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
-            sec = (diff/1000-day*24*60*60-hour*60*60-min*60);
+            sec = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        if(day > 365){
+        if (day > 365) {
             day = 365;
         }
         return day + "天" + hour + "小时" + min + "分" + sec + "秒";
     }
 
-    public static int getAge(Date birthDay){
+    public static int getAge(Date birthDay) {
         Calendar cal = Calendar.getInstance();
 
         if (cal.before(birthDay)) {
@@ -239,13 +244,13 @@ public class DateUtil {
         cal.setTime(birthDay);
 
         int yearBirth = cal.get(Calendar.YEAR);
-        int monthBirth = cal.get(Calendar.MONTH)+1;
+        int monthBirth = cal.get(Calendar.MONTH) + 1;
         int dayOfMonthBirth = cal.get(Calendar.DAY_OF_MONTH);
 
         int age = yearNow - yearBirth;
 
 		/*if (monthNow <= monthBirth) {
-			if (monthNow == monthBirth) {
+            if (monthNow == monthBirth) {
 				// monthNow==monthBirth
 				if (dayOfMonthNow < dayOfMonthBirth) {
 					age--;
@@ -272,5 +277,62 @@ public class DateUtil {
         }
 
         return age;
+    }
+
+    public static String leftDates(long timeS) {
+//        long value = 365 * 24 * 60 * 60;
+//        long deadline =  value *(long)100*(long)1000;
+        long deadline = timeS - System.currentTimeMillis();
+        deadline = deadline/1000;
+        if (deadline <= 0) {
+            return TourApplication.instance()
+                    .getString(R.string.detail_remainders_invalidate);
+        }
+        //一小时内过期
+        if (deadline < 60 * 60) {
+            return TourApplication.instance()
+                    .getString(R.string.detail_remainders_mins, (int) (deadline / 60 ));
+        }
+
+        //一天内过期
+        if (deadline < 24 * 60 * 60 ) {
+            int hours = (int) (deadline / 60 * 60 );
+            int mins = (int) ((deadline - hours * 60 * 60 ) / (60 ));
+
+            return mins == 0?TourApplication.instance()
+                    .getString(R.string.detail_remainders_hours_0, hours):TourApplication.instance()
+                    .getString(R.string.detail_remainders_hours, hours, mins);
+        }
+
+        //一个月内过期
+        if (deadline < 30 * 24 * 60 * 60 ) {
+            int days = (int) (deadline / (24 * 60 * 60 ));
+            int hours = (int) ((deadline - days * 24 * 60 * 60 ) / (60 * 60 ));
+
+            return hours == 0?TourApplication.instance()
+                    .getString(R.string.detail_remainders_months_0, days):TourApplication.instance()
+                    .getString(R.string.detail_remainders_hours, days, hours);
+        }
+
+        //一年内过期
+        if (deadline < (long)365 * 24 * 60 * 60 ) {
+            int months = (int) (deadline / (30 * 24 * 60 * 60 ));
+            int days = (int) ((deadline - months * 30 * 24 * 60 * 60 ) / (24 * 60 * 60 ));
+            return days == 0?TourApplication.instance()
+                    .getString(R.string.detail_remainders_months_0, months):TourApplication.instance()
+                    .getString(R.string.detail_remainders_months, months, days);
+        }
+
+        //一年内过期
+        if (deadline >= (long)365 * 24 * 60 * 60 ) {
+            int years = (int) (deadline / (365 * 24 * 60 * 60 ));
+            int months = (int) ((deadline - (long)years * (long)(365 * 24 * 60 * 60) ) / (30 * 24 * 60 * 60));
+
+            return  months == 0?TourApplication.instance()
+                    .getString(R.string.detail_remainders_years_0, years):TourApplication.instance()
+                    .getString(R.string.detail_remainders_years, years, months);
+        }
+        return "";
+
     }
 }

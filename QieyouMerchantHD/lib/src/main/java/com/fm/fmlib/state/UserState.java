@@ -1,15 +1,19 @@
 package com.fm.fmlib.state;
 
+import com.fm.fmlib.dao.User;
+
 /**
  * Created by zhoufeng'an on 2015/8/3.
  */
+
+
 public interface UserState extends BaseState {
     enum Setting{
         about,
         feedback,
         changepwd
     }
-    public static class UserLoginExecutedEvent {
+    class UserLoginExecutedEvent {
         public final int callingId;
         public final String name;
         public final String pwd;
@@ -21,11 +25,18 @@ public interface UserState extends BaseState {
         }
     }
 
-    public static class UserFetchUserInfoEvent{}
+    class UserFetchUserInfoEvent{
 
-    public static class UserLoginAccessCodeEvent {
     }
 
-    public static class UserResetPasswordEvent {
+    class UserLoginAccessCodeEvent {
     }
+
+    class UserResetPasswordEvent {
+    }
+
+    User getDefaultLoginUser();
+
+    boolean loginOut();
+
 }

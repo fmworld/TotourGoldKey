@@ -37,8 +37,5 @@ public class ProductFetchSubmitTransferRunnable extends TokenCheckedRunnable<Tra
 //        this.getBus().post(new HomeState.HomeManagerFetchEvent(result.msg));
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

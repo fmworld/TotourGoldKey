@@ -16,7 +16,6 @@ import retrofit.http.Query;
 
 /**
  * Created by zhou feng'an on 2015/7/30.
- *
  */
 
 public interface InnManagerService {
@@ -24,9 +23,9 @@ public interface InnManagerService {
     TransferEntity fetchHomePage(@Query("token") String token);
 
 
-
     /**
      * 获取商户名片（数据不全mobile、innname、innhead）
+     *
      * @param token
      * @return
      */
@@ -36,6 +35,7 @@ public interface InnManagerService {
 
     /**
      * 获取商户分享信息
+     *
      * @param token
      * @return
      */
@@ -45,6 +45,7 @@ public interface InnManagerService {
 
     /**
      * 获取支付方式选择连接（target :  orderPayment）
+     *
      * @param token
      * @param order_id
      * @param target
@@ -56,6 +57,7 @@ public interface InnManagerService {
 
     /**
      * 获取待编辑的产品
+     *
      * @param token
      * @param product_id
      * @return
@@ -69,6 +71,7 @@ public interface InnManagerService {
 
     /**
      * 编辑商品信息
+     *
      * @param token
      * @param item
      * @param product_images
@@ -108,12 +111,13 @@ public interface InnManagerService {
                                   @Field("price") String price,
                                   @Field("old_price") String old_price,
                                   @Field("tag_id") String tag_id,
-                                  @Field("quantity") String quantity);
+                                  @Field("quantity") String quantity,
+                                  @Field("thumb") String thumb);
 
     /**
      * 添加商品
+     *
      * @param token
-     * @param item
      * @param product_images
      * @param editProduct
      * @param ccid
@@ -135,20 +139,21 @@ public interface InnManagerService {
     @FormUrlEncoded
     @POST("/item/addProduct")
     StateEntity addProduct(@Query("token") String token,
-                                  @Field("product_images") String product_images,
-                                  @Field("editProduct") String editProduct,
-                                  @Field("ccid") String ccid,
-                                  @Field("cid") String cid,
-                                  @Field("tuan_end_time") String tuan_end_time,
-                                  @Field("note") String note,
-                                  @Field("booking_info") String booking_info,
-                                  @Field("traveler") String traveler,
-                                  @Field("content") String content,
-                                  @Field("innholder") String innholder,
-                                  @Field("product_name") String product_name,
-                                  @Field("keyword") String keyword,
-                                  @Field("price") String price,
-                                  @Field("old_price") String old_price,
-                                  @Field("tag_id") String tag_id,
-                                  @Field("quantity") String quantity);
+                           @Field("product_images") String product_images,
+                           @Field("editProduct") String editProduct,
+                           @Field("ccid") String ccid,
+                           @Field("cid") String cid,
+                           @Field("tuan_end_time") String tuan_end_time,
+                           @Field("note") String note,
+                           @Field("booking_info") String booking_info,
+                           @Field("traveler") String traveler,
+                           @Field("content") String content,
+                           @Field("innholder") String innholder,
+                           @Field("product_name") String product_name,
+                           @Field("keyword") String keyword,
+                           @Field("price") String price,
+                           @Field("old_price") String old_price,
+                           @Field("tag_id") String tag_id,
+                           @Field("quantity") String quantity,
+                           @Field("thumb") String thumb);
 }

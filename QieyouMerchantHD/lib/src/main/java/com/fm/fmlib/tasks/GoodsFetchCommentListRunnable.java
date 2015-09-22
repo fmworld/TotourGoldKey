@@ -46,8 +46,4 @@ public class GoodsFetchCommentListRunnable extends TokenCheckedRunnable<GoddsCom
         }
     }
 
-    @Override
-    public void onError(RetrofitError be) {
-
-    }
 }

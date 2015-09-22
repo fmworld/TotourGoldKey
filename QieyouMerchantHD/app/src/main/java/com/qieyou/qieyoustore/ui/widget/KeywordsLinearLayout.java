@@ -1,8 +1,8 @@
 package com.qieyou.qieyoustore.ui.widget;
 
 import android.content.Context;
+import android.text.InputFilter;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.utils.DisplayUtil;
-import com.fm.fmlib.utils.StringUtils;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.util.TourStringUtil;
 
@@ -88,18 +87,34 @@ public class KeywordsLinearLayout extends LinearLayout implements View.OnClickLi
             Toast.makeText(TourApplication.instance(),this.getContext().getString(R.string.home_mgr_pro_ae_keyword_max_str,maxWords),Toast.LENGTH_SHORT).show();
             return;
         }
-            addNewTagUI();
 
-        editor = new EditText(this.getContext());
-        editor.setMinWidth(DisplayUtil.dip2px(this.getContext(), 50));
-        initEditKeyEvent();
-        editor.setImeOptions(EditorInfo.IME_ACTION_DONE | EditorInfo.IME_ACTION_NONE);
-        this.addView(editor, this.getChildCount() - 2);
-        editor.setOnEditorActionListener(this);
-        editor.requestFocus();
+        addNewTagExisted();
+        showTagEditor();
     }
 
-    private void addNewTagUI() {
+    private void showTagEditor(){
+        if(null == editor){
+            editor = new EditText(this.getContext());
+            editor.setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+            editor.setMinWidth(DisplayUtil.dip2px(this.getContext(), 50));
+            editor.setTextColor(this.getResources().getColor(R.color.white));
+            initEditKeyEvent();
+            editor.setImeOptions(EditorInfo.IME_ACTION_DONE | EditorInfo.IME_ACTION_NONE);
+            this.addView(editor, this.getChildCount() - 2);
+            editor.setOnEditorActionListener(this);
+            editor.requestFocus();
+            editor.setOnFocusChangeListener(new OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(!hasFocus){
+                        addNewTagExisted();
+                    }
+                }
+            });
+        }
+    }
+
+    private void addNewTagExisted() {
 
         if (null == editor) {
             return;
@@ -117,7 +132,7 @@ public class KeywordsLinearLayout extends LinearLayout implements View.OnClickLi
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == KeyEvent.ACTION_DOWN || actionId == EditorInfo.IME_ACTION_DONE || actionId == EditorInfo.IME_ACTION_NONE) {
-            addNewTagUI();
+            addNewTagExisted();
             return true;
         }
         return false;
@@ -131,7 +146,7 @@ public class KeywordsLinearLayout extends LinearLayout implements View.OnClickLi
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (KeyEvent.KEYCODE_ENTER == keyCode && event.getAction() == KeyEvent.ACTION_DOWN) {
-                    addNewTagUI();
+                    addNewTagExisted();
                     return true;
                 }
                 return false;

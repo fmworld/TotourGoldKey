@@ -8,33 +8,35 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.fm.fmlib.controllers.MainController;
 import com.fm.fmlib.dao.Inn;
-import com.fm.fmlib.dao.ProductTagDao;
 import com.fm.fmlib.dao.User;
+import com.fm.fmlib.state.ApplicationState;
 import com.fm.fmlib.tour.Totour0888;
+import com.fm.fmlib.tour.TourConfig;
 import com.fm.fmlib.tour.bean.UserInfo;
 import com.fm.fmlib.utils.BackgroundExecutor;
 import com.fm.fmlib.utils.DataCleanManager;
 import com.fm.fmlib.utils.DataMemCacheUtil;
-import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
-import com.fm.fmlib.utils.provider.CategoryDaoProvider;
-import com.fm.fmlib.utils.provider.LaunchProfileProvider;
-import com.fm.fmlib.utils.provider.LocalDaoProvider;
-import com.fm.fmlib.utils.provider.Networkprovider;
-import com.fm.fmlib.utils.provider.ProductTagDaoProvider;
-import com.fm.fmlib.utils.provider.PropertyDaoProvider;
+import com.fm.fmlib.models.BackgroundExecutorProvider;
+import com.fm.fmlib.models.CategoryDaoProvider;
+import com.fm.fmlib.models.LaunchProfileProvider;
+import com.fm.fmlib.models.LocalDaoProvider;
+import com.fm.fmlib.models.Networkprovider;
+import com.fm.fmlib.models.ProductTagDaoProvider;
+import com.fm.fmlib.models.PropertyDaoProvider;
 import com.squareup.otto.Bus;
 
 import java.io.File;
+
+import javax.inject.Inject;
 
 /**
  * Created by zhou feng'an on 2015/7/29.
  */
 public class TourApplication extends Application {
-    private BackgroundExecutor mExecutor;
     private Totour0888 mTotour;
     private DataMemCacheUtil dataMemCache;
     private MainController mMainController;
-
+    @Inject ApplicationState mApplicationState;
     private Bus mBus;
 
     private static TourApplication instance;
@@ -60,6 +62,7 @@ public class TourApplication extends Application {
         super.onCreate();
         instance = this;
         initConfig();
+//        mApplicationState.getProductInfo();
 //        initBackroundExecutor();
 //        initTotour();
 //        intiFresco();
@@ -78,19 +81,19 @@ public class TourApplication extends Application {
         mTotour = Networkprovider.providerTotour0888();
     }
 
-    private void initFrescoConfig(){
+    private void initFrescoConfig() {
         DiskCacheConfig diskCacheConfig = DiskCacheConfig.newBuilder()
                 .setBaseDirectoryName(DataCleanManager.FRESCO_CACHE)
                 .setBaseDirectoryPathSupplier(new Supplier() {
                     public File get() {
-                        return getCacheDir();
+                        return TourConfig.instance().getPicCache();
                     }
                 })
                 .build();
         ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
                 .setMainDiskCacheConfig(diskCacheConfig)
                 .build();
-        Fresco.initialize(this,config);
+        Fresco.initialize(this, config);
 
     }
 
@@ -115,16 +118,8 @@ public class TourApplication extends Application {
         Fresco.initialize(this);
     }
 
-    private void initBackroundExecutor() {
-        mExecutor = BackgroundExecutorProvider.providerBackgroundExecutor();
-    }
-
     private void initTotour() {
         mTotour = Networkprovider.providerTotour0888();
-    }
-
-    public BackgroundExecutor getmExecutor() {
-        return mExecutor;
     }
 
     public Totour0888 getmTotour() {
@@ -151,11 +146,11 @@ public class TourApplication extends Application {
 
     public <T> void updateData(T data) {
         if (data instanceof User) {
-            dataMemCache.getUserDao().saveWithUser((User)data);
-        }else if(data instanceof Inn){
-            dataMemCache.getInnDao().saveWithInn((Inn)data);
-        }else if(data instanceof UserInfo){
-            dataMemCache.getUserDao().saveWithUserInfo((UserInfo)data);
+            dataMemCache.getUserDao().saveWithUser((User) data);
+        } else if (data instanceof Inn) {
+            dataMemCache.getInnDao().saveWithInn((Inn) data);
+        } else if (data instanceof UserInfo) {
+            dataMemCache.getUserDao().saveWithUserInfo((UserInfo) data);
         }
     }
 
@@ -163,31 +158,31 @@ public class TourApplication extends Application {
         return mBus;
     }
 
-    public User getDaoUser(){
+    public User getDaoUser() {
         return dataMemCache.getUserDao().getmCurrentUser();
     }
 
-    public Inn getDaoInn(){
+    public Inn getDaoInn() {
         return dataMemCache.getInnDao().getmCurrentInn();
     }
 
-    public PropertyDaoProvider getDaoProperty(){
+    public PropertyDaoProvider getDaoProperty() {
         return dataMemCache.getPropertyDao();
     }
 
-    public ProductTagDaoProvider getDaoProductTag(){
+    public ProductTagDaoProvider getDaoProductTag() {
         return dataMemCache.getPTagsDao();
     }
 
-    public LocalDaoProvider getDaoLocal(){
+    public LocalDaoProvider getDaoLocal() {
         return dataMemCache.getLocalDao();
     }
 
-    public CategoryDaoProvider getDaoCategory(){
+    public CategoryDaoProvider getDaoCategory() {
         return dataMemCache.getCategoryDao();
     }
 
-    public LaunchProfileProvider getDaoLaunProfile(){
+    public LaunchProfileProvider getDaoLaunProfile() {
         return dataMemCache.getLaunchProfileDao();
     }
 

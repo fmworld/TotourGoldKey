@@ -53,8 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:drawableLeft="@drawable/home_mgr_pro_ae_required"
+                android:layout_marginLeft="35dp"
                 android:drawablePadding="7dp"
                 android:text="@string/home_mgr_pro_ae_recommend_recm"
                 android:textColor="@color/white"
@@ -96,7 +95,11 @@
                 android:layout_marginRight="35dp"
                 android:drawablePadding="7dp"
                 android:textSize="@dimen/home_mgr_pro_ae_sec_size"
+                android:hint="@string/home_mgr_pro_ae_recommend_word_notify"
+                android:textColorHint="@color/home_mgr_pro_ae_keyword_hint"
                 android:textColor="@color/home_mgr_pro_ae_text"
+                android:maxLength="100"
+
                  />
         </RelativeLayout>
     </LinearLayout>
@@ -146,6 +149,9 @@
                 android:drawablePadding="7dp"
                 android:textColor="@color/home_mgr_pro_ae_text"
                 android:textSize="@dimen/home_mgr_pro_ae_sec_size"
+                android:maxLength="100"
+                android:hint="@string/home_mgr_pro_ae_recommend_comment_notify"
+                android:textColorHint="@color/home_mgr_pro_ae_keyword_hint"
                  />
         </RelativeLayout>
         <LinearLayout
@@ -159,8 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:drawableLeft="@drawable/home_mgr_pro_ae_required"
+                android:layout_marginLeft="35dp"
                 android:drawablePadding="7dp"
                 android:text="@string/home_mgr_pro_ae_recommend_comment"
                 android:textColor="@color/white"
@@ -202,6 +207,9 @@
                 android:drawablePadding="7dp"
                 android:textColor="@color/home_mgr_pro_ae_text"
                 android:textSize="@dimen/home_mgr_pro_ae_sec_size"
+                android:maxLength="100"
+                android:hint="@string/home_mgr_pro_ae_recommend_boss_comment_notify"
+                android:textColorHint="@color/home_mgr_pro_ae_keyword_hint"
                 />
         </RelativeLayout>
     </LinearLayout>

@@ -63,8 +63,12 @@ public class ImageUtility {
 
         bitmap = ThumbnailUtils.extractThumbnail(bitmap, cropHeight, cropHeight, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
 
+//        File mediaStorageDir = new File(
+//                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+//                context.getString(R.string.squarecamera__app_name)
+//        );
         File mediaStorageDir = new File(
-                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                context.getCacheDir(),
                 context.getString(R.string.squarecamera__app_name)
         );
 

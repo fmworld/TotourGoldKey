@@ -31,6 +31,8 @@
         <attr name="scoreTextColor" format="color" />
         <attr name="fullScore" format="reference" />
         <attr name="emptyScore" format="reference" />
+        <attr name="unit" format="string" />
+        <attr name="hasText" format="boolean" />
         <attr name="score" format="float"/>
     </declare-styleable>
 </resources>

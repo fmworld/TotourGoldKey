@@ -13,8 +13,13 @@ import java.util.List;
  * Created by zhoufeng'an on 2015/8/5.
  */
 public interface Display {
+    //进入登录Activity
+    void showLoginActivity();
     //进入登录页面
     void showLogin();
+
+    //登录页面倒计时显示
+//    void showCodeCountDown();
 
     //进入找回密码页面
     void showFindPassword();
@@ -27,7 +32,7 @@ public interface Display {
 
     void showHomeProfileItem(MainController.HomeMenu menu);
 
-    void hideHomeProfile();
+    boolean hideHomeProfile();
 
     void showHomeMenuItem(MainController.HomeMenu menu);
 
@@ -37,13 +42,13 @@ public interface Display {
 
     void showHomeSecondContent(MainController.HomeMenu menu, Bundle bundle);
 
-    void hideHomeSecondContent();
+    boolean hideHomeSecondContent();
 
     void showHomeThirdContent(MainController.HomeMenu menu, Bundle bundle);
 
-    void hideHomeThirdContent();
+    boolean hideHomeThirdContent();
 
-    void hideHomeMenu();
+    boolean hideHomeMenu();
 
     void showManagerPage(String url);
 
@@ -79,4 +84,6 @@ public interface Display {
     void showSetChangePwd();
 
     void showSettingItem(String item);
+
+
 }

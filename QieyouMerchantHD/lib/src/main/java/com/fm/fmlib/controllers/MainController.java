@@ -14,10 +14,9 @@ import com.fm.fmlib.tasks.ProfileFetchProOptionsRunnable;
 import com.fm.fmlib.tasks.ProfileFetchTagListRunnable;
 import com.fm.fmlib.tasks.UserFetchUserInfoRuunable;
 import com.fm.fmlib.tour.entity.StoreCardEntity;
-import com.fm.fmlib.tour.entity.TransferEntity;
 import com.fm.fmlib.tour.entity.UserInfoEntity;
 import com.fm.fmlib.utils.BackgroundExecutor;
-import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
+import com.fm.fmlib.models.BackgroundExecutorProvider;
 import com.google.common.base.Preconditions;
 import com.squareup.otto.Subscribe;
 
@@ -44,14 +43,12 @@ public class MainController extends BaseUiController<MainController.MainUi, Main
     private UserController mUserController;
     private InnController mInnController;
     private ProductController mProductController;
-//    private LaunchController mLaunchController;
-private ApplicationState mApplicationState;
+    private ApplicationState mApplicationState;
     public MainController(){
         mApplicationState = new ApplicationState();
         mUserController = new UserController();
         mInnController = new InnController();
         mProductController =new ProductController();
-//        mLaunchController = new LaunchController();
         mExecutor = BackgroundExecutorProvider.providerBackgroundExecutor();
     }
 

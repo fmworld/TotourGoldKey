@@ -27,7 +27,7 @@ import com.fm.fmlib.tour.entity.StateEntity;
 import com.fm.fmlib.tour.entity.StoreShareEntity;
 import com.fm.fmlib.tour.entity.TransferEntity;
 import com.fm.fmlib.utils.BackgroundExecutor;
-import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
+import com.fm.fmlib.models.BackgroundExecutorProvider;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;

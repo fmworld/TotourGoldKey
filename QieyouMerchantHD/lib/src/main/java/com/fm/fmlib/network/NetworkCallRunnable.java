@@ -20,6 +20,7 @@ package com.fm.fmlib.network;
 
 import android.widget.Toast;
 
+import com.fm.fmlib.R;
 import com.fm.fmlib.TourApplication;
 import com.squareup.otto.Bus;
 
@@ -41,10 +42,16 @@ public abstract class NetworkCallRunnable<R> {
     public void onSuccessInBackground(R result){}
 
     public void onSuccessBadCode(int code, String errorInfo){
-        Toast.makeText(TourApplication.instance().getApplicationContext(),errorInfo,Toast.LENGTH_SHORT).show();
+        Toast.makeText(TourApplication.instance().getApplicationContext()
+                ,errorInfo,Toast.LENGTH_SHORT).show();
     }
 
-    public abstract void onError(RetrofitError be);
+    public void onError(RetrofitError be){
+        Toast.makeText(TourApplication.instance().getApplicationContext(),
+                TourApplication.instance().getApplicationContext()
+                        .getString(com.fm.fmlib.R.string.network_error_notify)
+                ,Toast.LENGTH_SHORT).show();
+    }
 
     public void onFinished() {}
 

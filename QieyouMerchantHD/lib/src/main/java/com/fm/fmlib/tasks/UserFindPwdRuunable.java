@@ -37,8 +37,5 @@ public class UserFindPwdRuunable extends TokenCheckedRunnable<LoginResetPwdEntit
         this.getBus().post(new UserState.UserResetPasswordEvent());
     }
 
-    @Override
-    public void onError(RetrofitError be) {
-        Log.v(TAG, "BaseError "+be);
-    }
+
 }

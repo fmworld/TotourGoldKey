@@ -108,7 +108,7 @@ public class HomeProDetail extends AnimListenFragment implements ProductControll
     public void refreshProDetail(ProductDetail detail) {
         ((TextView) content.findViewById(R.id.pro_detail_title)).setText(detail.product_name);
         ((TextView) content.findViewById(R.id.detail_view_number)).setText(this.getString(R.string.pro_detail_view_str, detail.hit));
-        ((TextView) content.findViewById(R.id.detail_buy_number)).setText(this.getString(R.string.pro_detail_view_str, detail.bought_count));
+        ((TextView) content.findViewById(R.id.detail_buy_number)).setText(this.getString(R.string.pro_detail_buy_str, detail.bought_count));
         ((TextView) content.findViewById(R.id.detail_detail_content)).setText(detail.note);
         ((TextView) content.findViewById(R.id.detail_attention_content)).setText(detail.booking_info);
         initImages((LinearLayout) content.findViewById(R.id.detail_top_imgs), detail.product_images);
@@ -120,7 +120,11 @@ public class HomeProDetail extends AnimListenFragment implements ProductControll
 
     @Override
     public void refreshStateChange(String id) {
-        rightAdapter.notifyDataSetChanged();
+        if(rightAdapter.getDetail().product_id.equals(id)){
+            rightAdapter.getDetail().on_shelves="1";
+            rightAdapter.notifyDataSetChanged();
+        }
+
     }
 
     private void initImages(LinearLayout layout, String imgstr) {

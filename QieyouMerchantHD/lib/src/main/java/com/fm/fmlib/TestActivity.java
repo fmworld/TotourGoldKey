@@ -83,7 +83,7 @@ private UserController usrController;
 
 //        fetchInnMngHomePage();
 
-        GoodsFetchTags();
+//        GoodsFetchTags();
 //        goodsShelvedOther();
 //        goodsFetchHome();
 //        FetchGoodsDetail();
@@ -97,13 +97,13 @@ private UserController usrController;
     }
 
 
-    public void operate(View view) {
-        if (R.id.button1 == view.getId()) {
-            loginIn();
-        } else if (R.id.button2 == view.getId()) {
-            loginOut();
-        }
-    }
+//    public void operate(View view) {
+//        if (R.id.button1 == view.getId()) {
+//            loginIn();
+//        } else if (R.id.button2 == view.getId()) {
+//            loginOut();
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -126,64 +126,64 @@ private UserController usrController;
 
         return super.onOptionsItemSelected(item);
     }
-
-    private void loginIn() {
-        TourApplication.instance().getmExecutor().execute(new UserLoginInRuunable("18612540330", "qieyou"));
-    }
-
-    private void findPwd() {
-        TourApplication.instance().getmExecutor().execute(new UserGetVerifyCodeRuunable("18612540339"));
-    }
-
-    private void loginOut() {
-        TourApplication.instance().getmExecutor().execute(new UserLoginOutRuunable());
-    }
-
-    private void transfer2SmtOrder() {
-        TourApplication.instance().getmExecutor().execute(new TrasSbmOrderRunnable("64"));
-    }
-
-    private void transfer2innManager() {
-        TourApplication.instance().getmExecutor().execute(new InnFetchManagerTransferRunnable());
-    }
-
-    private void fetchInnMngHomePage() {
-//        TourApplication.instance().getmExecutor().execute(new InnFetchHomeRunnable());
-    }
-
-    private void GoodsFetchTags() {
-        TourApplication.instance().getmExecutor().execute(new GoodsFetchShopTagsRunnable("0", "3", ""));
-    }
-
-    private void goodsShelvedOther() {
-        TourApplication.instance().getmExecutor().execute(new GoodsShelved4OtherRunnable("510", "7"));
-    }
-
-    private void goodsFetchHome() {
-        GoodsFetchHomeParams homeParams = new GoodsFetchHomeParams();
-        homeParams.perpage = 5;
-        homeParams.page = 0;
-        TourApplication.instance().getmExecutor().execute(new GoodsFetchHomeRunnable(homeParams));
-    }
-
-    private void FetchGoodsDetail() {
-        TourApplication.instance().getmExecutor().execute(new GoodsFetchDetailRunnable("1"));
-    }
-
-    private void fetchGoodsCommentDetail() {
-        TourApplication.instance().getmExecutor().execute(new GoodsFetchCommentDetailRunnable("517"));
-    }
-
-    private void fetchGoodsCommentList(){
-        TourApplication.instance().getmExecutor().execute(new GoodsFetchCommentListRunnable("1", GoodsService.CommentType.pic.toString(), "6","20"));
-
-    }
-
-    private void fetchGoodsCommentReplyList(){
-        TourApplication.instance().getmExecutor().execute(new GoodsFetchCommentReplyListRunnable("3","item","0","10"));
-    }
-
-    private void goodsProductInfo4Edit(){
-        TourApplication.instance().getmExecutor().execute(new GoodsProductInfo4EditRunnable("1"));
-    }
+//
+//    private void loginIn() {
+//        TourApplication.instance().getmExecutor().execute(new UserLoginInRuunable("18612540330", "qieyou"));
+//    }
+//
+//    private void findPwd() {
+//        TourApplication.instance().getmExecutor().execute(new UserGetVerifyCodeRuunable("18612540339"));
+//    }
+//
+//    private void loginOut() {
+//        TourApplication.instance().getmExecutor().execute(new UserLoginOutRuunable());
+//    }
+//
+//    private void transfer2SmtOrder() {
+//        TourApplication.instance().getmExecutor().execute(new TrasSbmOrderRunnable("64"));
+//    }
+//
+//    private void transfer2innManager() {
+//        TourApplication.instance().getmExecutor().execute(new InnFetchManagerTransferRunnable());
+//    }
+//
+//    private void fetchInnMngHomePage() {
+////        TourApplication.instance().getmExecutor().execute(new InnFetchHomeRunnable());
+//    }
+//
+//    private void GoodsFetchTags() {
+//        TourApplication.instance().getmExecutor().execute(new GoodsFetchShopTagsRunnable("0", "3", ""));
+//    }
+//
+//    private void goodsShelvedOther() {
+//        TourApplication.instance().getmExecutor().execute(new GoodsShelved4OtherRunnable("510", "7"));
+//    }
+//
+//    private void goodsFetchHome() {
+//        GoodsFetchHomeParams homeParams = new GoodsFetchHomeParams();
+//        homeParams.perpage = 5;
+//        homeParams.page = 0;
+//        TourApplication.instance().getmExecutor().execute(new GoodsFetchHomeRunnable(homeParams));
+//    }
+//
+//    private void FetchGoodsDetail() {
+//        TourApplication.instance().getmExecutor().execute(new GoodsFetchDetailRunnable("1"));
+//    }
+//
+//    private void fetchGoodsCommentDetail() {
+//        TourApplication.instance().getmExecutor().execute(new GoodsFetchCommentDetailRunnable("517"));
+//    }
+//
+//    private void fetchGoodsCommentList(){
+//        TourApplication.instance().getmExecutor().execute(new GoodsFetchCommentListRunnable("1", GoodsService.CommentType.pic.toString(), "6","20"));
+//
+//    }
+//
+//    private void fetchGoodsCommentReplyList(){
+//        TourApplication.instance().getmExecutor().execute(new GoodsFetchCommentReplyListRunnable("3","item","0","10"));
+//    }
+//
+//    private void goodsProductInfo4Edit(){
+//        TourApplication.instance().getmExecutor().execute(new GoodsProductInfo4EditRunnable("1"));
+//    }
 }

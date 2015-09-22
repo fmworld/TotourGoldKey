@@ -42,8 +42,5 @@ public class UserCommitFeedbackRuunable extends TokenCheckedRunnable<StateEntity
         Log.v(TAG, "result errorInfo "+result.errorInfo);
     }
 
-    @Override
-    public void onError(RetrofitError be) {
-        Log.v(TAG, "BaseError "+be);
-    }
+
 }

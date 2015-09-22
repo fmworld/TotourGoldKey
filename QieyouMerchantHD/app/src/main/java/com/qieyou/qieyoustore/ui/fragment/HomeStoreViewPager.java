@@ -37,6 +37,7 @@ public class HomeStoreViewPager extends HomeStoreFragment implements View.OnClic
     private View content;
     private StoreViewPagerAdapter vpAdapter;
     private StoreNumTextIndicator storeVPIndicator;
+    private StoreTabBar mStoreTabBar;
 
     public HomeStoreViewPager() {
     }
@@ -51,7 +52,10 @@ public class HomeStoreViewPager extends HomeStoreFragment implements View.OnClic
                              Bundle savedInstanceState) {
         content = inflater.inflate(R.layout.fragment_home_store, null);
         content.findViewById(R.id.store_sudoku_choose_button).setOnClickListener(this);
-        ((StoreTabBar) content.findViewById(R.id.store_gallery_tab_bar)).setTarBarItemClickListener(this);
+
+        mStoreTabBar = ((StoreTabBar) content.findViewById(R.id.store_gallery_tab_bar));
+        mStoreTabBar.setTarBarItemClickListener(this);
+
         vpAdapter = new StoreViewPagerAdapter(this.getActivity());
         ((ViewPager) content.findViewById(R.id.store_view_pager)).setAdapter(vpAdapter);
         ((ViewPager) content.findViewById(R.id.store_view_pager)).setPageTransformer(true, new DepthPageTransformer());
@@ -63,17 +67,7 @@ public class HomeStoreViewPager extends HomeStoreFragment implements View.OnClic
         this.setAnimationListener(new AnimatorListenerAdapter() {
             public void onAnimationEnd(Animator animation) {
                 if (null != mProductStoreCallbacks) {
-                    List<ProductTag>  tags = TourApplication.instance().getDaoProductTag().getProductTags();
-                    List<LaunchProfile> profiles = TourApplication.instance().getDaoLaunProfile()
-                            .getLaunProfiles(ProductState.LaunchProfileType.slider.toString());
-                    if (null != profiles && 0 < profiles.size()) {
-                        ProductTag ptag = new ProductTag();
-                        ptag.setTag_name(HomeStoreViewPager.this.getString(R.string.town_traver_title));
-                        ptag.setItem_seq(profiles.get(0).getLink());
-                        tags.add(0, ptag);
-                    }
-                    ((StoreTabBar) content.findViewById(R.id.store_gallery_tab_bar))
-                            .setData(tags);
+                    initTabBarData();
                 }
             }
         });
@@ -84,7 +78,7 @@ public class HomeStoreViewPager extends HomeStoreFragment implements View.OnClic
     public void onResume() {
         super.onResume();
         getController().attachUi(this);
-        ((HomeAcitvity)getActivity()).selectNavigationItem(MainController.HomeMenu.STORE_GALLERY);
+        ((HomeAcitvity) getActivity()).selectNavigationItem(MainController.HomeMenu.STORE_GALLERY);
     }
 
     @Override
@@ -122,19 +116,37 @@ public class HomeStoreViewPager extends HomeStoreFragment implements View.OnClic
     }
 
     public void updateTabBar() {
-        if (0 == ((StoreTabBar) content.findViewById(R.id.store_gallery_tab_bar)).getItemCount()) {
-            ((StoreTabBar) content.findViewById(R.id.store_gallery_tab_bar)).setData(TourApplication.instance().getDaoProductTag().getProductTags());
+        if (0 == mStoreTabBar.getItemCount()) {
+            Log.v("mStoreTabBar", "updateTabBar  ");
+            initTabBarData();
+            Log.v("mStoreTabBar", "updateTabBar after ");
         }
+    }
+
+    private void initTabBarData() {
+        List<ProductTag> tags = TourApplication.instance().getDaoProductTag().getProductTags();
+        List<LaunchProfile> profiles = TourApplication.instance().getDaoLaunProfile()
+                .getLaunProfiles(ProductState.LaunchProfileType.slider.toString());
+        if (null != profiles && 0 < profiles.size()) {
+            ProductTag ptag = new ProductTag();
+            ptag.setTag_name(HomeStoreViewPager.this.getString(R.string.town_traver_title));
+            ptag.setItem_seq(profiles.get(0).getLink());
+            tags.add(0, ptag);
+        }
+        mStoreTabBar.setData(tags);
     }
 
     @Override
     public void onTarBarItemClicked(View view, Object item_seq) {
         if (R.id.store_gallery_tab_bar == view.getId()) {
 
-            vpAdapter.setDataSeq((String) item_seq);
-            if(!((String) item_seq).contains("http")){
+            String target = (String) item_seq;
+            vpAdapter.setDataSeq(target);
+            if (!((String) item_seq).contains("http")) {
+                Log.v("mStoreTabBar", "contains  " + target);
                 mProductStoreCallbacks.fetchProBre((String) item_seq);
-            }else{
+            } else {
+                Log.v("mStoreTabBar", "!contains  " + target);
                 List<String> indexs = new ArrayList<>();
                 indexs.add("1");
                 storeVPIndicator.setData(indexs);

@@ -20,12 +20,11 @@
                 style="@style/mall_category_city_unselected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:textColor="@color/green"
                 />
             <com.qieyou.qieyoustore.ui.widget.TrangleDownView
-                android:layout_width="10dp"
-                android:layout_height="8dp"
+                android:layout_width="8dp"
+                android:layout_height="5dp"
                 />
         </LinearLayout>
 

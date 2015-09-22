@@ -30,8 +30,5 @@ public class TrasSbmOrderRunnable extends TokenCheckedRunnable<TransferEntity> {
         Log.v(TAG, "result msg "+result.msg);
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

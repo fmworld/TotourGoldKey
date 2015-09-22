@@ -47,8 +47,5 @@ public class UserLoginInRuunable extends TokenCheckedRunnable<LoginEntity> {
 //        this.getBus().post(new UserState.UserLoginAccessCodeEvent());
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

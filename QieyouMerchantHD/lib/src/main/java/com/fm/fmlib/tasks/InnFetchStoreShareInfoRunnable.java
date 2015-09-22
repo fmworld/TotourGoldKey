@@ -37,8 +37,5 @@ public class InnFetchStoreShareInfoRunnable extends TokenCheckedRunnable<StoreSh
         this.getBus().post(new InnState.InnFetchShareInfoEvent(result.msg.thumb,result.msg.name,result.msg.url));
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

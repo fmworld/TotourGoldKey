@@ -32,8 +32,5 @@ public class GoodsShelved4OtherRunnable extends TokenCheckedRunnable<ShelvedEnti
         Log.v(TAG, "result msg "+result.msg);
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

@@ -3,6 +3,7 @@ package com.qieyou.qieyoustore.ui.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,10 +19,12 @@ import com.qieyou.qieyoustore.BaseTourActivity;
 import com.qieyou.qieyoustore.LoginActivity;
 import com.qieyou.qieyoustore.MerchanthdApplication;
 import com.qieyou.qieyoustore.R;
+import com.qieyou.qieyoustore.ui.widget.SizeChangeRelative;
 import com.qieyou.qieyoustore.ui.widget.WheelDatePick;
 import com.qieyou.qieyoustore.util.TourRegularUtil;
 
 import java.util.Date;
+import java.util.logging.LogRecord;
 
 /**
  * Created by zhoufeng'an on 2015/8/5.
@@ -31,6 +34,8 @@ public class LoginInFragment extends Fragment implements UserController.UserLogi
     private EditText login_account;
     private EditText login_pwd;
     private Button login_loginIn;
+    private Handler handler = new Handler();
+
 
     public static LoginInFragment create() {
         LoginInFragment fragment = new LoginInFragment();
@@ -47,6 +52,29 @@ public class LoginInFragment extends Fragment implements UserController.UserLogi
         login_account.addTextChangedListener(this);
         login_pwd.addTextChangedListener(this);
         login_loginIn.setOnClickListener(this);
+        ((SizeChangeRelative) view).setSoftInputListener(new SizeChangeRelative.SoftInputListener() {
+            @Override
+            public void softInputShowed() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.findViewById(R.id.login_bottom_title).setVisibility(View.GONE);
+                    }
+                });
+
+            }
+
+            @Override
+            public void softInputHide() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        view.findViewById(R.id.login_bottom_title).setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        });
+
         view.findViewById(R.id.login_find_pwd).setOnClickListener(this);
         view.findViewById(R.id.login_find_pwd).setFocusable(true);
         view.findViewById(R.id.login_find_pwd).setFocusableInTouchMode(true);
@@ -116,13 +144,13 @@ public class LoginInFragment extends Fragment implements UserController.UserLogi
     public void afterTextChanged(Editable s) {
         if (login_loginIn.isClickable() && !TourRegularUtil.checkLoginable(login_account.getText().toString(), login_pwd.getText().toString())) {
             setLoginButtonState(false);
-        } else if (!login_loginIn.isClickable()&&TourRegularUtil.checkLoginable(login_account.getText().toString(), login_pwd.getText().toString())) {
+        } else if (!login_loginIn.isClickable() && TourRegularUtil.checkLoginable(login_account.getText().toString(), login_pwd.getText().toString())) {
             setLoginButtonState(true);
         }
     }
 
-    private void setLoginButtonState(boolean able){
+    private void setLoginButtonState(boolean able) {
         login_loginIn.setClickable(able);
-        login_loginIn.setBackgroundResource(able?R.drawable.login_corners_bg:R.drawable.login_unclickabe_corners_bg);
+        login_loginIn.setBackgroundResource(able ? R.drawable.login_corners_bg : R.drawable.login_unclickabe_corners_bg);
     }
 }

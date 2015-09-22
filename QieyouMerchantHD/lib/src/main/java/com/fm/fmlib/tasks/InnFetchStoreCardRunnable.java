@@ -27,8 +27,5 @@ public class InnFetchStoreCardRunnable extends TokenCheckedRunnable<StoreCardEnt
         Log.v(TAG, "result msg "+result.msg);
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

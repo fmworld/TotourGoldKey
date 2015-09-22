@@ -15,6 +15,7 @@
         android:padding="10dp"
         style="@style/set_feedback_content"
         android:hint="@string/change_feedback_hint"
+        android:gravity="center|left"
         />
     <Button
         android:id="@+id/feedback_submit"

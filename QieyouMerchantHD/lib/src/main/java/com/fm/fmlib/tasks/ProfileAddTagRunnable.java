@@ -47,8 +47,5 @@ public class ProfileAddTagRunnable extends TokenCheckedRunnable<StateEntity> {
         this.getBus().post(new ProductState.ProductAddNewTagEvent());
     }
 
-    @Override
-    public void onError(RetrofitError be) {
-        Log.v(TAG, "BaseError "+be);
-    }
+
 }

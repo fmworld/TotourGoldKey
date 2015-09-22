@@ -113,7 +113,7 @@ private View mContent;
     }
 
     public void showAt(int x, int y){
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)cityChooser.getLayoutParams();
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)mContent.findViewById(R.id.mall_city_filter_layout).getLayoutParams();
         params.leftMargin =x;
         params.topMargin = y;
         show();

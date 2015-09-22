@@ -19,6 +19,7 @@ import com.qieyou.qieyoustore.BaseTourActivity;
 import com.qieyou.qieyoustore.MerchanthdApplication;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.ui.widget.AnimListenFragment;
+import com.qieyou.qieyoustore.util.CountDownTimer;
 import com.qieyou.qieyoustore.util.ToastUtil;
 import com.qieyou.qieyoustore.util.TourRegularUtil;
 
@@ -28,16 +29,14 @@ import java.util.TimerTask;
 /**
  * Created by zhoufeng'an on 2015/8/5.
  */
-public class SetChangepwdFragment extends AnimListenFragment implements UserController.SetChangePwdUi, View.OnClickListener, TextWatcher, Runnable {
+public class SetChangepwdFragment extends AnimListenFragment implements UserController.SetChangePwdUi, View.OnClickListener,
+        TextWatcher, CountDownTimer.CountListener {
     private UserController.SetChangePwdCallbacks mUserLoginFindPwdCallbacks;
     private EditText login_findpwd_new;
     private EditText login_findpwd_vericode;
     private TextView login_findpwd_get_vericode;
     private Button login_findpwd_submit;
-    private long getCodeStamp;
-    private final int codeInvalidateTime = 60;
-    private int left;
-    Timer countDoun;
+    CountDownTimer countDoun;
 
     public SetChangepwdFragment() {
     }
@@ -140,21 +139,6 @@ public class SetChangepwdFragment extends AnimListenFragment implements UserCont
         login_findpwd_submit.setBackgroundResource(able ? R.drawable.login_corners_bg : R.drawable.store_vp_bottom_unable_bg);
     }
 
-    @Override
-    public void run() {
-        updateCountDoun();
-    }
-
-    private void updateCountDoun(){
-        if (0 <= left) {
-            login_findpwd_get_vericode.setText(SetChangepwdFragment.this.getString(R.string.login_findpwd_get_code_params, left));
-            login_findpwd_get_vericode.setClickable(false);
-        } else {
-            login_findpwd_get_vericode.setText(R.string.login_findpwd_get_code);
-            login_findpwd_get_vericode.setClickable(true);
-        }
-    }
-
     public void onDestroy(){
         if(null != countDoun){
             countDoun.cancel();
@@ -174,16 +158,18 @@ public class SetChangepwdFragment extends AnimListenFragment implements UserCont
             countDoun.cancel();
         }
 
-        countDoun = new Timer();
-        getCodeStamp = System.currentTimeMillis();
-        countDoun.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                left = (int) (codeInvalidateTime - (System.currentTimeMillis() - getCodeStamp) / 1000);
-                if (null != SetChangepwdFragment.this) {
-                    SetChangepwdFragment.this.getActivity().runOnUiThread(SetChangepwdFragment.this);
-                }
-            }
-        }, 0, 1000);
+        countDoun = new CountDownTimer(this.getActivity(),this);
+        countDoun.schedule(0,1000);
+    }
+
+    @Override
+    public void refreshCount(int leftTimes) {
+        if (0 <= leftTimes) {
+            login_findpwd_get_vericode.setText(SetChangepwdFragment.this.getString(R.string.login_findpwd_get_code_params, leftTimes));
+            login_findpwd_get_vericode.setClickable(false);
+        } else {
+            login_findpwd_get_vericode.setText(R.string.login_findpwd_get_code);
+            login_findpwd_get_vericode.setClickable(true);
+        }
     }
 }

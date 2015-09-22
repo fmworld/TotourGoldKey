@@ -43,8 +43,5 @@ public class InnFetchOrderPmentTransferRunnable extends TokenCheckedRunnable<Tra
         this.getBus().post(new InnState.InnFetchPaymentTypeEvent(result.msg));
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

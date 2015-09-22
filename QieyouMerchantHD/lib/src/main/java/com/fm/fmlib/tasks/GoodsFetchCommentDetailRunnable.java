@@ -29,8 +29,4 @@ public class GoodsFetchCommentDetailRunnable extends TokenCheckedRunnable<Shelve
         Log.v(TAG, "result code "+result.code);
     }
 
-    @Override
-    public void onError(RetrofitError be) {
-
-    }
 }

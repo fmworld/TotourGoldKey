@@ -132,9 +132,9 @@ public class HomeCodeInput extends AnimListenFragment implements ProductControll
     @Override
     public void afterTextChanged(Editable s) {
         homeCodeHint.setVisibility(s.length()==0?View.VISIBLE:View.GONE);
-        homeCodeSubmit.setBackgroundResource(s.length() ==14
+        homeCodeSubmit.setBackgroundResource(s.length() ==12
                     ?R.drawable.home_code_submit_can_bg:R.drawable.home_code_submit_unable_bg);
-        homeCodeSubmit.setClickable(s.length() ==14);
+        homeCodeSubmit.setClickable(s.length() ==12);
     }
 
     @Override
@@ -146,12 +146,13 @@ public class HomeCodeInput extends AnimListenFragment implements ProductControll
     public void showBadCodeMsg(String msg) {
 //        homeCodeValue.setText("");
 //        homeCodeValue.setHint(this.getString(R.string.code_verify_input_bad));
-        Bundle bundle = new Bundle();
-        bundle.putString("name", "霸气单打");
-        bundle.putString("price", "36.00");
-        bundle.putString("old_price", "878.00");
-        bundle.putString("quantity","12");
-        ((BaseTourActivity)getActivity()).getDisplay().showVerifyCode(MainController.HomeMenu.VERIFY_SUCCESS, bundle);
+//        Bundle bundle = new Bundle();
+//        bundle.putString("name", "霸气单打");
+//        bundle.putString("price", "36.00");
+//        bundle.putString("old_price", "878.00");
+//        bundle.putString("quantity","12");
+//        ((BaseTourActivity)getActivity()).getDisplay().showVerifyCode(MainController.HomeMenu.VERIFY_SUCCESS, bundle);
+
     }
 
     @Override

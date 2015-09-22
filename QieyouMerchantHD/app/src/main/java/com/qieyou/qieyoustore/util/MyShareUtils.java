@@ -41,6 +41,7 @@ import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
 import com.umeng.socialize.weixin.media.WeiXinShareContent;
+import com.umeng.socialize.whatsapp.controller.UMWhatsAppHandler;
 import com.umeng.socialize.yixin.controller.UMYXHandler;
 import com.umeng.socialize.ynote.controller.UMYNoteHandler;
 import com.umeng.socialize.ynote.media.YNoteShareContent;
@@ -50,7 +51,8 @@ public class MyShareUtils  implements SocializeListeners.SnsPostListener{
 	public static final String forum_url ="http://m.totour.com/forum/";
 	public static final String goods_url ="http://m.totour.com/item/";
 	public static final String shop_url ="http://m.totour.com/special/inn?sid=";
-
+	private final String wxappId = "wxb4c1387e3794017d";
+	private final String wxappSecret = "0c1baa0c5086eefe182bb874fa3dfb7e";
 	private UMSocialService mController;
 	private Activity mActivity;
 	private String title,content,targetUrl,imgUrl,musicUrl,videoUrl;
@@ -58,80 +60,47 @@ public class MyShareUtils  implements SocializeListeners.SnsPostListener{
 	public MyShareUtils(Activity mActivity) {
 		this.mActivity = mActivity;
 		mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+		UMWXHandler wxHandler = new UMWXHandler(mActivity,wxappId, wxappSecret);
+		wxHandler.addToSocialSDK();
+
+		UMWXHandler circleHandler = new UMWXHandler(mActivity,wxappId, wxappSecret);
+		circleHandler.setToCircle(true);
+		circleHandler.addToSocialSDK();
 	}
 
-	/**
-	 * 添加所有的平台</br>
-	 */
-	public void addCustomPlatforms() {
-		try{
-			// 添加微信平台
-			addWXPlatform();
-			// 添加QQ平台
-//			addQQQZonePlatform();
-			// 添加印象笔记平台
-//		addEverNote();
-			// 添加facebook平台
-//			addFacebook();
-			// 添加Instagram平台
-//		addInstagram();
-			// 添加来往、来往动态平台
-//		addLaiWang();
-			// 添加LinkedIn平台
-//		addLinkedIn();
-			// 添加Pinterest平台
-//		addPinterest();
-			// 添加Pocket平台
-//		addPocket();
-			// 添加有道云平台
-//		addYNote();
-			// 添加易信平台
-//		addYXPlatform();
-			// 添加短信平台
-//		addSMS();
-			// 添加email平台
-//		addEmail();
-
-		/*mController.getConfig().setPlatforms(SHARE_MEDIA.WEIXIN,
-				SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE,
-				SHARE_MEDIA.SINA, SHARE_MEDIA.TENCENT, SHARE_MEDIA.DOUBAN,
-				SHARE_MEDIA.RENREN, SHARE_MEDIA.EMAIL, SHARE_MEDIA.EVERNOTE,
-				SHARE_MEDIA.FACEBOOK, SHARE_MEDIA.GOOGLEPLUS,
-				SHARE_MEDIA.INSTAGRAM, SHARE_MEDIA.LAIWANG,
-				SHARE_MEDIA.LAIWANG_DYNAMIC, SHARE_MEDIA.LINKEDIN,
-				SHARE_MEDIA.PINTEREST, SHARE_MEDIA.POCKET, SHARE_MEDIA.SMS,
-				SHARE_MEDIA.TWITTER, SHARE_MEDIA.YIXIN,
-				SHARE_MEDIA.YIXIN_CIRCLE, SHARE_MEDIA.YNOTE);*/
-			mController.getConfig().setPlatforms(
-					SHARE_MEDIA.WEIXIN_CIRCLE,
-					SHARE_MEDIA.WEIXIN,
-					SHARE_MEDIA.QQ,
-					SHARE_MEDIA.SINA,
-					SHARE_MEDIA.QZONE/*,
-
-				SHARE_MEDIA.TENCENT,
-				SHARE_MEDIA.DOUBAN,
-				SHARE_MEDIA.RENREN,
-				SHARE_MEDIA.EMAIL,
-				SHARE_MEDIA.EVERNOTE,
-				SHARE_MEDIA.FACEBOOK,
-				SHARE_MEDIA.GOOGLEPLUS,
-				SHARE_MEDIA.INSTAGRAM,
-				SHARE_MEDIA.LAIWANG,
-				SHARE_MEDIA.LAIWANG_DYNAMIC,
-				SHARE_MEDIA.LINKEDIN,
-				SHARE_MEDIA.PINTEREST,
-				SHARE_MEDIA.POCKET,
-				SHARE_MEDIA.SMS,
-				SHARE_MEDIA.TWITTER,
-				SHARE_MEDIA.YIXIN,
-				SHARE_MEDIA.YIXIN_CIRCLE,
-				SHARE_MEDIA.YNOTE*/);
-			mController.openShare(mActivity, this);
-		}catch(NullPointerException e){
-
-		}
+	// 设置新浪微博分享的内容
+	public void shareSina(){
+		mController.getConfig().setSsoHandler(new SinaSsoHandler());
+		SinaShareContent sinaContent = new SinaShareContent();
+		sinaContent.setShareContent(title + "\n" + targetUrl);
+		sinaContent.setTargetUrl(targetUrl);
+		mController.setShareMedia(sinaContent);
+		mController.postShare(mActivity, SHARE_MEDIA.SINA, snsPostListener);
 	}
+
+	// 设置朋友圈分享的内容
+	public void shareCircle(){
+
+		CircleShareContent circleMedia = new CircleShareContent();
+		circleMedia.setShareContent(this.content);
+		circleMedia.setTitle(title);
+		circleMedia.setTargetUrl(targetUrl);
+		mController.setShareMedia(circleMedia);
+		mController.postShare(mActivity, SHARE_MEDIA.WEIXIN_CIRCLE, snsPostListener);
+	}
+
+	// 设置微信分享的内容
+	public void shareWeixin(){
+
+
+		WeiXinShareContent weixinContent = new WeiXinShareContent();
+		weixinContent.setShareContent(this.content);
+		weixinContent.setTitle(title);
+		weixinContent.setTargetUrl(targetUrl);
+		mController.setShareMedia(weixinContent);
+		mController.postShare(mActivity, SHARE_MEDIA.WEIXIN, snsPostListener);
+	}
+
 
 	/**
 	 * 添加短信平台</br>
@@ -346,7 +315,7 @@ public class MyShareUtils  implements SocializeListeners.SnsPostListener{
 	 * 根据不同的平台设置不同的分享内容</br>
 	 */
 	public void setShareContent(String title,String _content,String targetUrl,String imgUrl,String musicUrl,String videoUrl, String forum_id) {
-		setShareContent(title, _content, targetUrl,imgUrl,musicUrl, videoUrl);
+		setShareContent(title, _content, targetUrl, imgUrl, musicUrl, videoUrl);
 		this.forum_id = forum_id;
 	}
 
@@ -354,7 +323,7 @@ public class MyShareUtils  implements SocializeListeners.SnsPostListener{
 	 * 根据不同的平台设置不同的分享内容</br>
 	 */
 	public void setShareContent(String title,String _content,String targetUrl,int imgUrl,String musicUrl,String videoUrl, String forum_id) {
-		setShareContent(title, _content, targetUrl,imgUrl,musicUrl, videoUrl);
+		setShareContent(title, _content, targetUrl, imgUrl, musicUrl, videoUrl);
 		this.forum_id = forum_id;
 	}
 
@@ -447,94 +416,6 @@ public class MyShareUtils  implements SocializeListeners.SnsPostListener{
 			tencent.setShareContent(content);
 			// 设置tencent分享内容
 			mController.setShareMedia(tencent);
-
-			// 视频分享
-		/*
-		 *
-		 *
-
-		// APP ID：201874, API
-		// * KEY：28401c0964f04a72a14c812d6132fcef, Secret
-		// * Key：3bf66e42db1e4fa9829b955cc300b737.
-		RenrenSsoHandler renrenSsoHandler = new RenrenSsoHandler(
-				mActivity, "201874",
-				"28401c0964f04a72a14c812d6132fcef",
-				"3bf66e42db1e4fa9829b955cc300b737");
-		mController.getConfig().setSsoHandler(renrenSsoHandler);
-
-		// 视频分享
-		UMVideo video = new UMVideo(videoUrl);
-		// vedio.setThumb("http://www.haowai.info/images/pic/home/social/img-1.png");
-		video.setTitle(title);
-		video.setThumb(urlImage);
-
-		UMusic uMusic = new UMusic(musicUrl);
-		uMusic.setAuthor("号外");
-		uMusic.setTitle(title);
-		uMusic.setThumb(urlImage);
-		// uMusic.setThumb("http://www.haowai.info/images/pic/social/chart_1.png");
-		video.setThumb(new UMImage(mActivity, BitmapFactory
-				.decodeResource(mActivity.getResources(), R.drawable.ic_launcher)));
-
-		// 设置renren分享内容
-		RenrenShareContent renrenShareContent = new RenrenShareContent();
-		renrenShareContent.setShareContent(content);
-		UMImage image = new UMImage(mActivity,
-				BitmapFactory.decodeResource(mActivity.getResources(), R.drawable.ic_launcher));
-		image.setTitle(title);
-		image.setThumb(imgUrl);
-		renrenShareContent.setShareImage(image);
-		renrenShareContent.setAppWebSite("http://www.haowai.info");
-		mController.setShareMedia(renrenShareContent);
-
-		UMVideo umVideo = new UMVideo(videoUrl);
-		umVideo.setThumb(imgUrl);
-		umVideo.setTitle(title);
-
-
-		// 设置邮件分享内容， 如果需要分享图片则只支持本地图片
-		MailShareContent mail = new MailShareContent(localImage);
-		mail.setTitle(title);
-		mail.setShareContent(content);
-		// 设置tencent分享内容
-		mController.setShareMedia(mail);
-
-		// 设置短信分享内容
-		SmsShareContent sms = new SmsShareContent();
-		sms.setShareContent(content);
-		sms.setShareImage(urlImage);
-		mController.setShareMedia(sms);
-
-		TwitterShareContent twitterShareContent = new TwitterShareContent();
-		twitterShareContent.setShareContent(content);
-		twitterShareContent.setShareMedia(localImage);
-		mController.setShareMedia(twitterShareContent);
-
-		GooglePlusShareContent googlePlusShareContent = new GooglePlusShareContent();
-		googlePlusShareContent.setShareContent(content);
-		googlePlusShareContent.setShareMedia(localImage);
-		mController.setShareMedia(googlePlusShareContent);
-
-		// 来往分享内容
-		LWShareContent lwShareContent = new LWShareContent();
-		// lwShareContent.setShareImage(urlImage);
-		// lwShareContent.setShareMedia(uMusic);
-		lwShareContent.setShareMedia(umVideo);
-		lwShareContent.setTitle(title);
-		lwShareContent.setMessageFrom("来自号外");
-		lwShareContent.setShareContent(content);
-		mController.setShareMedia(lwShareContent);
-
-		// 来往动态分享内容
-		LWDynamicShareContent lwDynamicShareContent = new LWDynamicShareContent();
-		// lwDynamicShareContent.setShareImage(urlImage);
-		// lwDynamicShareContent.setShareMedia(uMusic);
-		lwDynamicShareContent.setShareMedia(umVideo);
-		lwDynamicShareContent.setTitle(title);
-		lwDynamicShareContent.setMessageFrom("来自号外");
-		lwDynamicShareContent.setShareContent(content);
-		lwDynamicShareContent.setTargetUrl(targetUrl);
-		mController.setShareMedia(lwDynamicShareContent);*/
 		}catch(NullPointerException e){
 
 		}
@@ -543,9 +424,19 @@ public class MyShareUtils  implements SocializeListeners.SnsPostListener{
 
 	}
 
+
+
 	/**
 	 * 根据不同的平台设置不同的分享内容</br>
 	 */
+	public void initShareContent(String title,String _content,String targetUrl) {
+			this.title = title;
+			this.content = (null == _content || "".equals(_content)) ? "且游旅行" : _content;
+			this.targetUrl = targetUrl;
+	}
+			/**
+             * 根据不同的平台设置不同的分享内容</br>
+             */
 	public void setShareContent(String title,String _content,String targetUrl,int imgRes,String musicUrl,String videoUrl) {
 		try{
 			this.title = title;
@@ -740,14 +631,14 @@ public class MyShareUtils  implements SocializeListeners.SnsPostListener{
 //
 //				@Override
 //				public void onResponse(String returnStr) {
-//					// TODO Auto-generated method stub
+//
 //					DebugLog.systemOut("returnStr=" + returnStr);
 //				}
 //			}, new Response.ErrorListener() {
 //
 //				@Override
 //				public void onErrorResponse(VolleyError error) {
-//					// TODO Auto-generated method stub
+//
 //				}
 //			}, params);
 //
@@ -757,4 +648,25 @@ public class MyShareUtils  implements SocializeListeners.SnsPostListener{
 //		}
 		}
 	}
+
+	SocializeListeners.SnsPostListener snsPostListener = new SocializeListeners.SnsPostListener() {
+		@Override
+		public void onStart() {
+			Toast.makeText(mActivity, "开始分享.", Toast.LENGTH_SHORT).show();
+		}
+
+		@Override
+		public void onComplete(SHARE_MEDIA platform, int eCode, SocializeEntity entity) {
+			if (eCode == 200) {
+				Toast.makeText(mActivity, "分享成功.", Toast.LENGTH_SHORT).show();
+			} else {
+				String eMsg = "";
+				if (eCode == -101) {
+					eMsg = "没有授权";
+				}
+				Toast.makeText(mActivity, "分享失败[" + eCode + "] " +
+						eMsg, Toast.LENGTH_SHORT).show();
+			}
+		}
+	};
 }

@@ -37,7 +37,7 @@ public class UtilUploadProImageRunnable extends TokenCheckedRunnable<StateEntity
         result.code =1;
         StringBuffer sb = new StringBuffer();
         for(Uri item : uris){
-            typedFile = new TypedFile(mimeType, FileUtil.getFileFromUri(item));
+            typedFile = new TypedFile(mimeType, new File(item.getPath()));
             entity = TourApplication.instance().getmTotour().getmUtilService()
                     .uploadData(TourApplication.instance().getToken(), UtilService.UploadType.product.toString(), typedFile);
             if(1 == entity.code&&null != entity.msg &&!"".equals(entity.msg)){
@@ -58,10 +58,5 @@ public class UtilUploadProImageRunnable extends TokenCheckedRunnable<StateEntity
         Log.v(TAG, "result msg "+result.msg);
         Log.v(TAG, "result errorInfo "+result.errorInfo);
         this.getBus().post(new InnState.InnUploadProImagsEvent(result.msg));
-    }
-
-    @Override
-    public void onError(RetrofitError be) {
-        Log.v(TAG, "BaseError "+be);
     }
 }

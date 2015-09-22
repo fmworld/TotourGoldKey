@@ -33,12 +33,12 @@
             android:name="com.qieyou.qieyoustore.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustResize"
             >
 
         </activity>
         <activity
             android:name="com.desmond.squarecamera.CameraActivity"
-
             >
         </activity>
         <activity
@@ -54,7 +54,7 @@
         <activity
             android:name="com.qieyou.qieyoustore.HomeAcitvity"
             android:screenOrientation="landscape"
-            android:configChanges="orientation|keyboardHidden"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             >
         </activity>
         <activity

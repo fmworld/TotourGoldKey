@@ -20,33 +20,4 @@ public class LoginActivity extends BaseTourActivity {
     protected void handleIntent(Intent intent, Display display) {
         display.showLogin();
     }
-
-    public void showCodeCountDown() {
-        LoginFindpwdFragment fragment = (LoginFindpwdFragment) getFragmentManager()
-                .findFragmentByTag(LoginFindpwdFragment.class.getSimpleName());
-        if (null != fragment) {
-            fragment.showGetVericodeCountDown();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        if (resultCode == RESULT_OK) { //
-            if (requestCode == TourPicConfig.REQUEST_CODE_PIC_CAMERA) { // 发送照片
-                if (data != null) {
-                    Log.v("take pic", "" + data);
-                    Uri selectedImage = data.getData();
-
-                }
-
-            } else if (requestCode == TourPicConfig.REQUEST_CODE_PIC_LOCAL) { // 发送本地图片
-                if (data != null) {
-                    Log.v("take pic", "" + data.getData());
-                    Uri selectedImage = data.getData();
-
-                }
-            }
-        }
-    }
 }

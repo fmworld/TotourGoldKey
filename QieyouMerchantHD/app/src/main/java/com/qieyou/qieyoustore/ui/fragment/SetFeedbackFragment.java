@@ -12,7 +12,7 @@ import com.fm.fmlib.controllers.UserController;
 import com.qieyou.qieyoustore.MerchanthdApplication;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.ui.widget.AnimListenFragment;
-import com.qieyou.qieyoustore.util.PackageInfoUtl;
+import com.fm.fmlib.utils.PackageInfoUtl;
 import com.qieyou.qieyoustore.util.ToastUtil;
 import com.qieyou.qieyoustore.util.TourStringUtil;
 
@@ -69,7 +69,7 @@ public class SetFeedbackFragment extends AnimListenFragment implements UserContr
             if (TourStringUtil.isNULLorEmpty(vlaue)) {
                 ToastUtil.showShortToast(this.getString(R.string.change_feedback_fail_notify));
             } else {
-                mSetFeedbackCallbacks.submitFeedback(vlaue, PackageInfoUtl.getVersion(this.getActivity()));
+                mSetFeedbackCallbacks.submitFeedback(vlaue, PackageInfoUtl.getVersionName(this.getActivity()));
             }
         }
     }

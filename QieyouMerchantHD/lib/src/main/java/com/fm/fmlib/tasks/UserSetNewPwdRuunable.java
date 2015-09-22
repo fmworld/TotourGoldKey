@@ -16,12 +16,15 @@ import retrofit.RetrofitError;
 public class UserSetNewPwdRuunable extends TokenCheckedRunnable<LoginResetPwdEntity> {
     private String code;
     protected String pwd;
-    public UserSetNewPwdRuunable(){}
 
-    public UserSetNewPwdRuunable(String code, String pwd){
+    public UserSetNewPwdRuunable() {
+    }
+
+    public UserSetNewPwdRuunable(String code, String pwd) {
         this.code = code;
         this.pwd = pwd;
     }
+
     @Override
     public LoginResetPwdEntity doBackground() throws RetrofitError {
         return TourApplication.instance().getmTotour().getmUserService()
@@ -30,13 +33,9 @@ public class UserSetNewPwdRuunable extends TokenCheckedRunnable<LoginResetPwdEnt
 
     @Override
     public void onSuccess(LoginResetPwdEntity result) {
-        Log.v(TAG, "result code "+result.code);
-        Log.v(TAG, "result msg "+result.msg);
-        Log.v(TAG, "result errorInfo "+result.errorInfo);
+        Log.v(TAG, "result code " + result.code);
+        Log.v(TAG, "result msg " + result.msg);
+        Log.v(TAG, "result errorInfo " + result.errorInfo);
     }
 
-    @Override
-    public void onError(RetrofitError be) {
-        Log.v(TAG, "BaseError "+be);
-    }
 }

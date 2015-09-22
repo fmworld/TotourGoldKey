@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.qieyou.qieyoustore.ui.widget.ScoreLinearLayout;
 
 /**
  * Created by zfa on 2015/7/24.
@@ -91,7 +92,11 @@ public class ViewHolderHelper {
         return this;
     }
 
-
+    public ViewHolderHelper setScore(int viewId, float value){
+        ScoreLinearLayout view = findViewById(viewId);
+        view.setScore(value);
+        return this;
+    }
 
     public ViewHolderHelper setFlags(int viewId, int value){
         TextView view = findViewById(viewId);

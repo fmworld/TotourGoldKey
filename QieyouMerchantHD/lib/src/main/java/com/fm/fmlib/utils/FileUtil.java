@@ -13,15 +13,20 @@ import java.io.File;
  */
 public class FileUtil {
     public static File getFileFromUri(Uri uri) {
-        if(null ==uri)
-        {
+        if (null == uri) {
             return null;
         }
+
         String[] proj = {MediaStore.Images.Media.DATA};
         Cursor actualimagecursor = TourApplication.instance().getContentResolver().query(uri, proj, null, null, null);
-        int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        actualimagecursor.moveToFirst();
-        String img_path = actualimagecursor.getString(actual_image_column_index);
-        return new File(img_path);
+
+        if (null != actualimagecursor) {
+            int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            actualimagecursor.moveToFirst();
+            String img_path = actualimagecursor.getString(actual_image_column_index);
+            return new File(img_path);
+        }
+
+        return null;
     }
 }

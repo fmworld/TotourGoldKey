@@ -3,6 +3,7 @@ package com.qieyou.qieyoustore.ui.fragment;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,13 +25,14 @@ import java.util.List;
 /**
  * Created by zhoufeng'an on 2015/8/9.
  */
-public class ProductComments extends AnimListenFragment implements ProductController.CommentsUi, View.OnClickListener {
+public class ProductComments extends AnimListenFragment implements ProductController.CommentsUi, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     private final int PERPAGE = 10;
     private ProductController.ProductCommentsCallbacks mProductCommentsCallbacks;
     private String item;
     private View content;
     private int page;
     private ProCommentAdapter commentsAdapter;
+    private SwipeRefreshLayout swipeLayout;
     public ProductComments() {
     }
 
@@ -61,6 +63,9 @@ public class ProductComments extends AnimListenFragment implements ProductContro
         ((TextView)content.findViewById(R.id.score_level_1_value)).setText(star1);
         (content.findViewById(R.id.pro_comments_back)).setOnClickListener(this);
         content.setOnClickListener(this);
+        swipeLayout = ((SwipeRefreshLayout)content.findViewById(R.id.swipeLayout));
+        swipeLayout.setOnRefreshListener(this);
+
         this.setAnimationListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -100,6 +105,10 @@ public class ProductComments extends AnimListenFragment implements ProductContro
         mProductCommentsCallbacks = (ProductController.ProductCommentsCallbacks) callbacks;
     }
 
+    ProductController.ProductCommentsCallbacks getCallbacks(){
+        return mProductCommentsCallbacks;
+    }
+
     @Override
     public boolean isModal() {
         return false;
@@ -120,7 +129,7 @@ public class ProductComments extends AnimListenFragment implements ProductContro
     }
 
     @Override
-    public void refreshComment(List<ProComment> detail) {
+    public void refreshComment(List<ProComment> comments) {
 //        ((TextView)content.findViewById(R.id.comments_score_vlaue)).setText();
 //        ((TextView)content.findViewById(R.id.comments_num_vlaue)).setText();
 //        ((TextView)content.findViewById(R.id.score_level_5_value)).setText();
@@ -128,18 +137,26 @@ public class ProductComments extends AnimListenFragment implements ProductContro
 //        ((TextView)content.findViewById(R.id.score_level_3_value)).setText();
 //        ((TextView)content.findViewById(R.id.score_level_2_value)).setText();
 //        ((TextView)content.findViewById(R.id.score_level_1_value)).setText();
-        List<ProComment> comments = new ArrayList<>();
-        ProComment comment;
-        for(int i = 0; i <10;i++){
-            comment = new ProComment();
-            comment.headimg="http://www.sixqq.com/uploads/allimg/131216/1-131216153502-50.jpg";
-            comment.points="4.6";
-            comment.user_name="龇牙";
-            comment.note="世界就是这样，需要你去坚持";
-            comment.picture="http://img1.cache.netease.com/catchpic/3/36/363DED42C3AA0CE04BF2C9CB781E7C7E.jpg,http://c.hiphotos.baidu.com/image/pic/item/7a899e510fb30f2478d27203ca95d143ad4b0361.jpg,http://a.hiphotos.baidu.com/image/pic/item/0df431adcbef7609937636822cdda3cc7cd99eaa.jpg,http://h.hiphotos.baidu.com/image/pic/item/80cb39dbb6fd5266ff2aa215a918972bd40736a9.jpg";
-            comments.add(comment);
+        if(null != swipeLayout){
+            swipeLayout.setRefreshing(false);
         }
+//        List<ProComment> comments = new ArrayList<>();
+//        ProComment comment;
+//        for(int i = 0; i <10;i++){
+//            comment = new ProComment();
+//            comment.headimg="http://www.sixqq.com/uploads/allimg/131216/1-131216153502-50.jpg";
+//            comment.points="4.6";
+//            comment.user_name="龇牙";
+//            comment.note="世界就是这样，需要你去坚持";
+//            comment.picture="http://img1.cache.netease.com/catchpic/3/36/363DED42C3AA0CE04BF2C9CB781E7C7E.jpg,http://c.hiphotos.baidu.com/image/pic/item/7a899e510fb30f2478d27203ca95d143ad4b0361.jpg,http://a.hiphotos.baidu.com/image/pic/item/0df431adcbef7609937636822cdda3cc7cd99eaa.jpg,http://h.hiphotos.baidu.com/image/pic/item/80cb39dbb6fd5266ff2aa215a918972bd40736a9.jpg";
+//            comments.add(comment);
+//        }
 
         commentsAdapter.setComments(comments);
+    }
+
+    @Override
+    public void onRefresh() {
+        getCallbacks().fetchProComments(item, String.valueOf(page), String.valueOf(PERPAGE));
     }
 }

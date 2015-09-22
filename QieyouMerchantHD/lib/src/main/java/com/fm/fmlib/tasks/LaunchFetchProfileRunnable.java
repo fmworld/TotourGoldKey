@@ -74,8 +74,5 @@ public class LaunchFetchProfileRunnable extends TokenCheckedRunnable<LaunchProfi
 //        this.getBus().post(new ProductState.ProductFetchTagListEvent());
     }
 
-    @Override
-    public void onError(RetrofitError be) {
-        Log.v(TAG, "BaseError "+be);
-    }
+
 }

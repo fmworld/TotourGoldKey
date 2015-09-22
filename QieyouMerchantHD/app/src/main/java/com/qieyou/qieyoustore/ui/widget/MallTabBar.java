@@ -60,6 +60,13 @@ public class MallTabBar extends LinearLayout implements View.OnClickListener{
         this.removeAllViews();
         this.titles.clear();
         this.titles = titles;
+        String tag = this.getContext().getString(R.string.mall_pro_delete_tag);
+        for(int i =0; i<titles.size();i++){
+            if(titles.get(i).getName().equals(tag)){
+                titles.remove(i);
+                break;
+            }
+        }
         View view;
         for(CategoryTitle title:titles){
             view = createItemView(title);

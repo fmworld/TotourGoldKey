@@ -1,17 +1,23 @@
 package com.qieyou.qieyoustore;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
+import android.net.Uri;
+import android.util.Log;
+import android.view.View;
 
 import com.fm.fmlib.Display;
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.controllers.UserController;
-import com.fm.fmlib.dao.User;
+import com.qieyou.qieyoustore.ui.widget.DownLoadDialog;
 
 /**
  * Created by zhoufeng'an on 2015/8/5.
  */
-public class LaunchActivity extends BaseTourActivity implements UserController.AppLaunchUi{
+public class LaunchActivity extends BaseTourActivity implements UserController.AppLaunchUi {
+    private DownLoadDialog mDownLoadDialog;
     private UserController.AppLaunchUiCallbacks appLauchCallbacks;
+
     protected int getContentViewLayoutId() {
         return R.layout.activity_launch;
     }
@@ -22,7 +28,7 @@ public class LaunchActivity extends BaseTourActivity implements UserController.A
 
     @Override
     public void setCallbacks(UserController.UserUiCallbacks callbacks) {
-        appLauchCallbacks = (UserController.AppLaunchUiCallbacks)callbacks;
+        appLauchCallbacks = (UserController.AppLaunchUiCallbacks) callbacks;
     }
 
     @Override
@@ -30,27 +36,52 @@ public class LaunchActivity extends BaseTourActivity implements UserController.A
         return false;
     }
 
-    public void onResume(){
-        super.onResume();
-        TourApplication.instance().getmMainController().getmUserController().attachUi(this);
-        appLauchCallbacks.fetchLaunchProfile();
+    UserController.AppLaunchUiCallbacks getCallbacks() {
+        return appLauchCallbacks;
     }
 
-    public void onPause(){
-        TourApplication.instance().getmMainController().getmUserController().detachUi(this);
+    public void onResume() {
+        super.onResume();
+        getController().attachUi(this);
+        getCallbacks().getAppInfo(this);
+    }
+
+    public void onPause() {
+        getController().detachUi(this);
         super.onPause();
+    }
+
+    UserController getController() {
+        return TourApplication.instance().getmMainController().getmUserController();
     }
 
     @Override
     public void launchActivity() {
-        User user = TourApplication.instance().getDaoUser();
+        getCallbacks().loginIn();
+    }
 
-        if(null != user && user.getIslogin().booleanValue()){
+    @Override
+    public void afterCheckWithNoUpdate() {
+        getCallbacks().fetchLaunchProfile();
+    }
 
-            appLauchCallbacks.loginIn(user.getAccount(),
-                    user.getPassword());
+    @Override
+    public void showDownLoadUi(Uri uri) {
+        //如果有版本可以更新，则在更新提示消失后resume的情况下进入主页
+        //{@link onResume()}
+
+        if(null == mDownLoadDialog){
+            mDownLoadDialog = new DownLoadDialog(this);
+            mDownLoadDialog.setDismissListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getCallbacks().fetchLaunchProfile();
+                }
+            });
+            mDownLoadDialog.showNotify(uri);
         }else{
-            this.startActivity(new Intent(this, LoginActivity.class));
+            Log.v("updatedia", "showDownLoadUi  fetchLaunchProfile");
+            getCallbacks().fetchLaunchProfile();
         }
     }
 }

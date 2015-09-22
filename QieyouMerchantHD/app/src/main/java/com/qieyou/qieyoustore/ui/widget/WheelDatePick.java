@@ -46,6 +46,7 @@ public class WheelDatePick implements View.OnClickListener {
         content = View.inflate(context, R.layout.widget_wheel_date_layout, null);
         content.findViewById(R.id.wheel_date_cancel).setOnClickListener(this);
         content.findViewById(R.id.wheel_date_confirm).setOnClickListener(this);
+        content.setOnClickListener(this);
         wheelYear = (WheelView) content.findViewById(R.id.wheel_date_year);
         wheelMonth = (WheelView) content.findViewById(R.id.wheel_date_month);
         wheelDay = (WheelView) content.findViewById(R.id.wheel_date_day);
@@ -77,7 +78,7 @@ public class WheelDatePick implements View.OnClickListener {
 
     public void initDateView() {
 
-        initYearView(1970, 2015);
+        initYearView(2015, 2035);
         months = new String[]{"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
         ArrayWheelAdapter monthAdapter = new ArrayWheelAdapter<String>(mContext, months);
         wheelMonth.setViewAdapter(monthAdapter);
@@ -171,6 +172,8 @@ public class WheelDatePick implements View.OnClickListener {
             if(null != clickListener){
                 clickListener.navigationClicked();
             }
+        }else if(content == v){
+
         } else {
             if(null != clickListener){
                 clickListener.positiveClicked(DateUtil.getDate(initDateString()));

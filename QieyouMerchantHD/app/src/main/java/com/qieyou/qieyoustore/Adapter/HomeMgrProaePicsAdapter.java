@@ -3,6 +3,7 @@ package com.qieyou.qieyoustore.Adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.fm.fmlib.tour.TourConfig;
 import com.qieyou.qieyoustore.BaseTourActivity;
 import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.bean.HomeMgrProPicItem;
+import com.qieyou.qieyoustore.util.ToastUtil;
 import com.qieyou.qieyoustore.util.TourStringUtil;
 
 import java.net.URI;
@@ -26,6 +28,7 @@ import java.util.List;
  * Created by zhoufeng'an on 2015/8/9.
  */
 public class HomeMgrProaePicsAdapter extends BaseAdapter implements View.OnClickListener {
+    private final int MAX_PICS = 30;
     List<HomeMgrProPicItem> items;
     int currentIndex = 0;
     private Context mContext;
@@ -45,10 +48,12 @@ public class HomeMgrProaePicsAdapter extends BaseAdapter implements View.OnClick
         String[] picArr = pics.split(",");
         items.clear();
         for (String url : picArr) {
-            ppItem = new HomeMgrProPicItem();
-            ppItem.local = false;
-            ppItem.uri = Uri.parse(TourConfig.instance().getImageRoot() + "/" + url);
-            items.add(ppItem);
+            if(!TourStringUtil.isNULLorEmpty(url)){
+                ppItem = new HomeMgrProPicItem();
+                ppItem.local = false;
+                ppItem.uri = Uri.parse(TourConfig.instance().getImageRoot() + "/" + url);
+                items.add(ppItem);
+            }
         }
         items.add(new HomeMgrProPicItem());
         this.notifyDataSetInvalidated();
@@ -90,6 +95,7 @@ public class HomeMgrProaePicsAdapter extends BaseAdapter implements View.OnClick
             HomeMgrProPicItem item = items.get(position);
             holderHelper.setVisibility(R.id.home_mgr_pro_pic_delete_icon, View.VISIBLE);
             try{
+                Log.v("aepro", "url "+item.uri);
                 holderHelper.setImageURI(R.id.home_mgr_pro_pic, item.uri);
                 holderHelper.setClickListener(R.id.home_mgr_pro_pic_delete_icon, this, position);
             }catch (Exception e){}
@@ -106,8 +112,18 @@ public class HomeMgrProaePicsAdapter extends BaseAdapter implements View.OnClick
                 items.remove(position);
                 this.notifyDataSetChanged();
         } else if (R.id.home_mgr_pro_pic == v.getId() && position == getCount() - 1) {
-            showPhotoActionSheetDialog();
+            if(!checkPicsEnough()){
+                showPhotoActionSheetDialog();
+            }
         }
+    }
+
+    private boolean checkPicsEnough(){
+        if(getCount()-1 >= MAX_PICS){
+            ToastUtil.showShortToast(mContext.getString(R.string.home_mgr_pro_ae_add_pics_enough_notify, MAX_PICS));
+            return true;
+        }
+        return false;
     }
 
     public void showPhotoActionSheetDialog() {
@@ -124,7 +140,7 @@ public class HomeMgrProaePicsAdapter extends BaseAdapter implements View.OnClick
         layout.findViewById(R.id.btn_0).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((BaseTourActivity)mContext).selectPicFromLocal();
+                ((BaseTourActivity)mContext).selectPicFromLocal(MAX_PICS+1 - getCount());
                 mDialog.dismiss();
             }
         });

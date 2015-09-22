@@ -31,9 +31,4 @@ public class UserGetVerifyCodeRuunable extends TokenCheckedRunnable<GetVeriCodeE
         Log.v(TAG, "result errorInfo "+result.errorInfo);
         this.getBus().post(new UserState.UserLoginAccessCodeEvent());
     }
-
-    @Override
-    public void onError(RetrofitError be) {
-        Log.v(TAG, "BaseError "+be);
-    }
 }

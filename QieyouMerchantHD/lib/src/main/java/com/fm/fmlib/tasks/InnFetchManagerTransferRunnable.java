@@ -33,8 +33,5 @@ public class InnFetchManagerTransferRunnable extends TokenCheckedRunnable<Transf
 //        this.getBus().post(new HomeState.HomeManagerFetchEvent(result.msg));
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

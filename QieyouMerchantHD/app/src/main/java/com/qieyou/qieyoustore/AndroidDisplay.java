@@ -8,6 +8,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.fm.fmlib.Display;
@@ -26,6 +27,7 @@ import com.qieyou.qieyoustore.ui.fragment.ProductAddEdit;
 import com.qieyou.qieyoustore.ui.fragment.SetAboutFragment;
 import com.qieyou.qieyoustore.ui.fragment.SetChangepwdFragment;
 import com.qieyou.qieyoustore.ui.fragment.SettingFragmentFactory;
+import com.qieyou.qieyoustore.ui.widget.ShareInfoDialog;
 import com.qieyou.qieyoustore.util.MyShareUtils;
 import com.qieyou.qieyoustore.ui.widget.AnimListenFragment;
 
@@ -36,9 +38,16 @@ import java.util.List;
  */
 public class AndroidDisplay implements Display {
     private Activity mActiviyt;
+    private ShareInfoDialog shareInfoDialog;
 
     public AndroidDisplay(Activity mActivyt) {
         this.mActiviyt = mActivyt;
+    }
+
+    @Override
+    public void showLoginActivity() {
+        mActiviyt.startActivity(new Intent(mActiviyt, LoginActivity.class));
+        mActiviyt.finish();
     }
 
     @Override
@@ -48,6 +57,15 @@ public class AndroidDisplay implements Display {
                 .replace(R.id.fragment_main, fragment, fragment.getClass().getSimpleName())
                 .commit();
     }
+
+//    @Override
+//    public void showCodeCountDown() {
+//        LoginFindpwdFragment fragment = (LoginFindpwdFragment) mActiviyt.getFragmentManager()
+//                .findFragmentByTag(LoginFindpwdFragment.class.getSimpleName());
+//        if (null != fragment) {
+//            fragment.showGetVericodeCountDown();
+//        }
+//    }
 
     @Override
     public void showFindPassword() {
@@ -65,7 +83,11 @@ public class AndroidDisplay implements Display {
 
     @Override
     public void showVeriCodeCountdown() {
-        ((LoginActivity) mActiviyt).showCodeCountDown();
+        LoginFindpwdFragment fragment = (LoginFindpwdFragment) mActiviyt.getFragmentManager()
+                .findFragmentByTag(LoginFindpwdFragment.class.getSimpleName());
+        if (null != fragment) {
+            fragment.showGetVericodeCountDown();
+        }
     }
 
     @Override
@@ -89,9 +111,9 @@ public class AndroidDisplay implements Display {
     }
 
     @Override
-    public void hideHomeProfile() {
+    public boolean hideHomeProfile() {
         if (!((HomeAcitvity) mActiviyt).isMeunuFragCanMove()) {
-            return;
+            return false;
         }
         ((HomeAcitvity) mActiviyt).setMeunuFragCanMove(false);
         AnimListenFragment fragment = (AnimListenFragment) mActiviyt.getFragmentManager()
@@ -112,13 +134,18 @@ public class AndroidDisplay implements Display {
                     });
                 }
             });
+        } else {
+            return false;
         }
-        mActiviyt.getFragmentManager()
+        int state = mActiviyt.getFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.home_menu_in_left_to_right, R.anim.home_menu_out_right_to_left)
                 .remove(fragment)
                 .commit();
-        ((HomeAcitvity) mActiviyt).setCurrentMenuTag(null);
+        if (state < 0) {
+            ((HomeAcitvity) mActiviyt).setCurrentMenuTag(null);
+        }
+        return state < 0;
     }
 
     @Override
@@ -174,6 +201,8 @@ public class AndroidDisplay implements Display {
 
     @Override
     public void showHomeSecondContent(MainController.HomeMenu menu) {
+
+
         if (View.GONE == mActiviyt.findViewById(R.id.fragment_content_second_layout).getVisibility()
                 || ((HomeAcitvity) mActiviyt).getCurrentSContentTag() != menu) {
             mActiviyt.findViewById(R.id.fragment_content_second_layout).setVisibility(View.VISIBLE);
@@ -192,7 +221,6 @@ public class AndroidDisplay implements Display {
 
     @Override
     public void showHomeSecondContent(MainController.HomeMenu menu, Bundle bundle) {
-
         if (View.GONE == mActiviyt.findViewById(R.id.fragment_content_second_layout).getVisibility()
                 || ((HomeAcitvity) mActiviyt).getCurrentSContentTag() != menu) {
             mActiviyt.findViewById(R.id.fragment_content_second_layout).setVisibility(View.VISIBLE);
@@ -212,13 +240,12 @@ public class AndroidDisplay implements Display {
     }
 
     @Override
-    public void hideHomeSecondContent() {
-
+    public boolean hideHomeSecondContent() {
         AnimListenFragment fragment = (AnimListenFragment) mActiviyt.getFragmentManager()
                 .findFragmentByTag(null != ((HomeAcitvity) mActiviyt).getCurrentSContentTag()
                         ? ((HomeAcitvity) mActiviyt).getCurrentSContentTag().toString() : "");
         if (null == fragment) {
-            return;
+            return false;
         }
         fragment.setAnimationListener(new AnimatorListenerAdapter() {
             @Override
@@ -231,12 +258,15 @@ public class AndroidDisplay implements Display {
                 });
             }
         });
-        mActiviyt.getFragmentManager()
+        int state = mActiviyt.getFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.home_scontent_in_right_to_left, R.anim.home_scontent_out_left_to_right)
                 .remove(fragment)
                 .commit();
-        ((HomeAcitvity) mActiviyt).setCurrentSContentTag(null);
+        if (state < 0) {
+            ((HomeAcitvity) mActiviyt).setCurrentSContentTag(null);
+        }
+        return state < 0;
     }
 
     @Override
@@ -259,12 +289,12 @@ public class AndroidDisplay implements Display {
     }
 
     @Override
-    public void hideHomeThirdContent() {
+    public boolean hideHomeThirdContent() {
         AnimListenFragment fragment = (AnimListenFragment) mActiviyt.getFragmentManager()
                 .findFragmentByTag(null != ((HomeAcitvity) mActiviyt).getCurrentThirdContentTag()
                         ? ((HomeAcitvity) mActiviyt).getCurrentThirdContentTag().toString() : "");
         if (null == fragment) {
-            return;
+            return false;
         }
         fragment.setAnimationListener(new AnimatorListenerAdapter() {
             @Override
@@ -278,12 +308,15 @@ public class AndroidDisplay implements Display {
             }
         });
 
-        mActiviyt.getFragmentManager()
+        int state = mActiviyt.getFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(R.anim.home_scontent_in_right_to_left, R.anim.home_scontent_out_left_to_right)
                 .remove(fragment)
                 .commit();
-        ((HomeAcitvity) mActiviyt).setCurrentThirdContentTag(null);
+        if (state < 0)
+            ((HomeAcitvity) mActiviyt).setCurrentThirdContentTag(null);
+
+        return state < 0;
     }
 
     private void checkScMenuState() {
@@ -335,8 +368,8 @@ public class AndroidDisplay implements Display {
 
 
     @Override
-    public void hideHomeMenu() {
-
+    public boolean hideHomeMenu() {
+        return false;
     }
 
     @Override
@@ -350,9 +383,10 @@ public class AndroidDisplay implements Display {
 
     @Override
     public void showShareUI(String thunm, String name, String url) {
-        MyShareUtils utils = new MyShareUtils(mActiviyt);
-        utils.setShareContent(name, "", url, TourConfig.instance().getImageRoot() + "/" + thunm, "", "");
-        utils.addCustomPlatforms();
+        if (null == shareInfoDialog) {
+            shareInfoDialog = new ShareInfoDialog(mActiviyt);
+        }
+        shareInfoDialog.showShareItems(thunm, name, url, null);
     }
 
     @Override

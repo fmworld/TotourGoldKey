@@ -569,8 +569,7 @@ public class WaveSwipeRefreshLayout extends ViewGroup
   /**
    * @param colors セットするColor達
    */
-  public void setColorSchemeColors(int... colors) {
-    // FIXME Add @NonNull to the argument
+  public void setColorSchemeColors(@NonNull int... colors) {
     ensureTarget();
     mCircleView.setProgressColorSchemeColors(colors);
   }

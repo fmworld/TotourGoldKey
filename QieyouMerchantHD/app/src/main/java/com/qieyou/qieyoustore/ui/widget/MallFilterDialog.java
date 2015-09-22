@@ -23,6 +23,7 @@ import java.util.List;
 
 /**
  * Created by zhoufeng'an on 2015/8/21.
+ * 商城，分类筛选
  */
 public class MallFilterDialog extends Dialog implements View.OnClickListener, AdapterView.OnItemClickListener{
     private View mContent;

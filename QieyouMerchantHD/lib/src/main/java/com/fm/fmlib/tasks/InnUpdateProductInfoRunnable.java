@@ -32,7 +32,7 @@ public class InnUpdateProductInfoRunnable extends TokenCheckedRunnable<StateEnti
                 .getInnManagerService()
                 .updateProductInfo(TourApplication.instance().getToken(), params.item,params.product_images,
                         params.editProduct,params.ccid,params.cid,params.tuan_end_time,params.note,params.booking_info
-                ,params.traveler,params.content,params.innholder,params.product_name,params.keyword,params.price,params.old_price,params.tag_id,params.quantity);
+                ,params.traveler,params.content,params.innholder,params.product_name,params.keyword,params.price,params.old_price,params.tag_id,params.quantity, params.thumb);
     }
     public void onSuccessInBackground(StateEntity result){
 //        TourApplication.instance().updateData(MappingUtil.innInfoJson2inn(result.msg.inn));
@@ -45,8 +45,5 @@ public class InnUpdateProductInfoRunnable extends TokenCheckedRunnable<StateEnti
         Log.v(TAG, "result msg "+result.msg);
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

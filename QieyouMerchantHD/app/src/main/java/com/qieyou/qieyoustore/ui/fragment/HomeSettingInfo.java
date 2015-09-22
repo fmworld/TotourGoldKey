@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.fm.fmlib.TourApplication;
-import com.fm.fmlib.controllers.MainController;
 import com.fm.fmlib.controllers.UserController;
 import com.fm.fmlib.state.ProductState;
 import com.fm.fmlib.state.UserState;
@@ -25,8 +24,8 @@ import com.qieyou.qieyoustore.R;
 import com.qieyou.qieyoustore.SettingActivity;
 import com.qieyou.qieyoustore.ui.widget.AnimListenFragment;
 import com.qieyou.qieyoustore.ui.widget.SlideSwitch;
-import com.qieyou.qieyoustore.util.AlertDialogUtil;
-import com.qieyou.qieyoustore.util.PackageInfoUtl;
+import com.fm.fmlib.utils.AlertDialogUtil;
+import com.fm.fmlib.utils.PackageInfoUtl;
 
 /**
  * Created by zhoufeng'an on 2015/8/9.
@@ -101,7 +100,9 @@ public class HomeSettingInfo extends AnimListenFragment implements UserControlle
                     DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            DataCleanManager.deleteFolderFile(TourApplication.instance().getCacheDir().getPath(),false);
+                            DataCleanManager.deleteFolderFile(TourConfig.instance().getPicCache().getPath(),false);
+                            DataCleanManager.deleteFolderFile(TourConfig.instance().getDownloadCache().getPath(),false);
+                            initCacheSize();
                         }
                     });
         }else if(R.id.setting_loginout == v.getId()){
@@ -155,17 +156,22 @@ public class HomeSettingInfo extends AnimListenFragment implements UserControlle
 
         ((TextView) content.findViewById(R.id.setting_version_value))
                 .setText(this.getString(R.string.home_setting_version_str,
-                        PackageInfoUtl.getVersion(this.getActivity())));
+                        PackageInfoUtl.getVersionName(this.getActivity())));
 
+        initCacheSize();
+
+
+
+    }
+
+    private void initCacheSize(){
         try {
             ((TextView)content.findViewById(R.id.setting_cache_value))
-                    .setText(DataCleanManager.getCacheSize(TourApplication.instance().getCacheDir()));
+                    .setText(DataCleanManager.getFormatSize(DataCleanManager.getFolderSize(
+                            TourConfig.instance().getPicCache()) + DataCleanManager.getFolderSize(TourConfig.instance().getDownloadCache())));
         }catch(Exception e){
 
         }
-
-
-
     }
 
     @Override

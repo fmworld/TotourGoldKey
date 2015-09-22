@@ -47,8 +47,5 @@ public class ProductFetchMallProductRunnable extends TokenCheckedRunnable<Produc
 //        this.getBus().post(new ProductState.InnFetchProductBreEvent(result.msg));
     }
 
-    @Override
-    public void onError(RetrofitError be) {
-        Log.v(TAG, "BaseError " + be);
-    }
+
 }

@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.app.Fragment;
+import android.util.Log;
 
 /**
  * Created by zhoufeng'an on 2015/8/9.
@@ -14,13 +15,18 @@ public class AnimListenFragment extends Fragment {
 
     @Override
     public Animator onCreateAnimator(int transit, boolean enter, int nextAnim) {
-
-        final Animator anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
-        if(null != listener){
-            anim.addListener(listener);
+        try {
+            final Animator anim = AnimatorInflater.loadAnimator(getActivity(), nextAnim);
+            if (null != listener) {
+                anim.addListener(listener);
+            }
+            return anim;
+        } catch (Exception e) {
+            Log.v("AnimListenFragment", "e "+e.getMessage());
         }
 
-        return anim;
+        return null;
+
     }
 
     public void setShowing(boolean showing) {

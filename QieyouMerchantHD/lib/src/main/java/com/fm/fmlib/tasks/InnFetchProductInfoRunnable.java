@@ -40,8 +40,5 @@ public class InnFetchProductInfoRunnable extends TokenCheckedRunnable<ProductInf
         this.getBus().post(new InnState.InnFetchProductInfoEvent(result.msg));
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

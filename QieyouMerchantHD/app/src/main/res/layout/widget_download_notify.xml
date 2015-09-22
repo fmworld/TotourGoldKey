@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/about_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/update_notify_layout"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/bg_coners_black13_round"
+        android:padding="20dp"
+        >
+        <TextView
+            android:id="@+id/update_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            style="@style/update_title_text"
+            android:text="@string/update_notify" />
+
+        <com.fenjuly.library.ArrowDownloadButton
+            android:id="@+id/arrow_download_button"
+            android:layout_centerHorizontal="true"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_below="@+id/update_title"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/update_cancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/arrow_download_button"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="40dp"
+            style="@style/update_cancel_text"
+            android:padding="7dp"
+            android:text="@string/no" />
+
+        <TextView
+            android:id="@+id/update_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/arrow_download_button"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="15dp"
+            style="@style/update_confirm_text"
+            android:padding="7dp"
+            android:text="@string/yes" />
+    </RelativeLayout>
+</RelativeLayout>

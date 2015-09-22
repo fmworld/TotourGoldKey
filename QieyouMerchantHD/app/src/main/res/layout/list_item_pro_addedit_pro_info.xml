@@ -27,6 +27,9 @@
             android:textColor="@color/home_mgr_pro_ae_text"
             android:layout_marginLeft="174dp"
             android:layout_marginRight="35dp"
+            android:hint="@string/home_mgr_pro_ae_proinfo_name_length_notify"
+            android:textColorHint="@color/home_mgr_pro_addedit_title_hint_text"
+            android:maxLength="30"
             />
     </RelativeLayout>
     <View
@@ -63,6 +66,8 @@
             android:drawablePadding="7dp"
             android:textColor="@color/white"
             android:textSize="@dimen/home_mgr_pro_ae_proinfo_size"
+            android:hint="@string/home_mgr_pro_ae_proinfo_type_hint"
+            android:textColorHint="@color/home_mgr_pro_addedit_title_hint_text"
             android:drawableRight="@drawable/home_mgr_pro_info_showtrangle"
             />
     </RelativeLayout>
@@ -99,6 +104,8 @@
             android:layout_marginRight="35dp"
             android:drawablePadding="7dp"
             android:textColor="@color/white"
+            android:hint="@string/home_mgr_pro_ae_label_type_hint"
+            android:textColorHint="@color/home_mgr_pro_addedit_title_hint_text"
             android:textSize="@dimen/home_mgr_pro_ae_proinfo_size"
             android:drawableRight="@drawable/home_mgr_pro_info_showtrangle"
             />

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:score="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mall_pro_item_layout"
     android:layout_width="match_parent"
     android:layout_height="150dp"
@@ -10,6 +11,8 @@
         android:layout_width="199dp"
         android:layout_height="132dp"
         android:layout_centerVertical="true"
+        score:placeholderImage="@drawable/pro_default_post"
+        score:placeholderImageScaleType="centerCrop"
         />
 
     <TextView
@@ -34,6 +37,17 @@
         android:layout_marginBottom="5dp"
         android:paddingLeft="10dp"
         style="@style/mall_pro_name"
+        />
+    <com.qieyou.qieyoustore.ui.widget.ScoreLinearLayout
+        android:id="@+id/mall_pro_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        score:fullScore="@drawable/mall_star_s"
+        score:emptyScore="@drawable/mall_star_n"
+        score:scoreTextColor="@color/white_1"
+        android:layout_toRightOf="@+id/mall_pro_name"
+        android:layout_alignBottom="@+id/mall_pro_name"
+        android:layout_marginLeft="10dp"
         />
     <TextView
         android:id="@+id/mall_pro_price"

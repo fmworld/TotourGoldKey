@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+<com.qieyou.qieyoustore.ui.widget.SizeChangeRelative xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    >
     <LinearLayout
         android:id="@+id/login_content_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="vertical"
         android:layout_centerInParent="true"
-        android:gravity="center"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -29,7 +30,7 @@
             android:textColorHint="@color/login_hint"
             android:drawableLeft="@drawable/login_account_icon"
             android:drawablePadding="8dp"
-            android:text="18612540330"
+            android:text=""
             android:background="@null"
             />
         <View
@@ -49,7 +50,7 @@
             android:textColorHint="@color/login_hint"
             android:inputType="textPassword"
             android:layout_marginTop="25dp"
-            android:text="qieyou"
+            android:text=""
             android:drawableLeft="@drawable/login_pwd_icon"
             android:drawablePadding="8dp"
             android:background="@null"
@@ -73,39 +74,46 @@
             android:text="登录"
             />
     </LinearLayout>
-    <TextView
-        android:id="@+id/login_find_pwd"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="342dp"
         android:layout_height="wrap_content"
-        android:text="@string/foget_pwd_notify"
-        android:layout_alignLeft="@id/login_content_layout"
-        android:textColor="@color/login_find_pwd_notify"
-        android:layout_marginBottom="65dp"
-        android:textSize="@dimen/login_notify_size"
-        android:layout_marginLeft="3dp"
         android:layout_alignParentBottom="true"
-        />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="65dp"
+        android:id="@+id/login_bottom_title"
+        >
+        <TextView
+            android:id="@+id/login_find_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/foget_pwd_notify"
+            android:textColor="@color/login_find_pwd_notify"
+            android:textSize="@dimen/login_notify_size"
+            android:layout_marginLeft="3dp"
+            />
 
 
-    <TextView
-        android:id="@+id/login_phone_number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_phone_number"
-        android:textColor="@color/login_server_phone_notify"
-        android:textSize="@dimen/login_notify_size"
-        android:layout_alignRight="@id/login_content_layout"
-        android:layout_alignBottom="@+id/login_find_pwd"
-        />
+        <TextView
+            android:id="@+id/login_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_phone_number"
+            android:textColor="@color/login_server_phone_notify"
+            android:textSize="@dimen/login_notify_size"
+            android:layout_alignBottom="@+id/login_find_pwd"
+            android:layout_alignParentRight="true"
+            />
 
-    <TextView
-        android:id="@+id/login_phone_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_phone_title"
-        android:textColor="@color/login_find_pwd_notify"
-        android:textSize="@dimen/login_notify_size"
-        android:layout_toLeftOf="@+id/login_phone_number"
-        android:layout_alignBottom="@id/login_find_pwd"
-        />
-</RelativeLayout>
+        <Button
+            android:id="@+id/login_phone_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_phone_title"
+            android:background="@null"
+            android:textColor="@color/login_find_pwd_notify"
+            android:textSize="@dimen/login_notify_size"
+            android:layout_toLeftOf="@+id/login_phone_number"
+            android:layout_alignBottom="@id/login_find_pwd"
+            />
+    </RelativeLayout>
+</com.qieyou.qieyoustore.ui.widget.SizeChangeRelative>

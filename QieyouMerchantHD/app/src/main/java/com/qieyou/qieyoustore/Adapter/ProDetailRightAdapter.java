@@ -175,7 +175,7 @@ public class ProDetailRightAdapter extends BaseAdapter implements View.OnClickLi
 
         ((TextView) view.findViewById(R.id.pro_detail_remainders))
                 .setText(mContext.getString(R.string.detail_remainders_str,
-                        DateUtil.formatDate(Long.valueOf(detail.tuan_end_time) * 1000)));
+                        DateUtil.leftDates(Long.valueOf(detail.tuan_end_time) * 1000)));
         (view.findViewById(R.id.detail_sale_state))
                 .setBackgroundResource(CodeBusinessMap.productStateStr(detail) ?
                         R.drawable.bg_coners_oringe_round : R.drawable.bg_coners_gray_12_round);
@@ -205,14 +205,14 @@ public class ProDetailRightAdapter extends BaseAdapter implements View.OnClickLi
             view.setText(mContext.getString(R.string.mall_pro_has_shelved));
             view.setBackgroundResource(R.drawable.bg_coners_gray_round);
             view.setTextColor(mContext.getResources().getColor(R.color.green));
-            view.setCompoundDrawablesWithIntrinsicBounds(R.drawable.mall_pro_has_shelf
+            view.setCompoundDrawablesWithIntrinsicBounds(R.drawable.productdetail_uploaded_icon
                     , 0, 0, 0);
             view.setOnClickListener(null);
         } else {
             view.setText(mContext.getString(R.string.mall_pro_to_shelve));
             view.setBackgroundResource(R.drawable.bg_coners_bule_round);
             view.setTextColor(mContext.getResources().getColor(R.color.white));
-            view.setCompoundDrawablesWithIntrinsicBounds(R.drawable.mall_pro_to_shelf
+            view.setCompoundDrawablesWithIntrinsicBounds(R.drawable.productdetail_upload_icon
                     , 0, 0, 0);
             view.setOnClickListener(this);
         }
@@ -306,5 +306,9 @@ public class ProDetailRightAdapter extends BaseAdapter implements View.OnClickLi
 
     public void setScroll(View scroll) {
         this.scroll = scroll;
+    }
+
+    public ProductDetail getDetail() {
+        return detail;
     }
 }

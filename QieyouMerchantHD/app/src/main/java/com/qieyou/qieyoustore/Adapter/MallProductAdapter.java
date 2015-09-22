@@ -71,7 +71,7 @@ public class MallProductAdapter extends BaseAdapter implements View.OnClickListe
         holderHelper.setText(R.id.mall_pro_content,
                 Html.fromHtml(mContext.getString(R.string.mall_product_content_htm_str,
                         item.getContent(), item.getShelf_count(), item.getBought_count()), imgGetter, null));
-
+        holderHelper.setScore(R.id.mall_pro_score, Float.valueOf(item.getScore()) == 0 ? 5.0f : Float.valueOf(item.getScore()));
         holderHelper.setClickListener(R.id.mall_pro_item_layout, this);
         initShelfState((TextView) holderHelper.mConvertView.findViewById(R.id.mall_shelf_state),
                 "1".equals(item.getOn_shelves()), position);
@@ -80,13 +80,12 @@ public class MallProductAdapter extends BaseAdapter implements View.OnClickListe
                 , CodeBusinessMap.productStateStr(item), item, position);
 
         String showTip = TourApplication.instance().getDaoProperty().getValue(ProductState.Tip);
-        if (null == showTip || "0".equals(showTip)) {
-            holderHelper.setText(R.id.mall_pro_price, Html.fromHtml(mContext
-                    .getString(R.string.mall_product_price_str, item.getOld_price(), item.getPrice())));
-        } else {
-            holderHelper.setText(R.id.mall_pro_price, Html.fromHtml(mContext
-                    .getString(R.string.mall_product_price_with_tip_str, item.getOld_price(), item.getPrice(), item.getAgent())));
-        }
+
+        holderHelper.setText(R.id.mall_pro_price, "1".equals(showTip) ? Html.fromHtml(mContext
+                .getString(R.string.mall_product_price_with_tip_str, item.getOld_price(), item.getPrice(), item.getAgent())) :
+                Html.fromHtml(mContext.getString(R.string.mall_product_price_str, item.getOld_price(), item.getPrice())));
+
+
 
         return holderHelper.mConvertView;
     }

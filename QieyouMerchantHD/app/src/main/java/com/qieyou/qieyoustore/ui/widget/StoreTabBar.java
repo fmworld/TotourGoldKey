@@ -2,6 +2,7 @@ package com.qieyou.qieyoustore.ui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -61,7 +62,7 @@ public class StoreTabBar extends RelativeLayout implements View.OnClickListener 
             TypedArray a = this.getContext().obtainStyledAttributes(attrs,
                     R.styleable.StoreTabBar);
             focusWidth = a.getInt(R.styleable.StoreTabBar_focusWidth,
-                    80);
+                    88);
             focusWidth = DisplayUtil.dip2px(this.getContext(), focusWidth);
             colorFocusedText = a.getColor(R.styleable.StoreTabBar_focusWidth,
                     this.getContext().getResources().getColor(R.color.store_tab_bar_focus_text));
@@ -110,6 +111,8 @@ public class StoreTabBar extends RelativeLayout implements View.OnClickListener 
             item.setTextColor(colorUnfocusedText);
             item.setTextSize(textSize);
             item.setText(tag_name);
+            item.setEllipsize(TextUtils.TruncateAt.END);
+            item.setLines(1);
             item.setTag(item_seq);
             item.setGravity(Gravity.CENTER);
             item.setLayoutParams(params);

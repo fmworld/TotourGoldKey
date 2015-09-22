@@ -21,5 +21,6 @@ public class ProductParams {
     public String old_price;
     public String tag_id;
     public String quantity;
+    public String thumb;
 
 }

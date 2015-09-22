@@ -5,7 +5,9 @@
     android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp">
+        android:layout_height="wrap_content"
+        android:minHeight="75dp"
+        >
         <TextView
             android:id="@+id/pro_intro_intro_tag"
             android:layout_width="wrap_content"
@@ -26,6 +28,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="174dp"
             android:layout_marginRight="35dp"
+            android:hint="@string/home_mgr_pro_ae_intor_intro_hint"
+            android:textColorHint="@color/home_mgr_pro_addedit_title_hint_text"
             android:textColor="@color/home_mgr_pro_ae_text"
             />
     </RelativeLayout>
@@ -39,7 +43,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="75dp">
+        android:layout_height="wrap_content"
+        android:minHeight="75dp">
         <TextView
             android:id="@+id/pro_intro_parchase_tag"
             android:layout_width="wrap_content"
@@ -60,6 +65,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="174dp"
             android:layout_marginRight="35dp"
+            android:hint="@string/home_mgr_pro_ae_intor_parchase_hint"
+            android:textColorHint="@color/home_mgr_pro_addedit_title_hint_text"
             android:drawablePadding="7dp"
             android:textColor="@color/home_mgr_pro_ae_text"
             />

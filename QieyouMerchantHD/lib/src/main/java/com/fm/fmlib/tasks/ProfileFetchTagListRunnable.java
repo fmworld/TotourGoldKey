@@ -29,14 +29,14 @@ public class ProfileFetchTagListRunnable extends TokenCheckedRunnable<TagListEnt
 
     public void onSuccessInBackground(TagListEntity result){
         if(TourConfig.instance().getModel() == TourConfig.RELE){
-            TourApplication.instance().getDaoProductTag().saveProductTags(result.msg);
+//            TourApplication.instance().getDaoProductTag().saveProductTags(result.msg);
         }else{
-//            if(!result.msg.count.equals(TourApplication.instance().getDaoProperty().getValue(tagsercont))
-//                    || !result.msg.last_update.equals(TourApplication.instance().getDaoProperty().getValue(tagserupstame))) {
-//                TourApplication.instance().getDaoProductTag().saveProductTags(result.msg.tags);
-//                TourApplication.instance().getDaoProperty().saveProperty(tagsercont, result.msg.count);
-//                TourApplication.instance().getDaoProperty().saveProperty(tagserupstame, result.msg.last_update);
-//            }
+            if(!result.msg.count.equals(TourApplication.instance().getDaoProperty().getValue(tagsercont))
+                    || !result.msg.last_update.equals(TourApplication.instance().getDaoProperty().getValue(tagserupstame))) {
+                TourApplication.instance().getDaoProductTag().saveProductTags(result.msg.tags);
+                TourApplication.instance().getDaoProperty().saveProperty(tagsercont, result.msg.count);
+                TourApplication.instance().getDaoProperty().saveProperty(tagserupstame, result.msg.last_update);
+            }
         }
 
     }
@@ -49,8 +49,5 @@ public class ProfileFetchTagListRunnable extends TokenCheckedRunnable<TagListEnt
         this.getBus().post(new ProductState.ProductFetchTagListEvent());
     }
 
-    @Override
-    public void onError(RetrofitError be) {
-        Log.v(TAG, "BaseError "+be);
-    }
+
 }

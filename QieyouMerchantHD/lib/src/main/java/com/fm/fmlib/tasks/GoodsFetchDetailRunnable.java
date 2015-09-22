@@ -30,8 +30,5 @@ public class GoodsFetchDetailRunnable extends TokenCheckedRunnable<GoddsDetailEn
         Log.v(TAG, "result note " + result.msg.note);
     }
 
-    @Override
-    public void onError(RetrofitError be) {
 
-    }
 }

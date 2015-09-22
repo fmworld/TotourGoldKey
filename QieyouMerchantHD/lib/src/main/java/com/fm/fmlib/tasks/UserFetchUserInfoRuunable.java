@@ -31,8 +31,5 @@ public class UserFetchUserInfoRuunable extends TokenCheckedRunnable<UserInfoEnti
         Log.v(TAG, "result errorInfo "+result.errorInfo);
     }
 
-    @Override
-    public void onError(RetrofitError be) {
-        Log.v(TAG, "BaseError "+be);
-    }
+
 }

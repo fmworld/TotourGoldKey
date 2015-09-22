@@ -30,9 +30,4 @@ public class GoodsAddProductRunnable extends TokenCheckedRunnable<GoddsCommentsE
         Log.v(TAG, "result code "+result.code);
         Log.v(TAG, "result msg "+result.msg);
     }
-
-    @Override
-    public void onError(RetrofitError be) {
-
-    }
 }

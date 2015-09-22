@@ -2,6 +2,8 @@ package com.fm.fmlib.controllers;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.fm.fmlib.TourApplication;
 import com.fm.fmlib.state.InnState;
@@ -17,10 +19,12 @@ import com.fm.fmlib.tour.entity.StateEntity;
 import com.fm.fmlib.tour.entity.TransferEntity;
 import com.fm.fmlib.tour.params.ProductParams;
 import com.fm.fmlib.utils.BackgroundExecutor;
-import com.fm.fmlib.utils.provider.BackgroundExecutorProvider;
+import com.fm.fmlib.models.BackgroundExecutorProvider;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;
+
+import retrofit.RetrofitError;
 
 /**
  * Created by zhoufeng'an on 2015/8/5.
@@ -53,6 +57,7 @@ public class InnController extends BaseUiController<InnController.InnUi,InnContr
         void initEditView(ProductInfo info);
         void initAddView();
         void updateProduct(String addPics);
+        void productAeFailed();
     }
 
     public interface InnUiCallbacks{
@@ -148,7 +153,7 @@ public class InnController extends BaseUiController<InnController.InnUi,InnContr
 
                 @Override
                 public void uploadProImgs(List<Uri> uris) {
-                    mExecutor.execute(new UtilUploadProImageRunnable(uris));
+                    mExecutor.execute(new UtilUploadProImageTask(uris));
                 }
             };
         }
@@ -189,17 +194,6 @@ public class InnController extends BaseUiController<InnController.InnUi,InnContr
         }
     }
 
-    @Subscribe
-    public void updateProEditInfo(InnState.InnUploadProImagsEvent event){
-        for(Ui item : getUis()){
-            if(item instanceof InnController.ProductAeUi){
-                ((InnController.ProductAeUi)item).updateProduct(event.appedUrl);
-                break;
-            }
-        }
-
-    }
-
 
 
     private class InEditProductInfoTask extends InnUpdateProductInfoRunnable {
@@ -209,6 +203,26 @@ public class InnController extends BaseUiController<InnController.InnUi,InnContr
         @Override
         public void onSuccess(StateEntity result) {
             getDisplay().showProductEditSuccessed();
+        }
+
+        public void onSuccessBadCode(int code, String errorInfo){
+            super.onSuccessBadCode(code, errorInfo);
+            for(Ui item : getUis()){
+                if(item instanceof InnController.ProductAeUi){
+                    ((InnController.ProductAeUi)item).productAeFailed();
+                    break;
+                }
+            }
+        }
+
+        @Override
+        public void onError(RetrofitError be) {
+            for(Ui item : getUis()){
+                if(item instanceof InnController.ProductAeUi){
+                    ((InnController.ProductAeUi)item).productAeFailed();
+                    break;
+                }
+            }
         }
     }
 
@@ -220,6 +234,26 @@ public class InnController extends BaseUiController<InnController.InnUi,InnContr
         public void onSuccess(StateEntity result) {
             getDisplay().showProductAddSuccessed();
         }
+
+        public void onSuccessBadCode(int code, String errorInfo){
+            super.onSuccessBadCode(code, errorInfo);
+            for(Ui item : getUis()){
+                if(item instanceof InnController.ProductAeUi){
+                    ((InnController.ProductAeUi)item).productAeFailed();
+                    break;
+                }
+            }
+        }
+
+        @Override
+        public void onError(RetrofitError be) {
+            for(Ui item : getUis()){
+                if(item instanceof InnController.ProductAeUi){
+                    ((InnController.ProductAeUi)item).productAeFailed();
+                    break;
+                }
+            }
+        }
     }
 
     private class InnFetchManagerTeansferTask extends InnFetchManagerTransferRunnable {
@@ -228,6 +262,44 @@ public class InnController extends BaseUiController<InnController.InnUi,InnContr
             for(Ui item : getUis()){
                 if(item instanceof InnController.InnManagerUi){
                     ((InnController.InnManagerUi)item).showManager();
+                    break;
+                }
+            }
+        }
+    }
+
+    private class UtilUploadProImageTask extends UtilUploadProImageRunnable{
+        public UtilUploadProImageTask(List<Uri> uris){
+            super(uris);
+        }
+
+        @Override
+        public void onSuccess(StateEntity result) {
+            Log.v(TAG, "result code " + result.code);
+            Log.v(TAG, "result msg "+result.msg);
+            Log.v(TAG, "result errorInfo " + result.errorInfo);
+            for(Ui item : getUis()){
+                if(item instanceof InnController.ProductAeUi){
+                    ((InnController.ProductAeUi)item).updateProduct(result.msg);
+                    break;
+                }
+            }
+        }
+
+        public void onSuccessBadCode(int code, String errorInfo){
+            for(Ui item : getUis()){
+                if(item instanceof InnController.ProductAeUi){
+                    ((InnController.ProductAeUi)item).productAeFailed();
+                    break;
+                }
+            }
+        }
+
+        @Override
+        public void onError(RetrofitError be) {
+            for(Ui item : getUis()){
+                if(item instanceof InnController.ProductAeUi){
+                    ((InnController.ProductAeUi)item).productAeFailed();
                     break;
                 }
             }

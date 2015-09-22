@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 
 import com.fm.fmlib.tour.bean.ProComment;
 import com.qieyou.qieyoustore.R;
-import com.qieyou.qieyoustore.ui.fragment.ProductComments;
 import com.qieyou.qieyoustore.util.RecyclerViewHolder;
 import com.qieyou.qieyoustore.util.TourStringUtil;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
